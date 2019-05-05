@@ -1,0 +1,23 @@
+version: 2
+jobs:
+    build:
+        docker:
+            - image: chari8/soma
+        working_directory: ~/app
+        steps:
+            - run:
+                name: install git
+                command: apk add git
+            - checkout
+            - run:
+                name: remove git
+                command: apk del git
+            - run:
+                name: install dependencies
+                command: npm i
+            - run:
+                name: lint
+                command: npm run lint
+            - run:
+                name: build
+                command: npm run build
