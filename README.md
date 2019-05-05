@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/sota-ma/soma.svg?style=svg)](https://circleci.com/gh/sota-ma/soma)
+
 # sota-of-medicalai
 
 > 最新の医療AI論文を日本語で紹介します
