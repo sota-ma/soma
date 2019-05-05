@@ -3,7 +3,7 @@ jobs:
     build:
         docker:
             - image: chari8/soma
-        working_directory: ~/repo
+        working_directory: ~/app
         steps:
             - run:
                 name: install git
