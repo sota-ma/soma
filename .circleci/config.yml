@@ -1,0 +1,17 @@
+version: 2
+jobs:
+    build:
+        docker:
+            - image: chari8/soma
+        working_directory: ~/repo
+        steps:
+            - checkout
+            - run:
+                name: install dependencies
+                command: npm i
+            - run:
+                name: lint
+                command: npm run lint
+            - run:
+                name: build
+                command: npm run build
