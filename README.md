@@ -29,24 +29,30 @@ using docker image to setup common dev env.
 
 ### Usage
 
+1. start container (-d:back ground)
 ```bash
-# start container (-d:back ground)
 docker-compose up -d
+```
 
-# use command
+2. firebase login / init
+
+Don't forget to add `--no-localhost` option.
+```bash
+docker-compose exec soma firebase login --no-localhost
+
+docker-compose exec soma firebase init
+```
+
+3. use command
+```bash
 docker-compose exec soma command
 
 # example: run dev server
 docker-compose exec soma npm run dev
+```
 
-# firebase login
-# don't forget to add `--no-localhost` option
-docker-compose exec soma firebase login --no-localhost
-
-# firebase init
-docker-compose exec soma firebase init
-
-# stop container
+4. stop container
+```
 docker-compose down
 ```
 
