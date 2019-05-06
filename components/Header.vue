@@ -1,6 +1,6 @@
 <template>
     <div>
-  <b-navbar toggleable="lg" type="dark" variant="info">
+  <b-navbar class="header-color" toggleable="lg" type="dark" variant="info">
     <b-navbar-brand to="/">
     Project SoMA
     </b-navbar-brand>
@@ -17,3 +17,28 @@
   </b-navbar>
 </div>
 </template>
+
+<script>
+export default {
+  props: {
+    articlesisActive: {
+      type: String,
+      default: ''
+    },
+    contactisActive: {
+      type: String,
+      default: ''
+    },
+    aboutisActive: {
+      type: String,
+      default: ''
+    }
+  }
+}
+</script>
+
+<style>
+.header-color {
+  background-image: linear-gradient(-90deg, #3D1141, #474100);
+}
+</style>
