@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/sota-ma/soma.svg?style=svg)](https://circleci.com/gh/sota-ma/soma)
+
 # sota-of-medicalai
 
 > 最新の医療AI論文を日本語で紹介します
@@ -29,14 +31,30 @@ using docker image to setup common dev env.
 
 ### Usage
 
+1. start container (-d:back ground)
 ```bash
-# start container
-docker-compose up
+docker-compose up -d
+```
 
-# stop
-^C (ctrl+C)
+2. firebase login / init
 
-# remove container
+Don't forget to add `--no-localhost` option.
+```bash
+docker-compose exec soma firebase login --no-localhost
+
+docker-compose exec soma firebase init
+```
+
+3. use command
+```bash
+docker-compose exec soma command
+
+# example: run dev server
+docker-compose exec soma npm run dev
+```
+
+4. stop container
+```
 docker-compose down
 ```
 
@@ -47,8 +65,8 @@ docker-compose down
 
 ### notes
 
-Command `docker-compose up` will start docker container named `soma` with internal command `npm run dev`.
-`^C` stops this internal `npm run dev` process, but not container itself.
+Command `docker-compose up` will start docker container named `soma`.
+To run commands inside the running container, use `docker-compose exec soma command`.
 To stop(remove) container, run `docker-compose down`.
 The container is based on docker image `chari8/soma`.
 If the image exists in the local, docker will use it.
