@@ -11,13 +11,13 @@
           </h2>
           <h3>
             <nuxt-link to="/articles">
-              <button class="btn btn-success">
+              <button id="link-to-articles" class="btn btn-success">
                 論文一覧
               </button>
             </nuxt-link>
           </h3>
           <nuxt-link to="/about">
-            <button class="btn btn-info">
+            <button id="link-to-about" class="btn btn-info">
               このサイトについて
             </button>
           </nuxt-link>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { setTimeout } from 'timers';
 
 export default {
   data() {
