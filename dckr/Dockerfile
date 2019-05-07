@@ -12,9 +12,8 @@ RUN apk add --no-cache --virtual .builddep python2  && \
     npm install && \
     apk del .builddep --purge
 
-COPY ./ $WORKDIR
- 
+RUN npm install -g firebase-tools
+
 ENV HOST 0.0.0.0
 EXPOSE 8000
-
-CMD ["npm", "run", "dev"]
+EXPOSE 9005
