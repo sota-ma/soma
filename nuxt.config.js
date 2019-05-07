@@ -1,7 +1,5 @@
 const pkg = require('./package')
 
-const buildDir = process.env.NODE_DEPLOY === 'production' ? 'prod-dist' : 'preview-dist'
-
 module.exports = {
   mode: 'universal',
   /*
