@@ -24,6 +24,7 @@
 import Card from '~/components/Card'
 import Header from '~/components/Header'
 import contentful from '~/plugins/contentful'
+import { mapGetters } from 'vuex'
 
 const client = contentful.createClient()
 
@@ -32,16 +33,15 @@ export default {
     'article-card': Card,
     'common-header': Header
   },
-  asyncData({ env }) {
-    return client.getEntries({
+  computed: {
+    ...mapGetters(['articles'])
+  },
+  async asyncData({ env, store }) {
+    const articles = await client.getEntries({
       'content-type': env.CTF_BLOG_TYPE_ID,
       order: '-sys.createdAt'
     })
-      .then((articles) => {
-        return {
-          articles: articles.items
-        }
-      })
+    store.commit('setArticles', articles.items)
   }
 }
 
