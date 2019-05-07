@@ -75,8 +75,6 @@ module.exports = {
       }
     }
   },
-  env: {
-  },
   server: {
     port: 8000
   }
