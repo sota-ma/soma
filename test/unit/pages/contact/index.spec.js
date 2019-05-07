@@ -19,15 +19,15 @@ describe('pages/contact/index.vue', () => {
 
   describe('template', () => {
     test('check header', () => {
-      expect(wrapper.contains('div[id="header"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('#header').textContent).not.toBeNull()
     })
 
     test('check banner', () => {
-      expect(wrapper.contains('div[id="banner"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('#banner').textContent).not.toBeNull()
     })
 
     test('check contact body', () => {
-      expect(wrapper.contains('div[id="body"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('#contact-page-body').textContent).not.toBeNull()
     })
   })
 })

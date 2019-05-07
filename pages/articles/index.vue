@@ -6,7 +6,7 @@
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
     <div class="container-fluid">
-      <div id="column" class="card-columns">
+      <div id="articles-card-column" class="card-columns">
         <article-card
           v-for="article in articles"
           :id="article.sys.id"

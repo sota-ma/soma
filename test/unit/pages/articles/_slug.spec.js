@@ -19,14 +19,14 @@ describe('pages/articles/_slug.vue', () => {
 
   describe('template', () => {
     test('check headline data', () => {
-      expect(wrapper.contains('h1[id="title-ja"]')).toBe(true)
-      expect(wrapper.contains('h4[id="title-en"]')).toBe(true)
-      expect(wrapper.contains('p[id="created-date"]')).toBe(true)
-      expect(wrapper.contains('p[id="published-date"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('#title-ja')).not.toBeNull()
+      expect(wrapper.vm.$el.querySelector('#title-en')).not.toBeNull()
+      expect(wrapper.vm.$el.querySelector('#created-date')).not.toBeNull()
+      expect(wrapper.vm.$el.querySelector('#published-date')).not.toBeNull()
     })
     test('check abstract', () => {
-      expect(wrapper.contains('div[id="abstract-ja"]'))
-      expect(wrapper.contains('div[id="abstract-en"]'))
+      expect(wrapper.vm.$el.querySelector('#abstract-ja')).not.toBeNull()
+      expect(wrapper.vm.$el.querySelector('#abstract-en')).not.toBeNull()
     })
   })
 })

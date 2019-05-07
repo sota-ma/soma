@@ -13,8 +13,8 @@ describe('pages/index.vue', () => {
 
   describe('template', () => {
     test('check title and subtitle', () => {
-      expect(wrapper.contains('h1')).toBe(true)
-      expect(wrapper.contains('h2')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('title')).not.toBeNull()
+      expect(wrapper.vm.$el.querySelector('subtitle')).toBeNull()
     })
 
     test('check link button', () => {

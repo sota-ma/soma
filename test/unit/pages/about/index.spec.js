@@ -19,14 +19,14 @@ describe('pages/about/index.vue', () => {
 
   describe('template', () => {
     test('check header', () => {
-      expect(wrapper.contains('div[id="header"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('#header')).not.toBeNull()
     })
     test('check banner', () => {
-      expect(wrapper.contains('div[id="banner"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('#banner')).not.toBeNull()
     })
 
     test('check about body', () => {
-      expect(wrapper.contains('div[id="body"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('#about-page-body')).not.toBeNull()
     })
   })
 })

@@ -3,10 +3,10 @@
     <section class="container">
       <transition name="fade">
         <div v-show="isVisible">
-          <h1 class="title">
+          <h1 id="title">
             SOTA of Medical-AI
           </h1>
-          <h2 class="subtitle">
+          <h2 id="subtitle">
             最新の医療AI論文を日本語で紹介します
           </h2>
           <h3>

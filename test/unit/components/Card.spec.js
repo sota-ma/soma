@@ -13,9 +13,9 @@ describe('components/Card.vue', () => {
 
   describe('template', () => {
     test('check headline data', () => {
-      expect(wrapper.contains('div[id="card-published-date"]')).toBe(true)
-      expect(wrapper.contains('h5[id="card-title"]')).toBe(true)
-      expect(wrapper.contains('div[id="card-created-date"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('.card-published-date').textContent).not.toBeNull()
+      expect(wrapper.vm.$el.querySelector('.card-body').textContent).not.toBeNull()
+      expect(wrapper.vm.$el.querySelector('.card-created-date').textContent).not.toBeNull()
     })
   })
 })

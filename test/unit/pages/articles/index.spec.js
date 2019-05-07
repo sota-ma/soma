@@ -19,15 +19,15 @@ describe('pages/articles/index.vue', () => {
 
   describe('template', () => {
     test('check banner', () => {
-      expect(wrapper.contains('div[id="banner"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('#banner')).not.toBeNull()
     })
 
     test('check header', () => {
-      expect(wrapper.contains('div[id="header"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('#header')).not.toBeNull()
     })
 
     test('check card column', () => {
-      expect(wrapper.contains('div[id="column"]')).toBe(true)
+      expect(wrapper.vm.$el.querySelector('#articles-card-column')).not.toBeNull()
     })
   })
 })
