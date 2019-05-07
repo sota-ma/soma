@@ -17,7 +17,7 @@ jobs:
                 command: npm i
             - run:
                 name: lint
-                command: npm run lint
+                command: npm run lint:nofix
             - run:
                 name: build
                 command: npm run build
