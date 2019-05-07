@@ -1,14 +1,6 @@
 const pkg = require('./package')
-const { getConfigForKeys } = require('./lib/config.js')
 
-const ctfConfig = getConfigForKeys([
-  'CTF_BLOG_POST_TYPE_ID',
-  'CTF_SPACE_ID',
-  'CTF_CDA_ACCESS_TOKEN',
-  'CTF_CPA_ACCESS_TOKEN',
-  'CTF_CDA_HOSTNAME',
-  'CTF_CPA_HOSTNAME'
-])
+const buildDir = process.env.NODE_DEPLOY === 'production' ? 'prod-dist' : 'preview-dist'
 
 module.exports = {
   mode: 'universal',
@@ -53,7 +45,9 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv'
   ],
   /*
   ** Axios module config.contentfuluration
@@ -61,7 +55,6 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
-
   /*
   ** Build config().contentfuluration
   */
@@ -83,14 +76,6 @@ module.exports = {
         })
       }
     }
-  },
-  env: {
-    CTF_SPACE_ID: ctfConfig.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: ctfConfig.CTF_CDA_ACCESS_TOKEN,
-    CTF_CPA_ACCESS_TOKEN: ctfConfig.CTF_CPA_ACCESS_TOKEN,
-    CTF_CDA_HOSTNAME: ctfConfig.CTF_CDA_HOSTNAME,
-    CTF_CPA_HOSTNAME: ctfConfig.CTF_CPA_HOSTNAME,
-    CTF_BLOG_POST_TYPE_ID: ctfConfig.CTF_BLOG_POST_TYPE_ID
   },
   server: {
     port: 8000

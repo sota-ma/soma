@@ -3,16 +3,16 @@
     <common-header />
     <div class="container-fluid container-slug">
       <div class="top-info row">
-        <h1 class="slug-title">
+        <h1 id="title-ja" class="slug-title">
           {{ titleJa }}
         </h1>
-        <h4 class="slug-title text-muted">
+        <h4 id="title-en" class="slug-title text-muted">
           {{ titleEn }}
         </h4>
-        <p class="slug-date">
+        <p id="created-date" class="slug-date">
           記事の作成日: {{ createdAt }}
         </p>
-        <p class="slug-date">
+        <p id="published-date" class="slug-date">
           論文の投稿日: {{ publishedDate }}
         </p>
       </div>
