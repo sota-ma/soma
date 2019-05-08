@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { setTimeout } from 'timers';
+import { setTimeout } from 'timers'
 
 export default {
   data() {
