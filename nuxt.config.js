@@ -70,7 +70,7 @@ module.exports = {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules|nuxt-dist)/
+          exclude: /(node_modules|functions\/nuxt)/
         })
       }
     }
