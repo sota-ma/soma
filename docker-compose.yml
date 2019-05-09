@@ -5,7 +5,7 @@ services:
     # build:
     #   context: ./
     #   dockerfile: ./dckr/Dockerfile
-    image: chari8/soma
+    image: sotaofmedicalai/soma
     env_file: .env
     ports:
       - "8000:8000"
