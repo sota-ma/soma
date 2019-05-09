@@ -1,10 +1,7 @@
 const pkg = require('./package')
 
-const buildDir = process.env.NODE_DEPLOY === 'production' ? 'prod-dist' : 'preview-dist'
-
 module.exports = {
   mode: 'universal',
-  buildDir: buildDir,
   /*
   ** Headers of the page
   */
@@ -51,18 +48,21 @@ module.exports = {
     '@nuxtjs/dotenv'
   ],
   /*
-  ** Axios module configuration
+  ** Axios module config.contentfuluration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
   /*
-  ** Build configuration
+  ** Build config().contentfuluration
   */
+  buildDir: 'functions/nuxt',
   build: {
     /*
-    ** You can extend webpack config here
+    ** You can extend webpack config().contentful here
     */
+    publicPath: '/assets/',
+    extractCSS: true,
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
@@ -70,7 +70,7 @@ module.exports = {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules|preview-dist|prod-dist|preview-doc|prod-doc)/
+          exclude: /(node_modules|functions\/nuxt)/
         })
       }
     }
