@@ -23,6 +23,6 @@ export default {
 
 <style>
 #banner {
-  padding: 40px
+    margin-top: 4rem;
 }
 </style>
