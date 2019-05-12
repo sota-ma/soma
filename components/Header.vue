@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="header">
     <b-navbar class="header-color" toggleable="sm" type="dark" variant="info" fixed="top">
       <b-navbar-brand to="/">
         Project SoMA

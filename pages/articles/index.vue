@@ -7,7 +7,7 @@
     </div>
     <select-form-sort class="form" />
     <div class="container-fluid">
-      <div id="articles-card-column" class="card-columns card-deck">
+      <div id="articles-card-column" class="card-deck">
         <article-card
           v-for="article in articles"
           :id="article.sys.id"
