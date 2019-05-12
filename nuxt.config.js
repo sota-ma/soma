@@ -1,24 +1,7 @@
 const pkg = require('./package')
-const { getConfigForKeys } = require('./lib/config.js')
-
-const ctfConfig = getConfigForKeys([
-  'CTF_BLOG_POST_TYPE_ID',
-  'CTF_SPACE_ID',
-  'CTF_CDA_ACCESS_TOKEN',
-  'CTF_CPA_ACCESS_TOKEN',
-  'CTF_CDA_HOSTNAME',
-  'CTF_CPA_HOSTNAME'
-])
-
-const { createClient } = require('./plugins/contentful')
-const client = createClient(ctfConfig)
-
-const buildDir = process.env.NODE_DEPLOY === 'production' ? 'prod-dist' : 'preview-dist'
-const generateDir = process.env.NODE_DEPLOY === 'production' ? 'prod-doc' : 'preview-doc'
 
 module.exports = {
   mode: 'universal',
-  buildDir: buildDir,
   /*
   ** Headers of the page
   */
@@ -60,22 +43,26 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv'
   ],
   /*
-  ** Axios module configuration
+  ** Axios module config.contentfuluration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
-
   /*
-  ** Build configuration
+  ** Build config().contentfuluration
   */
+  buildDir: 'functions/nuxt',
   build: {
     /*
-    ** You can extend webpack config here
+    ** You can extend webpack config().contentful here
     */
+    publicPath: '/assets/',
+    extractCSS: true,
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
@@ -83,28 +70,10 @@ module.exports = {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules|preview-dist|prod-dist|preview-doc|prod-doc)/
+          exclude: /(node_modules|functions\/nuxt)/
         })
       }
     }
-  },
-  generate: {
-    routes() {
-      return client
-        .getEntries(ctfConfig.CTF_BLOG_POST_TYPE_ID)
-        .then((entries) => {
-          return [...entries.items.map(entry => `/articles/${entry.sys.id}`)]
-        })
-    },
-    dir: generateDir
-  },
-  env: {
-    CTF_SPACE_ID: ctfConfig.CTF_SPACE_ID,
-    CTF_CDA_ACCESS_TOKEN: ctfConfig.CTF_CDA_ACCESS_TOKEN,
-    CTF_CPA_ACCESS_TOKEN: ctfConfig.CTF_CPA_ACCESS_TOKEN,
-    CTF_CDA_HOSTNAME: ctfConfig.CTF_CDA_HOSTNAME,
-    CTF_CPA_HOSTNAME: ctfConfig.CTF_CPA_HOSTNAME,
-    CTF_BLOG_POST_TYPE_ID: ctfConfig.CTF_BLOG_POST_TYPE_ID
   },
   server: {
     port: 8000

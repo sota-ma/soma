@@ -69,11 +69,8 @@ typings/
 .nuxt
 
 # Nuxt generate
-dist
-prod-dist
-preview-dist
-prod-doc
-preview-doc
+functions/nuxt
+public
 
 # vuepress build output
 .vuepress/dist
