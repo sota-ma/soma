@@ -1,6 +1,6 @@
 <template>
   <div>
-    <common-header aboutis-active="true" />
+    <common-header about-is-active="true" />
     <div id="banner" class="container-fluid text-center">
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>

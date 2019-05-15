@@ -9,14 +9,23 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/articles" :class="{ active:articlesisActive }">
+          <b-nav-item to="/articles" :class="{ active:articlesIsActive }">
             Articles
           </b-nav-item>
-          <b-nav-item to="/about" :class="{ active:aboutisActive }">
+          <b-nav-item to="/about" :class="{ active:aboutIsActive }">
             About
           </b-nav-item>
-          <b-nav-item to="/contact" :class="{ active:contactisActive }">
+          <b-nav-item to="/contact" :class="{ active:contactIsActive }">
             Contact
+          </b-nav-item>
+          <b-nav-item v-if="!isLoggedIn" to="/signin" :class="{ active:signInIsActive }">
+            Login
+          </b-nav-item>
+          <b-nav-item v-if="isLoggedIn">
+            Logout
+          </b-nav-item>
+          <b-nav-item v-if="!isLoggedIn" to="/signup" :class="{ active:signUpIsActive }">
+            Register
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -27,17 +36,25 @@
 <script>
 export default {
   props: {
-    articlesisActive: {
-      type: String,
-      default: ''
+    articlesIsActive: {
+      type: Boolean,
+      default: false
     },
-    contactisActive: {
-      type: String,
-      default: ''
+    contactIsActive: {
+      type: Boolean,
+      default: false
     },
-    aboutisActive: {
-      type: String,
-      default: ''
+    aboutIsActive: {
+      type: Boolean,
+      default: false
+    },
+    loginIsActive: {
+      type: Boolean,
+      default: false
+    },
+    signupIsActive: {
+      type: Boolean,
+      default: false
     }
   }
 }
