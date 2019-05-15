@@ -18,13 +18,13 @@
           <b-nav-item to="/contact" :class="{ active:contactIsActive }">
             Contact
           </b-nav-item>
-          <b-nav-item v-if="!isLoggedIn" to="/signin" :class="{ active:signInIsActive }">
+          <b-nav-item v-if="!isLoggedIn" to="/auth/signin" :class="{ active:signInIsActive }">
             Login
           </b-nav-item>
-          <b-nav-item v-if="isLoggedIn">
+          <b-nav-item v-if="isLoggedIn" @click="signOut">
             Logout
           </b-nav-item>
-          <b-nav-item v-if="!isLoggedIn" to="/signup" :class="{ active:signUpIsActive }">
+          <b-nav-item v-if="!isLoggedIn" to="/auth/signup" :class="{ active:signUpIsActive }">
             Register
           </b-nav-item>
         </b-navbar-nav>
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+
 export default {
   props: {
     articlesIsActive: {
@@ -48,13 +50,33 @@ export default {
       type: Boolean,
       default: false
     },
-    loginIsActive: {
+    signInIsActive: {
       type: Boolean,
       default: false
     },
-    signupIsActive: {
+    signUpIsActive: {
       type: Boolean,
       default: false
+    }
+  },
+  data() {
+    return {
+      isLoggedIn: false
+    }
+  },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.isLoggedIn = true
+      }
+    })
+  },
+  methods: {
+    signOut() {
+      firebase.auth().signOut().then(() => {
+        alert('ログアウトしました')
+        this.$router.push('/auth/signin')
+      })
     }
   }
 }
