@@ -5,11 +5,11 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <select-form-sort class="form" />
+    <select-form-sort class="form" @changeFlag="changeflag" />
     <div class="container-fluid">
       <div id="articles-card-column" class="card-deck">
         <article-card
-          v-for="article in articles"
+          v-for="article in shownArticles"
           :id="article.sys.id"
           :key="article.sys.id"
           :title="article.fields.titleJa"
@@ -26,7 +26,6 @@ import Card from '~/components/Card'
 import Header from '~/components/Header'
 import contentful from '~/plugins/contentful'
 import Selectform from '~/components/Selectform'
-import { mapGetters } from 'vuex'
 
 const client = contentful.createClient()
 
@@ -36,10 +35,25 @@ export default {
     'common-header': Header,
     'select-form-sort': Selectform
   },
+  data() {
+    return {
+      flag: 1
+    }
+  },
   computed: {
-    ...mapGetters([
-      'articles'
-    ])
+    shownArticles: function () {
+      if (this.flag === 1) {
+        return this.$store.state.articlesSortedbyDateDOWN
+      } else if (this.flag === 2) {
+        return this.$store.state.articlesSortedbyDateUP
+      } else if (this.flag === 3) {
+        return this.$store.state.articlesSortedbyPDateDOWN
+      } else if (this.flag === 4) {
+        return this.$store.state.articlesSortedbyPDateUP
+      } else {
+        return this.$store.state.articlesSortedbyDateDOWN
+      }
+    }
   },
   async asyncData({ env, store }) {
     const articles = await client.getEntries({
@@ -47,6 +61,11 @@ export default {
       order: '-sys.createdAt'
     })
     store.commit('setArticles', articles.items)
+  },
+  methods: {
+    changeflag(num) {
+      this.flag = num
+    }
   }
 }
 

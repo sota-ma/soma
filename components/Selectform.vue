@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+
 export default {
   data() {
     return {
@@ -29,21 +29,15 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      'sortArticlesbyDateDOWN',
-      'sortArticlesbyDateUP',
-      'sortArticlesbyPDateDOWN',
-      'sortArticlesbyPDateUP'
-    ]),
     sortArticles: function ({ store }) {
       if (this.selected === '1') {
-        this.$store.commit('sortArticlesbyDateDOWN')
+        this.$emit('changeFlag', 1)
       } else if (this.selected === '2') {
-        this.$store.commit('sortArticlesbyDateUP')
+        this.$emit('changeFlag', 2)
       } else if (this.selected === '3') {
-        this.$store.commit('sortArticlesbyPDateDOWN')
+        this.$emit('changeFlag', 3)
       } else if (this.selected === '4') {
-        this.$store.commit('sortArticlesbyPDateUP')
+        this.$emit('changeFlag', 4)
       }
     }
   }
