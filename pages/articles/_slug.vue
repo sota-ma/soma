@@ -95,7 +95,6 @@ export default {
 <style scoped>
 .container-slug {
   padding: 0 5% 0 5%;
-  margin-top: 5rem
 }
 
 .slug-title {

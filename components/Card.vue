@@ -3,7 +3,7 @@
     <div class="card-published-date card-header text-center">
       published date：{{ publishedDate.substr(0,10) }}
     </div>
-    <div class="card-body text-center">
+    <div class="card-body">
       <h5 class="abst">
         {{ title }}
       </h5>
@@ -53,7 +53,7 @@ export default {
   letter-spacing: 0.5px
 }
 .card {
-  margin: 5px;
+  margin: 0px;
 }
 .detail-btn {
   margin: 15px 0px 0px 0px;

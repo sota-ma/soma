@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar class="header-color" toggleable="sm" type="dark" variant="info" fixed="top">
+    <b-navbar class="header-color" toggleable="lg" type="dark" variant="info">
       <b-navbar-brand to="/">
         Project SoMA
       </b-navbar-brand>
