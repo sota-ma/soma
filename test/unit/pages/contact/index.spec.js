@@ -1,6 +1,7 @@
 import { mount, RouterLinkStub, createLocalVue } from '@vue/test-utils'
 import ContactPage from '@/pages/contact/index.vue'
 import BootstrapVue from 'bootstrap-vue/es'
+import '@/plugins/firebase'
 
 const localVue = createLocalVue()
 

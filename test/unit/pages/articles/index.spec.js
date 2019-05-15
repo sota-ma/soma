@@ -1,6 +1,7 @@
 import { mount, RouterLinkStub, createLocalVue } from '@vue/test-utils'
 import ArticleIndexPage from '@/pages/articles/index.vue'
 import Vuex from 'vuex'
+import '@/plugins/firebase'
 import BootstrapVue from 'bootstrap-vue/es'
 import store from '@/store'
 
