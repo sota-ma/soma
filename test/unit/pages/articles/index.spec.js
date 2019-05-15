@@ -4,12 +4,10 @@ import Vuex from 'vuex'
 import BootstrapVue from 'bootstrap-vue/es'
 import store from '@/store'
 
-
 const localVue = createLocalVue()
 
 localVue.use(BootstrapVue)
 localVue.use(Vuex)
-
 
 describe('pages/articles/index.vue', () => {
   let wrapper
