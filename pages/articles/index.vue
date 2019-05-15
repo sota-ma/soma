@@ -5,7 +5,7 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <select-form-sort class="form" @changeFlag="changeflag" />
+    <select-form-sort class="form" @changeSortOrder="changesortOrder" />
     <div class="container-fluid">
       <div id="articles-card-column" class="card-deck">
         <article-card
@@ -37,18 +37,18 @@ export default {
   },
   data() {
     return {
-      flag: 1
+      sortOrder: 1
     }
   },
   computed: {
     shownArticles: function () {
-      if (this.flag === 1) {
+      if (this.sortOrder === 1) {
         return this.$store.state.articlesSortedbyDateDOWN
-      } else if (this.flag === 2) {
+      } else if (this.sortOrder === 2) {
         return this.$store.state.articlesSortedbyDateUP
-      } else if (this.flag === 3) {
+      } else if (this.sortOrder === 3) {
         return this.$store.state.articlesSortedbyPDateDOWN
-      } else if (this.flag === 4) {
+      } else if (this.sortOrder === 4) {
         return this.$store.state.articlesSortedbyPDateUP
       } else {
         return this.$store.state.articlesSortedbyDateDOWN
@@ -63,8 +63,8 @@ export default {
     store.commit('setArticles', articles.items)
   },
   methods: {
-    changeflag(num) {
-      this.flag = num
+    changesortOrder(num) {
+      this.sortOrder = num
     }
   }
 }

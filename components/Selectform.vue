@@ -31,13 +31,13 @@ export default {
   methods: {
     sortArticles: function ({ store }) {
       if (this.selected === '1') {
-        this.$emit('changeFlag', 1)
+        this.$emit('changeSortOrder', 1)
       } else if (this.selected === '2') {
-        this.$emit('changeFlag', 2)
+        this.$emit('changeSortOrder', 2)
       } else if (this.selected === '3') {
-        this.$emit('changeFlag', 3)
+        this.$emit('changeSortOrder', 3)
       } else if (this.selected === '4') {
-        this.$emit('changeFlag', 4)
+        this.$emit('changeSortOrder', 4)
       }
     }
   }
