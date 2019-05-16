@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-published-date card-header text-center">
-      <span class="publishedDate">published date：</span><span class="publishedDate">{{ publishedDate.substr(0,10) }}</span>
+      published date：{{ publishedDate.substr(0,10) }}
     </div>
     <div class="card-body text-center">
       <h5 class="abst">
@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .abst {
   letter-spacing: 0.5px
 }
@@ -58,7 +58,7 @@ export default {
 .detail-btn {
   margin: 15px 0px 0px 0px;
 }
-.publishedDate {
-  display: inline-block
+.card-published-date{
+  white-space: nowrap;
 }
 </style>
