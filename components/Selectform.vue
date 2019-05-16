@@ -21,24 +21,16 @@ export default {
     return {
       selected: null,
       options: [
-        { value: '1', text: '投稿日が新しい順' },
-        { value: '2', text: '投稿日が古い順' },
-        { value: '3', text: 'Published dateが新しい順' },
-        { value: '4', text: 'Published dateが古い順' }
+        { value: 1, text: '投稿日が新しい順' },
+        { value: 2, text: '投稿日が古い順' },
+        { value: 3, text: 'Published dateが新しい順' },
+        { value: 4, text: 'Published dateが古い順' }
       ]
     }
   },
   methods: {
-    sortArticles: function ({ store }) {
-      if (this.selected === '1') {
-        this.$emit('changeSortOrder', 1)
-      } else if (this.selected === '2') {
-        this.$emit('changeSortOrder', 2)
-      } else if (this.selected === '3') {
-        this.$emit('changeSortOrder', 3)
-      } else if (this.selected === '4') {
-        this.$emit('changeSortOrder', 4)
-      }
+    sortArticles: function () {
+      this.$emit('request-sort', this.selected)
     }
   }
 }
