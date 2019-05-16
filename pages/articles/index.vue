@@ -89,16 +89,13 @@ export default {
 
 <style>
   #banner {
-    margin-top: 4rem;
+    padding: 40px
   }
-  .card-deck {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 0.5rem;
+  .card-columns {
+    margin-top: 40px,
   }
-  .form {
-    width: 15rem;
-    margin-top: 2rem;
-    margin-left: 1rem
+
+  .active{
+    font-size: 30px,
   }
 </style>
