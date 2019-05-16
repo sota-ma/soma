@@ -43,15 +43,31 @@ export default {
   computed: {
     shownArticles: function () {
       if (this.sortOrder === 1) {
-        return this.$store.state.articlesSortedbyDateDOWN
+        return this.$store.state.articles.slice().sort((a, b) => {
+          a = a.sys.createdAt
+          b = b.sys.createdAt
+          return (a === b ? 0 : b > a ? 1 : -1)
+        })
       } else if (this.sortOrder === 2) {
-        return this.$store.state.articlesSortedbyDateUP
+        return this.$store.state.articles.slice().sort((a, b) => {
+          a = a.sys.createdAt
+          b = b.sys.createdAt
+          return (a === b ? 0 : a > b ? 1 : -1)
+        })
       } else if (this.sortOrder === 3) {
-        return this.$store.state.articlesSortedbyPDateDOWN
+        return this.$store.state.articles.slice().sort((a, b) => {
+          a = (a.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(a.fields.publishedDate.slice(0, 10).split('-')).getTime())
+          b = (b.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(b.fields.publishedDate.slice(0, 10).split('-')).getTime())
+          return (a === b ? 0 : b > a ? 1 : -1)
+        })
       } else if (this.sortOrder === 4) {
-        return this.$store.state.articlesSortedbyPDateUP
+        return this.$store.state.articles.slice().sort((a, b) => {
+          a = (a.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(a.fields.publishedDate.slice(0, 10).split('-')).getTime())
+          b = (b.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(b.fields.publishedDate.slice(0, 10).split('-')).getTime())
+          return (a === b ? 0 : a > b ? 1 : -1)
+        })
       } else {
-        return this.$store.state.articlesSortedbyDateDOWN
+        return this.$store.state.articles
       }
     }
   },
