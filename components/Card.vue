@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-published-date card-header text-center">
-      published date：{{ publishedDate.substr(0,10) }}
+      <span class="publishedDate">published date：</span><span class="publishedDate">{{ publishedDate.substr(0,10) }}</span>
     </div>
     <div class="card-body text-center">
       <h5 class="abst">
@@ -57,5 +57,8 @@ export default {
 }
 .detail-btn {
   margin: 15px 0px 0px 0px;
+}
+.publishedDate {
+  display: inline-block
 }
 </style>

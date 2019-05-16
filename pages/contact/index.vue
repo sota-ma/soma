@@ -5,7 +5,7 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <div id="contact-page-body" class="container-fluid text-center twi">
+    <div id="contact-page-body" class="container-fluid text-center twitter-link">
       <h5>代表者twitterアカウント</h5>
       <a href="https://twitter.com/kazuokiriyama_">https://twitter.com/kazuokiriyama_</a>
     </div>
@@ -25,7 +25,7 @@ export default {
 #banner {
   margin-top: 5rem;
 }
-.twi {
+.twitter-link {
   margin-top: 5rem;
 }
 </style>

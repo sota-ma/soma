@@ -23,6 +23,6 @@ export default {
 
 <style>
 #banner {
-    margin-top: 4rem;
+  margin-top: 4rem;
 }
 </style>

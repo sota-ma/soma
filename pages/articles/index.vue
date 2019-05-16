@@ -5,7 +5,7 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <select-form-sort class="form" @changeSortOrder="changesortOrder" />
+    <select-form-sort class="form" @request-sort="changeSortOrder" />
     <div class="container-fluid">
       <div id="articles-card-column" class="card-deck">
         <article-card
@@ -25,7 +25,7 @@
 import Card from '~/components/Card'
 import Header from '~/components/Header'
 import contentful from '~/plugins/contentful'
-import Selectform from '~/components/Selectform'
+import SelectForm from '~/components/SelectForm'
 
 const client = contentful.createClient()
 
@@ -33,7 +33,7 @@ export default {
   components: {
     'article-card': Card,
     'common-header': Header,
-    'select-form-sort': Selectform
+    'select-form-sort': SelectForm
   },
   data() {
     return {
@@ -79,8 +79,8 @@ export default {
     store.commit('setArticles', articles.items)
   },
   methods: {
-    changesortOrder(num) {
-      this.sortOrder = num
+    changeSortOrder(sortOrderIndex) {
+      this.sortOrder = sortOrderIndex
     }
   }
 }
