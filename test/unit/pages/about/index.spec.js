@@ -2,13 +2,16 @@ import { mount, RouterLinkStub, createLocalVue } from '@vue/test-utils'
 import AboutPage from '@/pages/about/index.vue'
 import BootstrapVue from 'bootstrap-vue/es'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 import '@/plugins/firebase'
+import store from '@/store'
 
 const localVue = createLocalVue()
 const router = new VueRouter()
 
 localVue.use(BootstrapVue)
 localVue.use(VueRouter)
+localVue.use(Vuex)
 
 describe('pages/about/index.vue', () => {
   let wrapper
@@ -16,6 +19,7 @@ describe('pages/about/index.vue', () => {
     wrapper = mount(AboutPage, {
       localVue,
       router,
+      store,
       stubs: {
         NuxtLink: RouterLinkStub
       }

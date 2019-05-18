@@ -29,7 +29,6 @@
 <script>
 import Header from '~/components/Header'
 import contentful from '~/plugins/contentful'
-import { mapGetters } from 'vuex'
 import writerCard from '@/components/WriterCard.vue'
 const client = contentful.createClient()
 
@@ -39,7 +38,9 @@ export default {
     'writer-card': writerCard
   },
   computed: {
-    ...mapGetters(['writers'])
+    writers() {
+      return this.$store.getters.writers
+    }
   },
   async asyncData({ env, store }) {
     const writers = await client.getEntries({
