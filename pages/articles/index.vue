@@ -87,10 +87,7 @@ export default {
 
 </script>
 
-<style>
-  #banner {
-    margin-top: 4rem
-  }
+<style scoped>
   .card-deck {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

@@ -20,11 +20,7 @@ export default {
   }
 }
 </script>
-
-<style>
-#banner {
-  margin-top: 5rem;
-}
+<style scoped>
 .twitter-link {
   margin-top: 5rem;
 }

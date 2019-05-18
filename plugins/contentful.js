@@ -9,17 +9,20 @@ const defaultConfig = {
 }
 
 module.exports = {
+  __client__: null,
   createClient(config = defaultConfig) {
+    if (this.__client__ !== null) return this.__client__
     let accessToken = config.CTF_CPA_ACCESS_TOKEN
     let host = config.CTF_CPA_HOSTNAME
     if (process.env.NODE_DEPLOY === 'production') {
       accessToken = config.CTF_CDA_ACCESS_TOKEN
       host = config.CTF_CDA_HOSTNAME
     }
-    return contentful.createClient({
+    this.__client__ = contentful.createClient({
       space: config.CTF_SPACE_ID,
       accessToken: accessToken,
       host: host
     })
+    return this.__client__
   }
 }
