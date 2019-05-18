@@ -1,14 +1,14 @@
 <template>
   <div class="card">
-    <div class="card-published-date card-header text-center">
+    <div class="card-name-ja card-header text-center">
       {{ nameJa }}
     </div>
-    <div class="card-body text-center">
+    <div class="card-name-en card-body text-center">
       <h5 class="abst">
         {{ nameEn }}
       </h5>
     </div>
-    <div class="card-created-date card-footer text-muted text-center">
+    <div class="card-institution card-footer text-muted text-center">
       <small class="text-muted ">
         {{ institution }}
       </small>
@@ -42,10 +42,7 @@ export default {
 .card {
   margin: 5px;
 }
-.detail-btn {
-  margin: 15px 0px 0px 0px;
-}
-.card-published-date{
+.card-name-ja,.card-name-en,.card-institution{
   white-space: nowrap;
 }
 </style>
