@@ -73,7 +73,7 @@ export default {
   },
   async asyncData({ env, store }) {
     const articles = await client.getEntries({
-      'content-type': env.CTF_BLOG_TYPE_ID,
+      'content_type': 'article',
       order: '-sys.createdAt'
     })
     store.commit('setArticles', articles.items)
