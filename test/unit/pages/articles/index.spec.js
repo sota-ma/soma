@@ -3,18 +3,22 @@ import ArticleIndexPage from '@/pages/articles/index.vue'
 import Vuex from 'vuex'
 import '@/plugins/firebase'
 import BootstrapVue from 'bootstrap-vue/es'
+import VueRouter from 'vue-router'
 import store from '@/store'
 
 const localVue = createLocalVue()
+const router = new VueRouter()
 
 localVue.use(BootstrapVue)
 localVue.use(Vuex)
+localVue.use(VueRouter)
 
 describe('pages/articles/index.vue', () => {
   let wrapper
   beforeEach(() => {
     wrapper = mount(ArticleIndexPage, {
       store,
+      router,
       localVue,
       stubs: {
         NuxtLink: RouterLinkStub
