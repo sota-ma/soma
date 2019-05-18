@@ -80,8 +80,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .header-color {
   background-image: linear-gradient(-90deg, #3D1141, #474100);
+}
+#header{
+  padding-top:4rem
 }
 </style>
