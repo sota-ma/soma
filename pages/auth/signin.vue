@@ -1,6 +1,6 @@
 <template>
   <div>
-    <common-header :sign-in-is-active="true" />
+    <common-header />
     <div class="container">
       <div class="card card-style">
         <h2 class="card-title">
@@ -56,6 +56,19 @@ export default {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           this.$router.push('/articles')
+        })
+        .catch((e) => {
+          if (e.code === 'auth/invalid-email') {
+            alert('無効なメールアドレスです。')
+          } else if (e.code === 'auth/user-disabled') {
+            alert('このユーザーは現在使用できません。')
+          } else if (e.code === 'auth/user-not-found') {
+            alert('メールアドレスに対応するユーザーが存在しません。')
+          } else if (e.code === 'auth/wrong-password') {
+            alert('パスワードを間違えています。')
+          } else {
+            alert('不明なエラーが発生しました。運営にお問い合わせください。')
+          }
         })
     }
   }

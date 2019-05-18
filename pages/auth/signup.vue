@@ -1,6 +1,6 @@
 <template>
   <div>
-    <common-header :sign-up-is-active="true" />
+    <common-header />
     <div class="container">
       <div class="card card-style">
         <h2 class="card-title">
@@ -52,7 +52,6 @@
 <script>
 import Header from '@/components/Header'
 import firebase from 'firebase'
-import consola from 'consola'
 
 export default {
   components: {
@@ -79,7 +78,19 @@ export default {
         .then(() => {
           this.$router.push('/articles')
         })
-        .catch(e => consola.error(e))
+        .catch((e) => {
+          if (e.code === 'auth/email-already-in-use') {
+            alert('このメールアドレスはすでに使用されています')
+          } else if (e.code === 'auth/invalid-email') {
+            alert('無効なメールアドレスです')
+          } else if (e.code === 'auth/operation-not-allowed') {
+            alert('この操作は許可されていません')
+          } else if (e.code === 'auth/weak-password') {
+            alert('パスワードが弱すぎます。複雑なパスワードにしてください。')
+          } else {
+            alert('不明なエラーが発生しました。運営にお問い合わせください。')
+          }
+        })
     }
   }
 }

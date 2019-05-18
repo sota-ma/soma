@@ -46,6 +46,15 @@ export default {
           alert('再設定用のメールを送信しました')
           this.$router.push('/auth/signin')
         })
+        .catch((e) => {
+          if (e.code === 'auth/invalid-email') {
+            alert('メールアドレスが無効です。')
+          } else if (e.code === 'auth/user-not-found') {
+            alert('メールアドレスに対応するユーザーが存在しません。')
+          } else {
+            alert('不明なエラーが発生しました。運営にお問い合わせください。')
+          }
+        })
     }
   }
 }

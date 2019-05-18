@@ -37,31 +37,29 @@
 import firebase from 'firebase'
 
 export default {
-  props: {
-    articlesIsActive: {
-      type: Boolean,
-      default: false
-    },
-    contactIsActive: {
-      type: Boolean,
-      default: false
-    },
-    aboutIsActive: {
-      type: Boolean,
-      default: false
-    },
-    signInIsActive: {
-      type: Boolean,
-      default: false
-    },
-    signUpIsActive: {
-      type: Boolean,
-      default: false
-    }
-  },
   data() {
     return {
       isLoggedIn: false
+    }
+  },
+  computed: {
+    currentRoute() {
+      return this.$router.currentRoute.name
+    },
+    articlesIsActive() {
+      return this.currentRoute === 'articles'
+    },
+    contactIsActive() {
+      return this.currentRoute === 'contact'
+    },
+    aboutIsActive() {
+      return this.currentRoute === 'about'
+    },
+    signInIsActive() {
+      return this.currentRoute === 'auth-signin'
+    },
+    signUpIsActive() {
+      return this.currentRoute === 'auth-signup'
     }
   },
   created() {
