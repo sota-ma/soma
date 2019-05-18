@@ -9,14 +9,23 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/articles" :class="{ active:articlesisActive }">
+          <b-nav-item to="/articles" :class="{ active:articlesIsActive }">
             Articles
           </b-nav-item>
-          <b-nav-item to="/about" :class="{ active:aboutisActive }">
+          <b-nav-item to="/about" :class="{ active:aboutIsActive }">
             About
           </b-nav-item>
-          <b-nav-item to="/contact" :class="{ active:contactisActive }">
+          <b-nav-item to="/contact" :class="{ active:contactIsActive }">
             Contact
+          </b-nav-item>
+          <b-nav-item v-if="!isLoggedIn" to="/auth/signin" :class="{ active:signInIsActive }">
+            Login
+          </b-nav-item>
+          <b-nav-item v-if="isLoggedIn" @click="signOut">
+            Logout
+          </b-nav-item>
+          <b-nav-item v-if="!isLoggedIn" to="/auth/signup" :class="{ active:signUpIsActive }">
+            Register
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -25,19 +34,47 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+
 export default {
-  props: {
-    articlesisActive: {
-      type: String,
-      default: ''
+  data() {
+    return {
+      isLoggedIn: false
+    }
+  },
+  computed: {
+    currentRoute() {
+      return this.$router.currentRoute.name
     },
-    contactisActive: {
-      type: String,
-      default: ''
+    articlesIsActive() {
+      return this.currentRoute === 'articles'
     },
-    aboutisActive: {
-      type: String,
-      default: ''
+    contactIsActive() {
+      return this.currentRoute === 'contact'
+    },
+    aboutIsActive() {
+      return this.currentRoute === 'about'
+    },
+    signInIsActive() {
+      return this.currentRoute === 'auth-signin'
+    },
+    signUpIsActive() {
+      return this.currentRoute === 'auth-signup'
+    }
+  },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.isLoggedIn = true
+      }
+    })
+  },
+  methods: {
+    signOut() {
+      firebase.auth().signOut().then(() => {
+        alert('ログアウトしました')
+        this.$router.push('/auth/signin')
+      })
     }
   }
 }
