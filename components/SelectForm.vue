@@ -29,7 +29,7 @@ export default {
     }
   },
   methods: {
-    sortArticles: function () {
+    sortArticles() {
       this.$emit('request-sort', this.selected)
     }
   }
