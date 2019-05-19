@@ -5,11 +5,11 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <select-form-sort class="form" @request-sort="changeSortOrder" />
+    <select-form-sort class="form" @change="changeSortOrder" />
     <div class="container-fluid">
       <div id="articles-card-column" class="card-deck">
         <article-card
-          v-for="article in shownArticles"
+          v-for="article in filteredArticles"
           :id="article.sys.id"
           :key="article.sys.id"
           :title="article.fields.titleJa"
@@ -37,11 +37,12 @@ export default {
   },
   data() {
     return {
-      sortOrder: 1
+      sortOrder: 1,
+      filterCond: {}
     }
   },
   computed: {
-    shownArticles: function () {
+    sortedArticles() {
       if (this.sortOrder === 1) {
         return this.$store.state.articles.slice().sort((a, b) => {
           a = a.sys.createdAt
@@ -69,6 +70,13 @@ export default {
       } else {
         return this.$store.state.articles
       }
+    },
+    filteredArticles() {
+      let result = this.sortedArticles
+      if (this.filterCond.title) {
+        result = result.filter(x => !!x.fields.titleJa && x.fields.titleJa.indexOf(this.filterCond.title) >= 0)
+      }
+      return result
     }
   },
   async asyncData({ env, store }) {
@@ -79,8 +87,9 @@ export default {
     store.commit('setArticles', articles.items)
   },
   methods: {
-    changeSortOrder(sortOrderIndex) {
-      this.sortOrder = sortOrderIndex
+    changeSortOrder(obj) {
+      this.sortOrder = obj.sortOrder
+      this.filterCond = obj.filterCond
     }
   }
 }

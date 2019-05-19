@@ -1,8 +1,20 @@
 <template>
   <div>
+    <b-row>
+      <b-col sm="min-content">
+        <label>タイトル:</label>
+      </b-col>
+      <b-col sm="9">
+        <b-form-input
+          v-model="filterCond.title"
+          type="text"
+          @input="sortArticles"
+        />
+      </b-col>
+    </b-row>
     <b-form-select
-      v-model="selected"
-      :options="options"
+      v-model="sortOrder"
+      :options="sortOrderOptions"
       @change="sortArticles"
     >
       <template slot="first">
@@ -15,12 +27,14 @@
 </template>
 
 <script>
+import consola from 'consola'
 
 export default {
   data() {
     return {
-      selected: null,
-      options: [
+      sortOrder: null,
+      filterCond: {},
+      sortOrderOptions: [
         { value: 1, text: '投稿日が新しい順' },
         { value: 2, text: '投稿日が古い順' },
         { value: 3, text: 'Published dateが新しい順' },
@@ -30,7 +44,11 @@ export default {
   },
   methods: {
     sortArticles: function () {
-      this.$emit('request-sort', this.selected)
+      consola.log(this.filterCond)
+      this.$emit('change', {
+        sortOrder: this.sortOrder,
+        filterCond: Object.assign({}, this.filterCond)
+      })
     }
   }
 }
