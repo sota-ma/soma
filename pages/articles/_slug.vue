@@ -6,15 +6,15 @@
         <p id="title-ja" class="slug-title">
           {{ titleJa }}
         </p>
-        <p id="title-ja" class="slug-subtitle text-muted">
+        <p id="title-en" class="slug-subtitle text-muted">
           {{ titleEn }}
         </p>
         <div>
           <p id="created-date" class="slug-date">
-            記事の作成日: {{ createdAt.substr(0,10) }}
+            記事の作成日: {{ createdAt && createdAt.substr(0,10) }}
           </p>
           <p id="published-date" class="slug-date">
-            論文の投稿日: {{ publishedDate.substr(0,10) }}
+            論文の投稿日: {{ publishedDate && publishedDate.substr(0,10) }}
           </p>
         </div>
       </div>
@@ -46,7 +46,7 @@
       </div>
       <div class="row">
         <div class="table-responsive">
-          <table class="table dataset-table">
+          <table v-if="benchmark" class="table dataset-table">
             <thead class="thead-light">
               <tr>
                 <th scope="col">
@@ -63,8 +63,8 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="dataset in benchmark">
-                <tr v-for="(score, j) in dataset.scores" :key="j">
+              <template v-for="(dataset,i) in benchmark">
+                <tr v-for="(score, j) in dataset.scores" :key="i+','+j">
                   <th v-if="j === 0" scope="row">
                     {{ dataset.dataset }}
                   </th>
