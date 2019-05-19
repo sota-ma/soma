@@ -1,39 +1,50 @@
 <template>
   <div>
-    <b-row>
-      <b-col sm="min-content">
-        <label>タイトル:</label>
-      </b-col>
-      <b-col sm="9">
+    <b-form-group>
+      <b-form-group
+        label-cols-sm="4"
+        label="タイトル:"
+        label-align-sm="right"
+      >
         <b-form-input
           v-model="filterCond.title"
           type="text"
-          @input="sortArticles"
+          @input="change"
         />
-      </b-col>
-    </b-row>
-    <b-form-select
-      v-model="sortOrder"
-      :options="sortOrderOptions"
-      @change="sortArticles"
-    >
-      <template slot="first">
-        <option :value="null" disabled>
-          --記事の並べ替え--
-        </option>
-      </template>
-    </b-form-select>
+      </b-form-group>
+      <b-form-group
+        label="タグ"
+      >
+        <form-list v-model="tags" />
+      </b-form-group>
+      <b-form-group>
+        <b-form-select
+          v-model="sortOrder"
+          :options="sortOrderOptions"
+          @change="change"
+        >
+          <template slot="first">
+            <option :value="null" disabled>
+              --記事の並べ替え--
+            </option>
+          </template>
+        </b-form-select>
+      </b-form-group>
+    </b-form-group>
   </div>
 </template>
 
 <script>
-import consola from 'consola'
+import FormList from '@/components/FormList'
 
 export default {
+  components: {
+    'form-list': FormList
+  },
   data() {
     return {
       sortOrder: null,
-      filterCond: {},
+      filterCond: { tags: [] },
       sortOrderOptions: [
         { value: 1, text: '投稿日が新しい順' },
         { value: 2, text: '投稿日が古い順' },
@@ -42,9 +53,17 @@ export default {
       ]
     }
   },
+  computed: {
+    tags: {
+      get() { return this.filterCond.tags },
+      set(value) {
+        this.filterCond.tags = value.slice()
+        this.change()
+      }
+    }
+  },
   methods: {
-    sortArticles: function () {
-      consola.log(this.filterCond)
+    change: function () {
       this.$emit('change', {
         sortOrder: this.sortOrder,
         filterCond: Object.assign({}, this.filterCond)

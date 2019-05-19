@@ -5,7 +5,7 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <select-form-sort class="form" @change="changeSortOrder" />
+    <select-form-sort class="form" @change="change" />
     <div class="container-fluid">
       <div id="articles-card-column" class="card-deck">
         <article-card
@@ -15,6 +15,7 @@
           :title="article.fields.titleJa"
           :date="article.sys.createdAt"
           :published-date="article.fields.publishedDate"
+          :tags="article.fields.tag"
         />
       </div>
     </div>
@@ -74,7 +75,10 @@ export default {
     filteredArticles() {
       let result = this.sortedArticles
       if (this.filterCond.title) {
-        result = result.filter(x => !!x.fields.titleJa && x.fields.titleJa.indexOf(this.filterCond.title) >= 0)
+        result = result.filter(article => !!article.fields.titleJa && article.fields.titleJa.indexOf(this.filterCond.title) >= 0)
+      }
+      if (this.filterCond.tags) {
+        result = result.filter(article => this.filterCond.tags.every(tag => !tag || article.fields.tag.includes(tag)))
       }
       return result
     }
@@ -87,7 +91,7 @@ export default {
     store.commit('setArticles', articles.items)
   },
   methods: {
-    changeSortOrder(obj) {
+    change(obj) {
       this.sortOrder = obj.sortOrder
       this.filterCond = obj.filterCond
     }

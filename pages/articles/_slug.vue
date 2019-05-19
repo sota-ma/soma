@@ -23,13 +23,11 @@
           </button>
         </a>
         <h6>
-          <span
+          <tag
             v-for="(tag, index) in tags"
             :key="index"
-            class="tag-style badge badge-primary"
-          >
-            {{ tag }}
-          </span>
+            :name="tag"
+          />
         </h6>
       </div>
       <div class="row">
@@ -54,6 +52,7 @@
 
 <script>
 import Header from '~/components/Header'
+import Tag from '~/components/Tag'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import contentful from '~/plugins/contentful'
 
@@ -62,7 +61,8 @@ const client = contentful.createClient()
 export default {
   transition: 'slide-right',
   components: {
-    'common-header': Header
+    'common-header': Header,
+    'tag': Tag
   },
   asyncData({ env, params }) {
     return client
@@ -104,10 +104,6 @@ export default {
 
 .slug-subtitle {
   font-size: 16px;
-}
-
-.tag-style {
-  margin: 5px;
 }
 
 .slug-date {
