@@ -1,16 +1,21 @@
 import { mount, RouterLinkStub, createLocalVue } from '@vue/test-utils'
 import ArticlePage from '@/pages/articles/_slug.vue'
 import BootstrapVue from 'bootstrap-vue/es'
+import VueRouter from 'vue-router'
+import '@/plugins/firebase'
 
 const localVue = createLocalVue()
+const router = new VueRouter()
 
 localVue.use(BootstrapVue)
+localVue.use(VueRouter)
 
 describe('pages/articles/_slug.vue', () => {
   let wrapper
   beforeEach(() => {
     wrapper = mount(ArticlePage, {
       localVue,
+      router,
       stubs: {
         NuxtLink: RouterLinkStub
       }
