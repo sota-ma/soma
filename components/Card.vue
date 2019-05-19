@@ -19,7 +19,7 @@
     </div> -->
     <div class="card-footer">
       <div class="float-left align-middle card-footer-left">
-        <small class="text-muted">
+        <small class="text-muted card-created-date">
           投稿日：{{ date.substr(0,10) }}
         </small>
       </div>

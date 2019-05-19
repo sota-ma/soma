@@ -17,6 +17,7 @@ describe('components/Card.vue', () => {
       expect(wrapper.vm.$el.querySelector('.card-published-date').textContent).not.toBeNull()
       expect(wrapper.vm.$el.querySelector('.card-body').textContent).not.toBeNull()
       expect(wrapper.vm.$el.querySelector('.card-created-date').textContent).not.toBeNull()
+      expect(wrapper.vm.$el.querySelector('.detail-btn').textContent).not.toBeNull()
     })
   })
 })
