@@ -16,6 +16,7 @@
             placeholder="メールアドレス"
             required
             autofocus
+            @input="closeMailError"
           />
           <b-form-input
             id="input-password"
@@ -24,6 +25,7 @@
             class="form-control"
             placeholder="パスワード"
             required
+            @input="closePassError"
           />
           <b-form-input
             id="confirm-password"
@@ -38,8 +40,7 @@
             :show="mailAddressError!==null"
             placement="topright"
             target="input-email"
-            triggers="blur"
-            @update:show="closeMailError"
+            triggers=""
           >
             {{ mailAddressError }}<span />
           </b-tooltip>
@@ -47,8 +48,7 @@
             :show="passwordError!==null"
             placement="topright"
             target="input-password"
-            triggers="blur"
-            @update:show="closePassError"
+            triggers=""
           >
             {{ passwordError }}<span />
           </b-tooltip>
@@ -65,7 +65,7 @@
             :show="otherError!==null"
             placement="topright"
             target="button-register"
-            triggers="blur"
+            triggers=""
           >
             {{ otherError }}<span />
           </b-tooltip>
@@ -85,6 +85,7 @@
 <script>
 import Header from '@/components/Header'
 import firebase from 'firebase'
+import { setTimeout } from 'timers'
 
 export default {
   components: {
@@ -121,16 +122,19 @@ export default {
             this.mailAddressError = '無効なメールアドレスです'
           } else if (e.code === 'auth/operation-not-allowed') {
             this.otherError = 'この操作は許可されていません'
+            this.autoCloseOtherError()
           } else if (e.code === 'auth/weak-password') {
             this.passwordError = 'パスワードが弱すぎます。複雑なパスワードにしてください。'
           } else {
             this.otherError = '不明なエラーが発生しました。運営にお問い合わせください。'
+            this.autoCloseOtherError()
           }
         })
     },
-    closeMailError(value) { if (!value) this.mailAddressError = null },
-    closePassError(value) { if (!value) this.passwordError = null },
-    closeOtherError(value) { if (!value) this.otherError = null }
+    closeMailError() { this.mailAddressError = null },
+    closePassError() { this.passwordError = null },
+    closeOtherError() { this.otherError = null },
+    autoCloseOtherError() { setTimeout(this.closeOtherError, 2000) }
   }
 }
 
