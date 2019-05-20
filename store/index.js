@@ -16,19 +16,19 @@ const createStore = () => {
       filteredArticles: state => (filteringWords, category) => {
         if (category === 'titleJa') {
           return state.articles.slice().filter(
-            article => filteringWords.every(word => article.fields.titleJa.indexOf(word) !== -1)
+            article => filteringWords.every(word => article.fields.titleJa.toLowerCase().indexOf(word.toLowerCase()) !== -1)
           )
         } else if (category === 'titleEn') {
           return state.articles.slice().filter(
-            article => filteringWords.every(word => article.fields.titleEn.indexOf(word) !== -1)
+            article => filteringWords.every(word => article.fields.titleEn.toLowerCase().indexOf(word.toLowerCase()) !== -1)
           )
         } else if (category === 'abstractEn') {
           return state.articles.slice().filter(
-            article => filteringWords.every(word => documentToHtmlString(article.fields.abstractEn).indexOf(word) !== -1)
+            article => filteringWords.every(word => documentToHtmlString(article.fields.abstractEn).toLowerCase().indexOf(word.toLowerCase()) !== 1)
           )
         } else if (category === 'abstractJa') {
           return state.articles.slice().filter(
-            article => filteringWords.every(word => documentToHtmlString(article.fields.abstractJa).indexOf(word) !== -1)
+            article => filteringWords.every(word => documentToHtmlString(article.fields.abstractJa).toLowerCase().indexOf(word.toLowerCase()) !== -1)
           )
         } else {
           return state.articles

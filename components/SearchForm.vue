@@ -13,13 +13,22 @@
         required
         class="category-form"
       />
-      <b-button type="submit" variant="primary" size="sm">
+      <b-button type="submit" variant="primary" size="md">
         検索
       </b-button>
-      <b-button type="reset" variant="success" size="sm">
-        一覧
+      <b-button type="reset" variant="danger" size="sm">
+        reset
       </b-button>
     </b-form>
+    <b-button
+      v-show="restoreButtonIsVisible"
+      type="button"
+      variant="outline-success"
+      class="restore-button"
+      @click="restoreArticles"
+    >
+      一覧に戻る
+    </b-button>
   </div>
 </template>
 
@@ -27,12 +36,12 @@
 export default {
   data() {
     return {
+      restoreButtonIsVisible: false,
       form: {
         filteringWords: '',
-        category: null
+        category: 'titleJa'
       },
       categories: [
-        { text: 'カテゴリ選択', value: null },
         { text: 'タイトル(日本語訳)', value: 'titleJa' },
         { text: 'タイトル(原文)', value: 'titleEn' },
         { text: '要旨(日本語訳)', value: 'abstractJa' },
@@ -42,12 +51,21 @@ export default {
   },
   methods: {
     submitData(evt) {
+      this.restoreButtonIsVisible = true
       evt.preventDefault()
       this.$emit('request-filter', this.form.filteringWords.split(/\s+/), this.form.category)
     },
     resetData(evt) {
       evt.preventDefault()
-      this.$emit('request-filter', [], '')
+      this.form.filteringWords = []
+      this.form.category = 'titleJa'
+    },
+    restoreArticles(evt) {
+      evt.preventDefault()
+      this.form.filteringWords = []
+      this.form.category = 'titleJa'
+      this.restoreButtonIsVisible = false
+      this.$emit('request-restore', [], '')
     }
   }
 }
@@ -64,5 +82,8 @@ export default {
 .form-dev {
   text-align: center;
   margin: 1rem;
+}
+.restore-button {
+  margin-top: 1em;
 }
 </style>

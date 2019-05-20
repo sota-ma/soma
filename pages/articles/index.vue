@@ -7,6 +7,7 @@
     </div>
     <search-form
       @request-filter="mutateFilterQuery"
+      @request-restore="mutateFilterQuery"
     />
     <select-form-sort class="select-form" @request-sort="changeSortOrder" />
     <div class="container-fluid">
@@ -30,7 +31,6 @@ import Header from '~/components/Header'
 import contentful from '~/plugins/contentful'
 import SelectForm from '~/components/SelectForm'
 import SearchForm from '~/components/SearchForm'
-
 const client = contentful.createClient()
 
 export default {
@@ -108,5 +108,8 @@ export default {
     width: 15rem;
     margin-top: 2rem;
     margin-left: 1rem
+  }
+  .under-search {
+    display: inline-block;
   }
 </style>
