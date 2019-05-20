@@ -7,10 +7,12 @@ Vue.use(Vuex)
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      articles: []
+      articles: [],
+      writers: []
     },
     getters: {
       articles: state => state.articles,
+      writers: state => state.writers,
       filteredArticles: state => (filteringWords, category) => {
         if (category === 'titleJa') {
           return state.articles.slice().filter(
@@ -36,6 +38,9 @@ const createStore = () => {
     mutations: {
       setArticles(state, articles) {
         state.articles = articles
+      },
+      setWriters(state, writers) {
+        state.writers = writers
       }
     },
     actions: {

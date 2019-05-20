@@ -1,6 +1,6 @@
 <template>
   <div>
-    <common-header articlesis-active="true" />
+    <common-header />
     <div id="banner" class="container-fluid text-center">
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
@@ -98,10 +98,7 @@ export default {
 
 </script>
 
-<style>
-  #banner {
-    margin-top: 4rem
-  }
+<style scoped>
   .card-deck {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

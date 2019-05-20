@@ -1,5 +1,6 @@
 import { mount, RouterLinkStub } from '@vue/test-utils'
 import Card from '@/components/Card.vue'
+import '@/plugins/firebase'
 
 describe('components/Card.vue', () => {
   let wrapper
