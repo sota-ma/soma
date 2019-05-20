@@ -35,22 +35,22 @@
           />
 
           <b-tooltip
-            :show="MailAddressError!==null"
+            :show="mailAddressError!==null"
             placement="topright"
             target="input-email"
             triggers="blur"
             @update:show="closeMailError"
           >
-            {{ MailAddressError }}<span />
+            {{ mailAddressError }}<span />
           </b-tooltip>
           <b-tooltip
-            :show="PasswordError!==null"
+            :show="passwordError!==null"
             placement="topright"
             target="input-password"
             triggers="blur"
             @update:show="closePassError"
           >
-            {{ PasswordError }}<span />
+            {{ passwordError }}<span />
           </b-tooltip>
           <b-tooltip
             :show="showPasswordMatchAlert"
@@ -62,12 +62,12 @@
             パスワードが一致しません
           </b-tooltip>
           <b-tooltip
-            :show="OtherError!==null"
+            :show="otherError!==null"
             placement="topright"
             target="button-register"
             triggers="blur"
           >
-            {{ OtherError }}<span />
+            {{ otherError }}<span />
           </b-tooltip>
           <button id="button-register" :disabled="passwordIsNotSame" class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
             登録
@@ -95,9 +95,9 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
-      MailAddressError: null,
-      PasswordError: null,
-      OtherError: null
+      mailAddressError: null,
+      passwordError: null,
+      otherError: null
     }
   },
   computed: {
@@ -116,21 +116,21 @@ export default {
         })
         .catch((e) => {
           if (e.code === 'auth/email-already-in-use') {
-            this.MailAddressError = 'このメールアドレスはすでに使用されています'
+            this.mailAddressError = 'このメールアドレスはすでに使用されています'
           } else if (e.code === 'auth/invalid-email') {
-            this.MailAddressError = '無効なメールアドレスです'
+            this.mailAddressError = '無効なメールアドレスです'
           } else if (e.code === 'auth/operation-not-allowed') {
-            this.OtherError = 'この操作は許可されていません'
+            this.otherError = 'この操作は許可されていません'
           } else if (e.code === 'auth/weak-password') {
-            this.PasswordError = 'パスワードが弱すぎます。複雑なパスワードにしてください。'
+            this.passwordError = 'パスワードが弱すぎます。複雑なパスワードにしてください。'
           } else {
-            this.OtherError = '不明なエラーが発生しました。運営にお問い合わせください。'
+            this.otherError = '不明なエラーが発生しました。運営にお問い合わせください。'
           }
         })
     },
-    closeMailError(value) { if (!value) this.MailAddressError = null },
-    closePassError(value) { if (!value) this.PasswordError = null },
-    closeOtherError(value) { if (!value) this.OtherError = null }
+    closeMailError(value) { if (!value) this.mailAddressError = null },
+    closePassError(value) { if (!value) this.passwordError = null },
+    closeOtherError(value) { if (!value) this.otherError = null }
   }
 }
 
