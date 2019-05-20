@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 
 Vue.use(Vuex)
 
@@ -15,8 +16,18 @@ const createStore = () => {
           return state.articles.slice().filter(
             article => filteringWords.every(word => article.fields.titleJa.indexOf(word) !== -1)
           )
-        } else if (category === 'h') {
-          return state.articles
+        } else if (category === 'titleEn') {
+          return state.articles.slice().filter(
+            article => filteringWords.every(word => article.fields.titleEn.indexOf(word) !== -1)
+          )
+        } else if (category === 'abstractEn') {
+          return state.articles.slice().filter(
+            article => filteringWords.every(word => documentToHtmlString(article.fields.abstractEn).indexOf(word) !== -1)
+          )
+        } else if (category === 'abstractJa') {
+          return state.articles.slice().filter(
+            article => filteringWords.every(word => documentToHtmlString(article.fields.abstractJa).indexOf(word) !== -1)
+          )
         } else {
           return state.articles
         }
