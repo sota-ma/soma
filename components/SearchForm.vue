@@ -1,6 +1,6 @@
 <template>
   <div class="form-dev">
-    <b-form inline @submit="submitData" @reset="resetData">
+    <b-form inline @submit.prevent="submitData" @reset.prevent="resetData">
       <b-form-input
         v-model="form.filteringWords"
         required
@@ -25,7 +25,7 @@
       type="button"
       variant="outline-success"
       class="restore-button"
-      @click="restoreArticles"
+      @click.prevent="restoreArticles"
     >
       一覧に戻る
     </b-button>
@@ -50,18 +50,15 @@ export default {
     }
   },
   methods: {
-    submitData(evt) {
+    submitData() {
       this.restoreButtonIsVisible = true
-      evt.preventDefault()
       this.$emit('request-filter', this.form.filteringWords.split(/\s+/), this.form.category)
     },
-    resetData(evt) {
-      evt.preventDefault()
+    resetData() {
       this.form.filteringWords = []
       this.form.category = 'titleJa'
     },
-    restoreArticles(evt) {
-      evt.preventDefault()
+    restoreArticles() {
       this.form.filteringWords = []
       this.form.category = 'titleJa'
       this.restoreButtonIsVisible = false
