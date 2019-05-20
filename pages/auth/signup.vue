@@ -8,7 +8,7 @@
         </h2>
         <form class="form-signin" @submit.prevent="registerUser">
           <span id="reauth-email" class="reauth-email" />
-          <input
+          <b-form-input
             id="input-email"
             v-model="email"
             type="email"
@@ -16,27 +16,60 @@
             placeholder="メールアドレス"
             required
             autofocus
-          >
-          <input
+            @input="closeMailError"
+          />
+          <b-form-input
             id="input-password"
             v-model="password"
             type="password"
             class="form-control"
             placeholder="パスワード"
             required
-          >
-          <input
+            @input="closePassError"
+          />
+          <b-form-input
             id="confirm-password"
             v-model="confirmPassword"
             type="password"
             class="form-control"
             placeholder="パスワード(確認)"
             required
+          />
+
+          <b-tooltip
+            :show="mailAddressError!==null"
+            placement="topright"
+            target="input-email"
+            triggers=""
           >
-          <div v-if="showPasswordAlert" class="alert alert-danger" role="alert">
+            {{ mailAddressError }}<span />
+          </b-tooltip>
+          <b-tooltip
+            :show="passwordError!==null"
+            placement="topright"
+            target="input-password"
+            triggers=""
+          >
+            {{ passwordError }}<span />
+          </b-tooltip>
+          <b-tooltip
+            :show="showPasswordMatchAlert"
+            placement="topright"
+            target="confirm-password"
+            triggers=""
+            class="nowrap"
+          >
             パスワードが一致しません
-          </div>
-          <button :disabled="passwordIsNotSame" class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
+          </b-tooltip>
+          <b-tooltip
+            :show="otherError!==null"
+            placement="topright"
+            target="button-register"
+            triggers=""
+          >
+            {{ otherError }}<span />
+          </b-tooltip>
+          <button id="button-register" :disabled="passwordIsNotSame" class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
             登録
           </button>
         </form>
@@ -52,6 +85,7 @@
 <script>
 import Header from '@/components/Header'
 import firebase from 'firebase'
+import { setTimeout } from 'timers'
 
 export default {
   components: {
@@ -61,14 +95,17 @@ export default {
     return {
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      mailAddressError: null,
+      passwordError: null,
+      otherError: null
     }
   },
   computed: {
     passwordIsNotSame() {
       return this.password !== this.confirmPassword
     },
-    showPasswordAlert() {
+    showPasswordMatchAlert() {
       return this.passwordIsNotSame && !!this.password && !!this.confirmPassword
     }
   },
@@ -80,27 +117,42 @@ export default {
         })
         .catch((e) => {
           if (e.code === 'auth/email-already-in-use') {
-            alert('このメールアドレスはすでに使用されています')
+            this.mailAddressError = 'このメールアドレスはすでに使用されています'
           } else if (e.code === 'auth/invalid-email') {
-            alert('無効なメールアドレスです')
+            this.mailAddressError = '無効なメールアドレスです'
           } else if (e.code === 'auth/operation-not-allowed') {
-            alert('この操作は許可されていません')
+            this.otherError = 'この操作は許可されていません'
+            this.autoCloseOtherError()
           } else if (e.code === 'auth/weak-password') {
-            alert('パスワードが弱すぎます。複雑なパスワードにしてください。')
+            this.passwordError = 'パスワードが弱すぎます。複雑なパスワードにしてください。'
           } else {
-            alert('不明なエラーが発生しました。運営にお問い合わせください。')
+            this.otherError = '不明なエラーが発生しました。運営にお問い合わせください。'
+            this.autoCloseOtherError()
           }
         })
-    }
+    },
+    closeMailError() { this.mailAddressError = null },
+    closePassError() { this.passwordError = null },
+    closeOtherError() { this.otherError = null },
+    autoCloseOtherError() { setTimeout(this.closeOtherError, 2000) }
   }
 }
 
 </script>
 
-<style>
+<style scoped>
+
+.tooltip-inner{
+  max-width: none;
+}
+.tooltip-inner>div{
+  width: fit-content;
+  white-space: nowrap;
+}
 
 .card-style {
     max-width: 350px;
+    min-width: 350px;
     background-color: #F7F7F7;
     padding: 20px 25px 30px;
     margin: 0 auto 25px;
