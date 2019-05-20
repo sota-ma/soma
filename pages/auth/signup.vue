@@ -8,7 +8,7 @@
         </h2>
         <form class="form-signin" @submit.prevent="registerUser">
           <span id="reauth-email" class="reauth-email" />
-          <input
+          <b-form-input
             id="input-email"
             v-model="email"
             type="email"
@@ -16,27 +16,60 @@
             placeholder="メールアドレス"
             required
             autofocus
-          >
-          <input
+          />
+          <b-form-input
             id="input-password"
             v-model="password"
             type="password"
             class="form-control"
             placeholder="パスワード"
             required
-          >
-          <input
+          />
+          <b-form-input
             id="confirm-password"
             v-model="confirmPassword"
             type="password"
             class="form-control"
             placeholder="パスワード(確認)"
             required
+          />
+
+          <b-tooltip
+            :show="MailAddressError!==null"
+            placement="topright"
+            target="input-email"
+            triggers="blur"
+            @update:show="closeMailError"
           >
-          <div v-if="showPasswordAlert" class="alert alert-danger" role="alert">
+            {{ MailAddressError }}<span />
+          </b-tooltip>
+          <b-tooltip
+            :show="PasswordError!==null"
+            placement="topright"
+            target="input-password"
+            triggers="blur"
+            @update:show="closePassError"
+          >
+            {{ PasswordError }}<span />
+          </b-tooltip>
+          <b-tooltip
+            :show="showPasswordMatchAlert"
+            placement="topright"
+            target="confirm-password"
+            triggers=""
+            class="nowrap"
+          >
             パスワードが一致しません
-          </div>
-          <button :disabled="passwordIsNotSame" class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
+          </b-tooltip>
+          <b-tooltip
+            :show="OtherError!==null"
+            placement="topright"
+            target="button-register"
+            triggers="blur"
+          >
+            {{ OtherError }}<span />
+          </b-tooltip>
+          <button id="button-register" :disabled="passwordIsNotSame" class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
             登録
           </button>
         </form>
@@ -61,14 +94,17 @@ export default {
     return {
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      MailAddressError: null,
+      PasswordError: null,
+      OtherError: null
     }
   },
   computed: {
     passwordIsNotSame() {
       return this.password !== this.confirmPassword
     },
-    showPasswordAlert() {
+    showPasswordMatchAlert() {
       return this.passwordIsNotSame && !!this.password && !!this.confirmPassword
     }
   },
@@ -80,27 +116,39 @@ export default {
         })
         .catch((e) => {
           if (e.code === 'auth/email-already-in-use') {
-            alert('このメールアドレスはすでに使用されています')
+            this.MailAddressError = 'このメールアドレスはすでに使用されています'
           } else if (e.code === 'auth/invalid-email') {
-            alert('無効なメールアドレスです')
+            this.MailAddressError = '無効なメールアドレスです'
           } else if (e.code === 'auth/operation-not-allowed') {
-            alert('この操作は許可されていません')
+            this.OtherError = 'この操作は許可されていません'
           } else if (e.code === 'auth/weak-password') {
-            alert('パスワードが弱すぎます。複雑なパスワードにしてください。')
+            this.PasswordError = 'パスワードが弱すぎます。複雑なパスワードにしてください。'
           } else {
-            alert('不明なエラーが発生しました。運営にお問い合わせください。')
+            this.OtherError = '不明なエラーが発生しました。運営にお問い合わせください。'
           }
         })
-    }
+    },
+    closeMailError(value) { if (!value) this.MailAddressError = null },
+    closePassError(value) { if (!value) this.PasswordError = null },
+    closeOtherError(value) { if (!value) this.OtherError = null }
   }
 }
 
 </script>
 
-<style>
+<style scoped>
+
+.tooltip-inner{
+  max-width: none;
+}
+.tooltip-inner>div{
+  width: fit-content;
+  white-space: nowrap;
+}
 
 .card-style {
     max-width: 350px;
+    min-width: 350px;
     background-color: #F7F7F7;
     padding: 20px 25px 30px;
     margin: 0 auto 25px;
