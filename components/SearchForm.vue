@@ -16,7 +16,7 @@
       <b-button type="submit" variant="primary" size="md">
         検索
       </b-button>
-      <b-button type="reset" variant="danger" size="sm">
+      <b-button type="reset" variant="danger" size="md">
         reset
       </b-button>
     </b-form>

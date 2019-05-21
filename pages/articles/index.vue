@@ -11,7 +11,7 @@
     />
     <select-form-sort class="select-form" @request-sort="changeSortOrder" />
     <div class="container-fluid">
-      <div id="articles-card-column" class="card-deck">
+      <div id="articles-card-column" class="card-deck" :class="{ 'one-article':isLengthArticles1 }">
         <article-card
           v-for="article in shownArticles"
           :id="article.sys.id"
@@ -48,6 +48,9 @@ export default {
     }
   },
   computed: {
+    isLengthArticles1: function () {
+      return this.shownArticles.length === 1
+    },
     shownArticles: function () {
       if (this.sortOrder === 1) {
         return this.$store.getters.filteredArticles(this.filteringWords, this.category).slice().sort((a, b) => {
@@ -111,5 +114,14 @@ export default {
   }
   .under-search {
     display: inline-block;
+  }
+  .one-article {
+    max-width: 50%
+  }
+  .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
   }
 </style>
