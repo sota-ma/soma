@@ -6,12 +6,12 @@
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
     <search-form
-      @request-filter="mutateFilterQuery"
-      @request-restore="mutateFilterQuery"
+      @request-filter="mutateFilterQueryFilter"
+      @request-restore="mutateFilterQueryReset"
     />
     <select-form-sort class="select-form" @request-sort="changeSortOrder" />
     <div class="container-fluid">
-      <div id="articles-card-column" class="card-deck" :class="{ 'one-article':isLengthArticles1 }">
+      <div id="articles-card-column" class="card-deck">
         <article-card
           v-for="article in shownArticles"
           :id="article.sys.id"
@@ -20,6 +20,10 @@
           :date="article.sys.createdAt"
           :published-date="article.fields.publishedDate"
         />
+        <result-card
+          v-show="resultCardIsVisible"
+          :number-of-results="lengthArticles"
+        />
       </div>
     </div>
   </div>
@@ -27,6 +31,7 @@
 
 <script>
 import Card from '~/components/Card'
+import ResultCard from '~/components/ResultCard'
 import Header from '~/components/Header'
 import contentful from '~/plugins/contentful'
 import SelectForm from '~/components/SelectForm'
@@ -38,18 +43,20 @@ export default {
     'article-card': Card,
     'common-header': Header,
     'select-form-sort': SelectForm,
-    'search-form': SearchForm
+    'search-form': SearchForm,
+    'result-card': ResultCard
   },
   data() {
     return {
       sortOrder: 1,
       filteringWords: [],
-      category: ''
+      category: '',
+      resultCardIsVisible: false
     }
   },
   computed: {
-    isLengthArticles1: function () {
-      return this.shownArticles.length === 1
+    lengthArticles: function () {
+      return this.shownArticles.length
     },
     shownArticles: function () {
       if (this.sortOrder === 1) {
@@ -92,9 +99,15 @@ export default {
     changeSortOrder(sortOrderIndex) {
       this.sortOrder = sortOrderIndex
     },
-    mutateFilterQuery(filteringWords, category) {
+    mutateFilterQueryFilter(filteringWords, category) {
       this.filteringWords = filteringWords
       this.category = category
+      this.resultCardIsVisible = true
+    },
+    mutateFilterQueryReset(filteringWords, category) {
+      this.filteringWords = filteringWords
+      this.category = category
+      this.resultCardIsVisible = false
     }
   }
 }
@@ -114,9 +127,6 @@ export default {
   }
   .under-search {
     display: inline-block;
-  }
-  .one-article {
-    max-width: 50%
   }
   .container-fluid {
     padding-right: 15px;

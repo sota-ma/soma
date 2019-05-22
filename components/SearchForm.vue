@@ -55,11 +55,11 @@ export default {
       this.$emit('request-filter', this.form.filteringWords.split(/\s+/), this.form.category)
     },
     resetData() {
-      this.form.filteringWords = []
+      this.form.filteringWords = ''
       this.form.category = 'titleJa'
     },
     restoreArticles() {
-      this.form.filteringWords = []
+      this.form.filteringWords = ''
       this.form.category = 'titleJa'
       this.restoreButtonIsVisible = false
       this.$emit('request-restore', [], '')
@@ -73,7 +73,7 @@ export default {
   width: 20%;
 }
 .input-form {
-  width: 45%;
+  width: 40%;
   margin-left: 3rem
 }
 .form-dev {
@@ -81,6 +81,6 @@ export default {
   margin: 1rem;
 }
 .restore-button {
-  margin-top: 1em;
+  margin-top: 1rem;
 }
 </style>
