@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,28 @@ const createStore = () => {
     },
     getters: {
       articles: state => state.articles,
-      writers: state => state.writers
+      writers: state => state.writers,
+      filteredArticles: state => (filteringWords, category) => {
+        if (category === 'titleJa') {
+          return state.articles.slice().filter(
+            article => filteringWords.every(word => article.fields.titleJa.toLowerCase().indexOf(word.toLowerCase()) !== -1)
+          )
+        } else if (category === 'titleEn') {
+          return state.articles.slice().filter(
+            article => filteringWords.every(word => article.fields.titleEn.toLowerCase().indexOf(word.toLowerCase()) !== -1)
+          )
+        } else if (category === 'abstractEn') {
+          return state.articles.slice().filter(
+            article => filteringWords.every(word => documentToHtmlString(article.fields.abstractEn).toLowerCase().indexOf(word.toLowerCase()) !== 1)
+          )
+        } else if (category === 'abstractJa') {
+          return state.articles.slice().filter(
+            article => filteringWords.every(word => documentToHtmlString(article.fields.abstractJa).toLowerCase().indexOf(word.toLowerCase()) !== -1)
+          )
+        } else {
+          return state.articles
+        }
+      }
     },
     mutations: {
       setArticles(state, articles) {
