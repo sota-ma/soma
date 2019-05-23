@@ -15,8 +15,8 @@
 export default {
   props: {
     numberOfResults: {
-      type: String,
-      default: ''
+      type: Number,
+      default: 0
     }
   }
 }
