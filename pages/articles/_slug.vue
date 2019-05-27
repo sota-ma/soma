@@ -23,6 +23,9 @@
           <button class="btn btn-outline-info">
             論文pdf </button>
         </a>
+        <button class="article-link btn btn-outline-success" @click="toggleFavorite">
+          「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
+        </button>
       </div>
       <div class="row">
         <span class="tag-style"> キーワード:  </span>
@@ -109,13 +112,17 @@
 import Header from '~/components/Header'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import contentful from '~/plugins/contentful'
-
 const client = contentful.createClient()
 
 export default {
   transition: 'slide-right',
   components: {
     'common-header': Header
+  },
+  computed: {
+    isFavoritedArticle() {
+      return this.$store.getters['user/favoritedArticles'].some(article => article.sys.id === this.articleId)
+    }
   },
   asyncData({ env, params }) {
     return client
@@ -129,6 +136,7 @@ export default {
       })
       .then(({ article }) => {
         return {
+          articleId: article.sys.id,
           article: article,
           titleJa: article.fields.titleJa,
           titleEn: article.fields.titleEn,
@@ -156,6 +164,19 @@ export default {
         return '入手不可'
       } else {
         return 'その他'
+      }
+    },
+    favoriteArticle() {
+      this.$store.dispatch('user/favArticle', { articleId: this.articleId })
+    },
+    unfavoriteArticle() {
+      this.$store.dispatch('user/unfavArticle', { articleId: this.articleId })
+    },
+    toggleFavorite() {
+      if (this.isFavoritedArticle) {
+        this.unfavoriteArticle()
+      } else {
+        this.favoriteArticle()
       }
     }
   }

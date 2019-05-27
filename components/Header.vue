@@ -27,6 +27,9 @@
           <b-nav-item v-if="!isLoggedIn" to="/auth/signup" :class="{ active:signUpIsActive }">
             Register
           </b-nav-item>
+          <b-nav-item v-if="isLoggedIn" to="/mypage" :class="{ active:mypageIsActive }">
+            My page
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -60,19 +63,24 @@ export default {
     },
     signUpIsActive() {
       return this.currentRoute === 'auth-signup'
+    },
+    mypageIsActive() {
+      return this.currentRoute === 'mypage'
     }
   },
   created() {
-    firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.isLoggedIn = true
       }
+      unsubscribe()
     })
   },
   methods: {
     signOut() {
       firebase.auth().signOut().then(() => {
         alert('ログアウトしました')
+        this.$store.dispatch('user/checkAuthState')
         this.$router.push('/auth/signin')
       })
     }

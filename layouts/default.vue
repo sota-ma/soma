@@ -3,7 +3,15 @@
     <nuxt />
   </div>
 </template>
+<script>
 
+export default {
+  created() { // first page
+    this.$store.dispatch('user/checkAuthState')
+  }
+}
+
+</script>
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
