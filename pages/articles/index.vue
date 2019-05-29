@@ -86,7 +86,7 @@ export default {
       }
     }
   },
-  async asyncData({ env, store }) {
+  async fetch({ env, store }) {
     await store.dispatch('fetchArticles')
   },
   methods: {

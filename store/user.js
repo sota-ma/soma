@@ -16,7 +16,7 @@ export const state = function () {
 export const getters = {
   favoritedArticles(state, getters, rootState, rootGetters) {
     const myFavs = state.myFavs
-    return rootGetters.articles.slice().filter(x => !!myFavs[x.sys.id])
+    return rootGetters.articles.filter(x => !!myFavs[x.sys.id])
   }
 }
 
@@ -27,7 +27,7 @@ export const mutations = {
   setMyFavs(state, { myFavs }) {
     const res = {}
     myFavs.forEach((element) => {
-      state.myFavs[element] = 1
+      res[element] = 1
     })
     state.myFavs = res
   },

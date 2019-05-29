@@ -4,8 +4,8 @@ import Vuex from 'vuex'
 import BootstrapVue from 'bootstrap-vue/es'
 import VueRouter from 'vue-router'
 import '@/plugins/firebase'
-import user from '@/store/user'
-
+import * as store from '@/store/'
+import * as user from '@/store/user'
 const localVue = createLocalVue()
 const router = new VueRouter()
 
@@ -14,16 +14,19 @@ localVue.use(VueRouter)
 localVue.use(Vuex)
 
 describe('pages/articles/_slug.vue', () => {
-  let store
+  let _store
   let wrapper
   beforeEach(() => {
-    store = new Vuex.Store({
-      user
-    })
+    user.namespaced = true
+    _store = new Vuex.Store(
+      Object.assign({
+        modules: { user }
+      }, store)
+    )
     wrapper = mount(ArticlePage, {
       localVue,
       router,
-      store,
+      store: _store,
       stubs: {
         NuxtLink: RouterLinkStub
       }
