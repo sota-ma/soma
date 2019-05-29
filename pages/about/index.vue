@@ -15,7 +15,7 @@
       </h3>
       <div class="container-fluid card-deck">
         <writer-card
-          v-for="(writer,index) in writers"
+          v-for="(writer,index) in allWriters"
           :key="index"
           :name-ja="writer.fields.nameJa"
           :name-en="writer.fields.nameEn"
@@ -28,9 +28,8 @@
 
 <script>
 import Header from '~/components/Header'
-import contentful from '~/plugins/contentful'
 import writerCard from '@/components/WriterCard.vue'
-const client = contentful.createClient()
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -38,16 +37,17 @@ export default {
     'writer-card': writerCard
   },
   computed: {
-    writers() {
-      return this.$store.getters.writers
+    ...mapGetters('writers', ['allWriters'])
+  },
+  async mounted() {
+    try {
+      await this.getWriters()
+    } catch (e) {
+      // TODO: error handling
     }
   },
-  async asyncData({ env, store }) {
-    const writers = await client.getEntries({
-      'content_type': 'writer',
-      order: '-sys.createdAt'
-    })
-    store.commit('setWriters', writers.items)
+  methods: {
+    ...mapActions('writers', ['getWriters'])
   }
 }
 </script>
