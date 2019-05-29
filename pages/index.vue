@@ -28,32 +28,20 @@
 </template>
 
 <script>
-import { setTimeout } from 'timers'
-
 export default {
   data() {
     return {
       isVisible: false
     }
   },
-  created() {
-    setTimeout(() => {
-      this.isVisible = true
-    }, 500)
+  mounted() {
+    this.isVisible = true
   }
 }
 
 </script>
 
 <style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 2s
-}
-
-.fade-enter, .fade-leave-to {
-  opacity: 0
-}
-
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -65,6 +53,14 @@ export default {
 
 .back {
   background-image: linear-gradient(-90deg, #3D1141, #474100);
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
 .title {
