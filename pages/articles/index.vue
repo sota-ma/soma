@@ -36,6 +36,7 @@ import Header from '~/components/Header'
 import contentful from '~/plugins/contentful'
 import SelectForm from '~/components/SelectForm'
 import SearchForm from '~/components/SearchForm'
+import { mapGetters } from 'vuex'
 const client = contentful.createClient()
 
 export default {
@@ -55,36 +56,37 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('articles', ['filteredArticles']),
     lengthArticles: function () {
       return this.shownArticles.length
     },
-    shownArticles: function () {
+    shownArticles() {
       if (this.sortOrder === 1) {
-        return this.$store.getters.filteredArticles(this.filteringWords, this.category).slice().sort((a, b) => {
+        return this.filteredArticles.slice().sort((a, b) => {
           a = a.sys.createdAt
           b = b.sys.createdAt
           return (a === b ? 0 : b > a ? 1 : -1)
         })
       } else if (this.sortOrder === 2) {
-        return this.$store.getters.filteredArticles(this.filteringWords, this.category).slice().sort((a, b) => {
+        return this.filteredArticles.slice().sort((a, b) => {
           a = a.sys.createdAt
           b = b.sys.createdAt
           return (a === b ? 0 : a > b ? 1 : -1)
         })
       } else if (this.sortOrder === 3) {
-        return this.$store.getters.filteredArticles(this.filteringWords, this.category).slice().sort((a, b) => {
+        return this.filteredArticles.slice().sort((a, b) => {
           a = (a.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(a.fields.publishedDate.slice(0, 10).split('-')).getTime())
           b = (b.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(b.fields.publishedDate.slice(0, 10).split('-')).getTime())
           return (a === b ? 0 : b > a ? 1 : -1)
         })
       } else if (this.sortOrder === 4) {
-        return this.$store.getters.filteredArticles(this.filteringWords, this.category).slice().sort((a, b) => {
+        return this.filteredArticles.slice().sort((a, b) => {
           a = (a.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(a.fields.publishedDate.slice(0, 10).split('-')).getTime())
           b = (b.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(b.fields.publishedDate.slice(0, 10).split('-')).getTime())
           return (a === b ? 0 : a > b ? 1 : -1)
         })
       } else {
-        return this.$store.getters.filteredArticles
+        return this.filteredArticles
       }
     }
   },
