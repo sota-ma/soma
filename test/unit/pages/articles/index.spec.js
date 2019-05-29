@@ -4,7 +4,6 @@ import Vuex from 'vuex'
 import '@/plugins/firebase'
 import BootstrapVue from 'bootstrap-vue/es'
 import VueRouter from 'vue-router'
-import store from '@/store'
 
 const localVue = createLocalVue()
 const router = new VueRouter()
@@ -15,7 +14,20 @@ localVue.use(VueRouter)
 
 describe('pages/articles/index.vue', () => {
   let wrapper
+  let Module
+  let store
   beforeEach(() => {
+    Module = {
+      namespaced: false,
+      getters: {
+        filteredArticles: () => () => []
+      }
+    }
+    store = new Vuex.Store({
+      modules: {
+        Module
+      }
+    })
     wrapper = mount(ArticleIndexPage, {
       store,
       router,
