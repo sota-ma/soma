@@ -3,10 +3,10 @@
     <section class="container">
       <transition name="fade">
         <div v-show="isVisible">
-          <h1 id="title" class="title">
+          <h1 id="title">
             SOTA of Medical-AI
           </h1>
-          <h2 id="subtitle" class="subtitle">
+          <h2 id="subtitle">
             最新の医療AI論文を日本語で紹介します
           </h2>
           <h3>
@@ -63,7 +63,7 @@ export default {
   opacity: 0;
 }
 
-.title {
+#title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
@@ -73,7 +73,7 @@ export default {
   letter-spacing: 1px;
 }
 
-.subtitle {
+#subtitle {
   font-weight: 300;
   font-size: 42px;
   color: #EBEBEB;
