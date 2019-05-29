@@ -86,7 +86,4 @@ export default {
   letter-spacing: 0.5px;
 }
 
-.links {
-  padding-top: 15px;
-}
 </style>
