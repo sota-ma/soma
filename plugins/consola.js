@@ -1,4 +1,4 @@
 import Vue from 'vue'
-const consola = require('consola')
+import consola from 'consola'
 
 Vue.prototype.consola = consola
