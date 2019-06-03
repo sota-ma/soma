@@ -33,10 +33,8 @@
 import Card from '~/components/Card'
 import ResultCard from '~/components/ResultCard'
 import Header from '~/components/Header'
-import contentful from '~/plugins/contentful'
 import SelectForm from '~/components/SelectForm'
 import SearchForm from '~/components/SearchForm'
-const client = contentful.createClient()
 
 export default {
   components: {
@@ -88,12 +86,8 @@ export default {
       }
     }
   },
-  async asyncData({ env, store }) {
-    const articles = await client.getEntries({
-      'content_type': 'article',
-      order: '-sys.createdAt'
-    })
-    store.commit('setArticles', articles.items)
+  async fetch({ env, store }) {
+    await store.dispatch('fetchArticles')
   },
   methods: {
     changeSortOrder(sortOrderIndex) {
