@@ -23,7 +23,7 @@
           <button class="btn btn-outline-info">
             論文pdf </button>
         </a>
-        <button class="article-link btn btn-outline-success" @click="toggleFavorite">
+        <button v-if="loggedin" class="article-link btn btn-outline-success" @click="toggleFavorite">
           「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
         </button>
       </div>
@@ -110,6 +110,7 @@
 
 <script>
 import Header from '~/components/Header'
+import { mapGetters } from 'vuex'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import contentful from '~/plugins/contentful'
 const client = contentful.createClient()
@@ -120,6 +121,7 @@ export default {
     'common-header': Header
   },
   computed: {
+    ...mapGetters('user', ['loggedin']),
     isFavoritedArticle() {
       return this.$store.getters['user/favoritedArticles'].some(article => article.sys.id === this.articleId)
     }

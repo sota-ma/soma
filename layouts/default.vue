@@ -6,7 +6,7 @@
 <script>
 
 export default {
-  created() { // first page
+  created() {
     this.$store.dispatch('user/checkAuthState')
   }
 }
