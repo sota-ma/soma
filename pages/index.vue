@@ -28,32 +28,20 @@
 </template>
 
 <script>
-import { setTimeout } from 'timers'
-
 export default {
   data() {
     return {
       isVisible: false
     }
   },
-  created() {
-    setTimeout(() => {
-      this.isVisible = true
-    }, 500)
+  mounted() {
+    this.isVisible = true
   }
 }
 
 </script>
 
 <style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 2s
-}
-
-.fade-enter, .fade-leave-to {
-  opacity: 0
-}
-
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -67,7 +55,15 @@ export default {
   background-image: linear-gradient(-90deg, #3D1141, #474100);
 }
 
-.title {
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+#title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
@@ -77,7 +73,7 @@ export default {
   letter-spacing: 1px;
 }
 
-.subtitle {
+#subtitle {
   font-weight: 300;
   font-size: 42px;
   color: #EBEBEB;
@@ -86,7 +82,4 @@ export default {
   letter-spacing: 0.5px;
 }
 
-.links {
-  padding-top: 15px;
-}
 </style>

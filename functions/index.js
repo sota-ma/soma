@@ -63,4 +63,38 @@ app.get('/articles/:slug', (req, res) => {
     })
 })
 
-exports.ssrapp = functions.https.onRequest(app);
+exports.ssrapp = functions.https.onRequest(app)
+
+const admin = require('firebase-admin')
+admin.initializeApp(functions.config().firebase)
+const fireStore = admin.firestore()
+const arrayUnion = admin.firestore.FieldValue.arrayUnion
+const arrayRemove = admin.firestore.FieldValue.arrayRemove
+const favsCollection = fireStore.collection('favs')
+const articlesCollection = fireStore.collection('articles')
+
+exports.add_fav = functions.https.onCall(async (data, context) => {
+  if(context.auth===null){return {"error":"Not authorized"}}
+  let userId = context.auth.uid
+  let articleId = data.article_id
+  console.log(userId,articleId)
+
+  await favsCollection.doc(userId).set({
+    'articles': arrayUnion(articleId) }, { merge: true })
+  await articlesCollection.doc(articleId).set({
+    'users': arrayUnion(userId) }, { merge: true })
+  return {"ok":true}
+});
+
+exports.remove_fav = functions.https.onCall(async (data, context) => {
+  if(context.auth===null){return {"error":"Not authorized"}}
+  let userId = context.auth.uid
+  let articleId = data.article_id
+  console.log(userId,articleId)
+
+  await favsCollection.doc(userId).set({
+    'articles': arrayRemove(articleId) }, { merge: true })
+  await articlesCollection.doc(articleId).set({
+    'users': arrayRemove(userId) }, { merge: true })
+  return {"ok":true}
+});

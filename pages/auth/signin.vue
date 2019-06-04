@@ -55,6 +55,7 @@ export default {
     signIn() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
+          this.$store.dispatch('user/checkAuthState')
           this.$router.push('/articles')
         })
         .catch((e) => {
