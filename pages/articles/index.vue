@@ -14,11 +14,11 @@
       <div id="articles-card-column" class="card-deck">
         <article-card
           v-for="article in shownArticles"
-          :id="article.sys.id"
-          :key="article.sys.id"
-          :title="article.fields.titleJa"
-          :date="article.sys.createdAt"
-          :published-date="article.fields.publishedDate"
+          :id="article.id"
+          :key="article.id"
+          :title="article.titleJa"
+          :date="article.createdAt"
+          :published-date="article.publishedDate"
         />
         <result-card
           v-show="resultCardIsVisible"
@@ -35,6 +35,7 @@ import ResultCard from '~/components/ResultCard'
 import Header from '~/components/Header'
 import SelectForm from '~/components/SelectForm'
 import SearchForm from '~/components/SearchForm'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -53,54 +54,62 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      filteredArticles: 'article/filteredArticles'
+    }),
     lengthArticles: function () {
       return this.shownArticles.length
     },
     shownArticles: function () {
       if (this.sortOrder === 1) {
-        return this.$store.getters.filteredArticles(this.filteringWords, this.category).slice().sort((a, b) => {
-          a = a.sys.createdAt
-          b = b.sys.createdAt
+        return this.filteredArticles.slice().sort((a, b) => {
+          a = a.createdAt
+          b = b.createdAt
           return (a === b ? 0 : b > a ? 1 : -1)
         })
       } else if (this.sortOrder === 2) {
-        return this.$store.getters.filteredArticles(this.filteringWords, this.category).slice().sort((a, b) => {
-          a = a.sys.createdAt
-          b = b.sys.createdAt
+        return this.filteredArticles.slice().sort((a, b) => {
+          a = a.createdAt
+          b = b.createdAt
           return (a === b ? 0 : a > b ? 1 : -1)
         })
       } else if (this.sortOrder === 3) {
-        return this.$store.getters.filteredArticles(this.filteringWords, this.category).slice().sort((a, b) => {
-          a = (a.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(a.fields.publishedDate.slice(0, 10).split('-')).getTime())
-          b = (b.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(b.fields.publishedDate.slice(0, 10).split('-')).getTime())
+        return this.filteredArticles.slice().sort((a, b) => {
+          a = (a.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(a.publishedDate.slice(0, 10).split('-')).getTime())
+          b = (b.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(b.publishedDate.slice(0, 10).split('-')).getTime())
           return (a === b ? 0 : b > a ? 1 : -1)
         })
       } else if (this.sortOrder === 4) {
-        return this.$store.getters.filteredArticles(this.filteringWords, this.category).slice().sort((a, b) => {
-          a = (a.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(a.fields.publishedDate.slice(0, 10).split('-')).getTime())
-          b = (b.fields.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(b.fields.publishedDate.slice(0, 10).split('-')).getTime())
+        return this.filteredArticles.slice().sort((a, b) => {
+          a = (a.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(a.publishedDate.slice(0, 10).split('-')).getTime())
+          b = (b.publishedDate === undefined ? new Date(1000, 1, 1).getTime() : new Date(b.publishedDate.slice(0, 10).split('-')).getTime())
           return (a === b ? 0 : a > b ? 1 : -1)
         })
       } else {
-        return this.$store.getters.filteredArticles
+        return this.filteredArticles
       }
     }
   },
   async fetch({ env, store }) {
-    await store.dispatch('fetchArticles')
+    await store.dispatch('article/fetchArticles')
   },
   methods: {
+    ...mapActions({
+      setCategory: 'article/setCategory',
+      clearCategory: 'article/clearCategory',
+      setFilteringWords: 'article/setFilteringWords'
+    }),
     changeSortOrder(sortOrderIndex) {
       this.sortOrder = sortOrderIndex
     },
     mutateFilterQueryFilter(filteringWords, category) {
-      this.filteringWords = filteringWords
-      this.category = category
+      this.setCategory({ category })
+      this.setFilteringWords({ filteringWords })
       this.resultCardIsVisible = true
     },
-    mutateFilterQueryReset(filteringWords, category) {
-      this.filteringWords = filteringWords
-      this.category = category
+    mutateFilterQueryReset(filteringWords) {
+      this.clearCategory()
+      this.setFilteringWords({ filteringWords })
       this.resultCardIsVisible = false
     }
   }
