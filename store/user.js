@@ -1,10 +1,10 @@
 
 import firebase from '~/plugins/firebase'
 const db = firebase.firestore()
+const firebaseFunctions = firebase.functions()
+const addFav = firebaseFunctions.httpsCallable('add_fav')
+const removeFav = firebaseFunctions.httpsCallable('remove_fav')
 const favsCollection = db.collection('favs')
-const articlesCollection = db.collection('articles')
-const arrayUnion = firebase.firestore.FieldValue.arrayUnion
-const arrayRemove = firebase.firestore.FieldValue.arrayRemove
 
 export const state = function () {
   return {
@@ -14,6 +14,8 @@ export const state = function () {
 }
 
 export const getters = {
+  userId: state => state.userId,
+  loggedin: state => (state.userId !== null),
   favoritedArticles(state, getters, rootState, rootGetters) {
     const myFavs = state.myFavs
     return rootGetters.articles.filter(x => !!myFavs[x.sys.id])
@@ -63,25 +65,13 @@ export const actions = {
   },
   async favArticle({ commit, state }, { articleId }) {
     if (state.userId === null) return
-    const userId = state.userId
-    await db.runTransaction(async () => {
-      await favsCollection.doc(userId).set({
-        'articles': arrayUnion(articleId) }, { merge: true })
-      await articlesCollection.doc(articleId).set({
-        'users': arrayUnion(userId) }, { merge: true })
-      commit('addMyFavs', articleId)
-    })
+    await addFav({ article_id: articleId })
+    commit('addMyFavs', articleId)
   },
   async unfavArticle({ commit, state }, { articleId }) {
     if (state.userId === null) return
-    const userId = state.userId
-    await db.runTransaction(async () => {
-      await favsCollection.doc(userId).set({
-        'articles': arrayRemove(articleId) }, { merge: true })
-      await articlesCollection.doc(articleId).set({
-        'users': arrayRemove(userId) }, { merge: true })
-      commit('removeMyFavs', articleId)
-    })
+    await removeFav({ article_id: articleId })
+    commit('removeMyFavs', articleId)
   },
   async checkAuthState({ commit, state, dispatch }) {
     await new Promise((resolve) => {
