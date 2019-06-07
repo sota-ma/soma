@@ -17,9 +17,9 @@
         <writer-card
           v-for="(writer,index) in writers"
           :key="index"
-          :name-ja="writer.fields.nameJa"
-          :name-en="writer.fields.nameEn"
-          :institution="writer.fields.institution"
+          :name-ja="writer.nameJa"
+          :name-en="writer.nameEn"
+          :institution="writer.institution"
         />
       </div>
     </div>
@@ -28,9 +28,8 @@
 
 <script>
 import Header from '~/components/Header'
-import contentful from '~/plugins/contentful'
 import writerCard from '@/components/WriterCard.vue'
-const client = contentful.createClient()
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -38,16 +37,16 @@ export default {
     'writer-card': writerCard
   },
   computed: {
-    writers() {
-      return this.$store.getters.writers
-    }
-  },
-  async asyncData({ env, store }) {
-    const writers = await client.getEntries({
-      'content_type': 'writer',
-      order: '-sys.createdAt'
+    ...mapGetters({
+      writers: 'writer/writers'
     })
-    store.commit('setWriters', writers.items)
+  },
+  async fetch({ store }) {
+    try {
+      await store.dispatch('writer/getWriters')
+    } catch (e) {
+      // TODO: #50が完了次第、そちらを組み込む
+    }
   }
 }
 </script>
