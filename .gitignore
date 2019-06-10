@@ -70,7 +70,7 @@ typings/
 
 # Nuxt generate
 functions/nuxt
-public
+public/assets/*
 
 # vuepress build output
 .vuepress/dist

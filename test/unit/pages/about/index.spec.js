@@ -14,19 +14,19 @@ localVue.use(Vuex)
 
 describe('pages/about/index.vue', () => {
   let wrapper
-  let Module
+  let modules
   let store
   beforeEach(() => {
-    Module = {
-      namespaced: false,
-      getters: {
-        writers: () => []
+    modules = {
+      writer: {
+        namespaced: true,
+        getters: {
+          writers: () => []
+        }
       }
     }
     store = new Vuex.Store({
-      modules: {
-        Module
-      }
+      modules
     })
     wrapper = mount(AboutPage, {
       localVue,
