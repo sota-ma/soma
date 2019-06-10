@@ -1,5 +1,6 @@
 class Article {
   constructor(props) {
+    this.id = props.sys.id
     this.titleEn = props.fields.titleEn
     this.titleJa = props.fields.titleJa
     this.tags = props.fields.tags
