@@ -1,10 +1,7 @@
 <template>
   <div class="card">
-    <div class="card-published-date card-header text-center">
-      published date：{{ publishedDate.substr(0,10) }}
-    </div>
-    <div class="card-body text-center">
-      <h5 class="abst">
+    <div class="card-body">
+      <h5 class="abst font-weight-bold">
         {{ title }}
       </h5>
       <div class="detail-btn text-center">
@@ -17,10 +14,16 @@
         </nuxt-link>
       </div>
     </div>
-    <div class="card-created-date card-footer text-muted text-center">
-      <small class="text-muted ">
-        投稿日：{{ date.substr(0,10) }}
-      </small>
+    <div class="card-created-date card-footer text-muted">
+      <div class="card-published-date text-muted small">
+        論文投稿日：{{ publishedDate.substr(0,10) }}
+      </div>
+      <div class="text-muted small">
+        作成日：{{ date.substr(0,10) }}
+      </div>
+      <div class="text-muted small">
+        作成者：
+      </div>
     </div>
   </div>
 </template>
@@ -50,16 +53,16 @@ export default {
 </script>
 
 <style scoped>
-.abst {
-  letter-spacing: 0.5px
-}
 .card {
   margin: 5px;
 }
-.detail-btn {
-  margin: 15px 0px 0px 0px;
-}
 .card-published-date{
   white-space: nowrap;
+}
+.abst {
+  letter-spacing: 0.5px
+}
+.detail-btn {
+  margin: 15px 0px 0px 0px;
 }
 </style>
