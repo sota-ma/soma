@@ -19,6 +19,7 @@
           :title="article.titleJa"
           :date="article.createdAt"
           :published-date="article.publishedDate"
+          content-type="articles"
         />
         <result-card
           v-show="resultCardIsVisible"

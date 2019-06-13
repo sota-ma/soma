@@ -11,7 +11,7 @@
         <nuxt-link
           class="btn btn-success"
           role="button"
-          :to="{name: 'articles-slug', params: {slug: id}}"
+          :to="{name: contentType+'-slug', params: {slug: id}}"
         >
           詳細
         </nuxt-link>
@@ -43,8 +43,11 @@ export default {
     publishedDate: {
       type: String,
       default: ''
+    },
+    contentType: {
+      type: String,
+      default: 'article'
     }
-
   }
 }
 </script>
