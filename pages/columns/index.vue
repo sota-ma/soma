@@ -38,7 +38,7 @@ export default {
       columns: 'column/columns'
     })
   },
-  async fetch({ env, store }) {
+  async fetch({ store }) {
     await store.dispatch('column/fetchColumns')
   }
 }
