@@ -63,7 +63,8 @@ export default {
   white-space: nowrap;
 }
 .abst {
-  letter-spacing: 0.5px
+  letter-spacing: 0.5px;
+  height: 15vh;
 }
 .detail-btn {
   margin: 15px 0px 0px 0px;
