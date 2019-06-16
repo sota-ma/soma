@@ -41,6 +41,8 @@ export default {
 }
 .card {
   margin: 5px;
+  flex-basis: 30%;
+  max-width: 30%;
 }
 .card-name-ja,.card-name-en,.card-institution{
   white-space: nowrap;
