@@ -1,21 +1,12 @@
 <template>
   <div class="card">
-    <div class="card-body">
+    <div class="card-body" @click="click">
       <h5 class="abst font-weight-bold">
         {{ title }}
       </h5>
-      <div class="detail-btn text-center">
-        <nuxt-link
-          class="btn btn-success"
-          role="button"
-          :to="{name: contentType+'-slug', params: {slug: id}}"
-        >
-          詳細
-        </nuxt-link>
-      </div>
-      <div v-if="images.length !== 0" class="thumbnail-area">
-        <img class="thumbnail" :src="images[0].url">
-      </div>
+    </div>
+    <div v-if="images.length !== 0" class="thumbnail-area">
+      <img class="thumbnail" :src="images[0].url">
     </div>
     <div class="card-created-date card-footer text-muted">
       <div class="card-published-date text-muted small">
@@ -58,6 +49,11 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+  methods: {
+    click() {
+      this.$emit('card-click', this.id)
+    }
   }
 }
 </script>
@@ -65,6 +61,10 @@ export default {
 <style scoped>
 .card {
   margin: 5px;
+  cursor: pointer;
+}
+.card:hover {
+  border-color: black;
 }
 .card-published-date{
   white-space: nowrap;
@@ -72,15 +72,13 @@ export default {
 .abst {
   letter-spacing: 0.5px
 }
-.detail-btn {
-  margin: 15px 0px 0px 0px;
-}
 .thumbnail-area {
+  margin-top: 15px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: center;
 }
 .thumbnail {
-  margin-top: 15px;
   width: auto;
   height: 10vh;
 }
