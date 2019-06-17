@@ -56,6 +56,9 @@ export default {
   margin: 5px;
   cursor: pointer;
 }
+.card:hover {
+  border-color: black;
+}
 .card-published-date{
   white-space: nowrap;
 }
