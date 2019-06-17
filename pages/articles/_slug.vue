@@ -4,22 +4,22 @@
     <div class="container-fluid container-slug">
       <div class="top-info row">
         <p id="title-ja" class="slug-title">
-          {{ titleJa }}
+          {{ articleDetail.titleJa }}
         </p>
         <p id="title-en" class="slug-subtitle text-muted">
-          {{ titleEn }}
+          {{ articleDetail.titleEn }}
         </p>
         <div>
           <p id="created-date" class="slug-date">
-            記事の作成日: {{ createdAt && createdAt.substr(0,10) }}
+            記事の作成日: {{ articleDetail.createdAt && articleDetail.createdAt.substr(0,10) }}
           </p>
           <p id="published-date" class="slug-date">
-            論文の投稿日: {{ publishedDate && publishedDate.substr(0,10) }}
+            論文の投稿日: {{ articleDetail.publishedDate && articleDetail.publishedDate.substr(0,10) }}
           </p>
         </div>
       </div>
       <div class="row">
-        <a :href="articleURL" class="article-link">
+        <a :href="articleDetail.articleURL" class="article-link">
           <button class="btn btn-outline-info">
             論文pdf </button>
         </a>
@@ -30,7 +30,7 @@
       <div class="row">
         <span class="tag-style"> キーワード:  </span>
         <span
-          v-for="(tag, index) in tags"
+          v-for="(tag, index) in articleDetail.tags"
           :key="index"
           class="tag-style badge badge-primary"
         >
@@ -40,7 +40,7 @@
       <div class="row">
         <span class="tag-style"> 関連する診療科:  </span>
         <span
-          v-for="(department, index) in departments"
+          v-for="(department, index) in articleDetail.departments"
           :key="index"
           class="tag-style badge badge-info"
         >
@@ -49,7 +49,7 @@
       </div>
       <div class="row">
         <div class="table-responsive">
-          <table v-if="benchmark" class="table dataset-table">
+          <table v-if="articleDetail.benchmark" class="table dataset-table">
             <thead class="thead-light">
               <tr>
                 <th scope="col">
@@ -66,7 +66,7 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="(dataset,i) in benchmark">
+              <template v-for="(dataset,i) in articleDetail.benchmark">
                 <tr v-for="(score, j) in dataset.scores" :key="i+','+j">
                   <th v-if="j === 0" scope="row">
                     {{ dataset.dataset }}
@@ -94,14 +94,14 @@
             要旨(原文)
           </h4>
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <span v-html="abstractEn" />
+          <span v-html="docToHtmlString(articleDetail.abstractEn)" />
         </div>
         <div id="abstract-ja" class="col-sm-6">
           <h4 class="text-center abstract-title">
             要旨(日本語訳)
           </h4>
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <span v-html="abstractJa" />
+          <span v-html="docToHtmlString(articleDetail.abstractJa)" />
         </div>
       </div>
     </div>
@@ -112,8 +112,6 @@
 import Header from '~/components/Header'
 import { mapGetters } from 'vuex'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import contentful from '~/plugins/contentful'
-const client = contentful.createClient()
 
 export default {
   transition: 'slide-right',
@@ -122,37 +120,17 @@ export default {
   },
   computed: {
     ...mapGetters('user', ['loggedin']),
+    ...mapGetters('article', ['articleDetail']),
     isFavoritedArticle() {
       return this.$store.getters['user/favoritedArticles'].some(article => article.sys.id === this.articleId)
     }
   },
-  asyncData({ env, params }) {
-    return client
-      .getEntries({
-        'sys.id': params.slug
-      })
-      .then((entry) => {
-        return {
-          article: entry.items[0]
-        }
-      })
-      .then(({ article }) => {
-        return {
-          articleId: article.sys.id,
-          article: article,
-          titleJa: article.fields.titleJa,
-          titleEn: article.fields.titleEn,
-          createdAt: article.sys.createdAt,
-          publishedDate: article.fields.publishedDate,
-          abstractEn: documentToHtmlString(article.fields.abstractEn),
-          abstractJa: documentToHtmlString(article.fields.abstractJa),
-          tags: article.fields.tag,
-          articleURL: article.fields.linkToArticle,
-          benchmark: article.fields.benchmark,
-          departments: article.fields.relatedDepartment
-        }
-      })
-      .catch()
+  async fetch({ store, params }) {
+    try {
+      await store.dispatch('article/fetchArticleDetail', { slug: params.slug })
+    } catch (e) {
+      // TODO: #50が完了次第、そちらを組み込む
+    }
   },
   methods: {
     formattedAvailability(text) {
@@ -180,6 +158,9 @@ export default {
       } else {
         this.favoriteArticle()
       }
+    },
+    docToHtmlString(doc) {
+      return documentToHtmlString(doc)
     }
   }
 }

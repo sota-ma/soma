@@ -1,5 +1,6 @@
 import ArticleList from './model/ArticleList'
 import { RepositoryFactory } from './repository/RepositoryFactory'
+import ArticleDetail from './model/ArticleDetail'
 const repository = RepositoryFactory.get('article')
 
 const CATEGORIES = {
@@ -26,7 +27,8 @@ export const state = () => ({
   fetched: false,
   filteringWords: [],
   category: '',
-  sortOrder: 1
+  sortOrder: 1,
+  articleDetail: undefined
 })
 
 export const mutations = {
@@ -41,6 +43,9 @@ export const mutations = {
   },
   SET_FILTERING_WORDS(state, { filteringWords }) {
     state.filteringWords = filteringWords
+  },
+  SET_ARTICLE_DETAIL(state, { articleDetail }) {
+    state.articleDetail = articleDetail
   }
 }
 
@@ -51,6 +56,11 @@ export const actions = {
     const articles = await repository.fetchAll()
     const articleList = new ArticleList(articles.items)
     commit('SET_ARTICLES', { articles: articleList })
+  },
+  async fetchArticleDetail({ commit }, { slug }) {
+    const res = await repository.fetch({ slug })
+    const articleDetail = new ArticleDetail(res)
+    commit('SET_ARTICLE_DETAIL', { articleDetail })
   },
   setCategory({ commit }, { category }) {
     const articleCategory = Object.keys(CATEGORIES)
@@ -75,5 +85,8 @@ export const getters = {
     const category = state.category
     const filteringWords = state.filteringWords
     return state.articles.getFilteredArticles({ filteringWords, category })
+  },
+  articleDetail(state) {
+    return state.articleDetail
   }
 }
