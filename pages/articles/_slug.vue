@@ -197,7 +197,7 @@ export default {
   padding: 10px 10px 0px 0px;
 }
 
-.btn{
+.btn {
   margin-left: -10px;
 }
 
