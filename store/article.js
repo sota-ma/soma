@@ -54,7 +54,7 @@ export const actions = {
     if (state.fetched) return
     commit('SET_FETCHED')
     const articles = await repository.fetchAll()
-    const articleList = new ArticleList(articles.items)
+    const articleList = new ArticleList(articles)
     commit('SET_ARTICLES', { articles: articleList })
   },
   async fetchArticleDetail({ commit }, { slug }) {
