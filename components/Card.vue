@@ -1,18 +1,9 @@
 <template>
   <div class="card">
-    <div class="card-body">
+    <div class="card-body" @click="click">
       <h5 class="abst font-weight-bold">
         {{ title }}
       </h5>
-      <div class="detail-btn text-center">
-        <nuxt-link
-          class="btn btn-success"
-          role="button"
-          :to="{name: contentType+'-slug', params: {slug: id}}"
-        >
-          詳細
-        </nuxt-link>
-      </div>
     </div>
     <div class="card-created-date card-footer text-muted">
       <div class="card-published-date text-muted small">
@@ -51,6 +42,11 @@ export default {
       type: String,
       default: 'article'
     }
+  },
+  methods: {
+    click() {
+      this.$emit('card-click', this.id)
+    }
   }
 }
 </script>
@@ -58,6 +54,7 @@ export default {
 <style scoped>
 .card {
   margin: 5px;
+  cursor: pointer;
 }
 .card-published-date{
   white-space: nowrap;
