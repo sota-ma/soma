@@ -62,7 +62,4 @@ export default {
 .abst {
   letter-spacing: 0.5px
 }
-.detail-btn {
-  margin: 15px 0px 0px 0px;
-}
 </style>
