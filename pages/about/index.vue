@@ -53,6 +53,18 @@ export default {
 <style scoped>
 #about-page-writers{
   margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card-deck {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 95vw;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 </style>
