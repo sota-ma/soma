@@ -13,6 +13,9 @@
           詳細
         </nuxt-link>
       </div>
+      <div v-if="images.length !== 0" class="thumbnail-area">
+        <img class="thumbnail" :src="images[0].url">
+      </div>
     </div>
     <div class="card-created-date card-footer text-muted">
       <div class="card-published-date text-muted small">
@@ -50,6 +53,10 @@ export default {
     contentType: {
       type: String,
       default: 'article'
+    },
+    images: {
+      type: Array,
+      default: () => []
     }
   }
 }
@@ -68,4 +75,14 @@ export default {
 .detail-btn {
   margin: 15px 0px 0px 0px;
 }
+.thumbnail-area {
+  display: flex;
+  justify-content: center;
+}
+.thumbnail {
+  margin-top: 15px;
+  width: auto;
+  height: 10vh;
+}
+
 </style>
