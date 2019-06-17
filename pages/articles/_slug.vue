@@ -40,18 +40,24 @@
         <span> データセットの有無:  </span>
         <!-- キーワード等と同じように、右に「あり」「なし」を表示する-->
       </div>
-      <div>
-        <a :href="articleDetail.articleURL" class="article-link">
-          <button class="btn btn-outline-info font-weight-bold">
-            PDF </button>
-        </a>
-        <button v-if="loggedin" class="article-link btn btn-outline-success" @click="toggleFavorite">
-          「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
-        </button>
+
+      <div class="button-and-thumbnail row">
+        <div class="button-area col-sm-3">
+          <a :href="articleDetail.articleURL" class="article-link">
+            <button class="btn btn-outline-info font-weight-bold">
+              PDF </button>
+          </a>
+          <button v-if="loggedin" class="article-link btn btn-outline-success" @click="toggleFavorite">
+            「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
+          </button>
+        </div>
+        <div class="thumbnail-area col-sm-6">
+          <img v-for="image in articleDetail.images" :key="image.name" :src="image.url" class="thumbnail">
+        </div>
       </div>
       <div>
         <p id="published-date" class="slug-date borderline">
-          published at {{ publishedDate && publishedDate.substr(0,10) }}
+          published at {{ articleDetail.publishedDate && articleDetail.publishedDate.substr(0,10) }}
         </p>
       </div>
       <div>
@@ -208,6 +214,22 @@ export default {
 .tag-style {
   margin: 0 5px;
   font-size: 16px;
+}
+
+.button-and-thumbnail {
+  width: 100vw;
+}
+
+.button-and-thumbnail .thumbnail-area {
+  height: 15vh;
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: scroll;
+}
+
+.thumbnail {
+  height: 100%;
+  width: auto;
 }
 
 .article-date{
