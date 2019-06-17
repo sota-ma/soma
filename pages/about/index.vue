@@ -41,11 +41,11 @@ export default {
       writers: 'writer/writers'
     })
   },
-  async fetch({ store }) {
+  async fetch({ store, error }) {
     try {
       await store.dispatch('writer/getWriters')
     } catch (e) {
-      // TODO: #50が完了次第、そちらを組み込む
+      error({ message: e.message })
     }
   }
 }

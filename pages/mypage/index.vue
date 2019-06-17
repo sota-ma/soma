@@ -42,9 +42,13 @@ export default {
       return this.$store.getters['user/favoritedArticles']
     }
   },
-  async fetch({ env, store }) {
-    await Promise.all([store.dispatch('user/fetchUserFavs'),
-      store.dispatch('fetchArticles')])
+  async fetch({ error, store }) {
+    try {
+      await Promise.all([store.dispatch('user/fetchUserFavs'),
+        store.dispatch('fetchArticles')])
+    } catch (e) {
+      error({ message: e.message })
+    }
   }
 }
 </script>

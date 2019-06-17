@@ -64,8 +64,12 @@ export default {
       return this.$store.getters['user/favoritedArticles'].some(article => article.sys.id === this.articleId)
     }
   },
-  async fetch({ store, params }) {
-    await store.dispatch('column/fetchColumnDetail', { slug: params.slug })
+  async fetch({ store, params, error }) {
+    try {
+      await store.dispatch('column/fetchColumnDetail', { slug: params.slug })
+    } catch (e) {
+      error({ message: e.message })
+    }
   },
   methods: {
     favoriteArticle() {

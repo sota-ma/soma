@@ -126,7 +126,7 @@ export default {
       return this.$store.getters['user/favoritedArticles'].some(article => article.sys.id === this.articleId)
     }
   },
-  asyncData({ env, params }) {
+  asyncData({ error, params }) {
     return client
       .getEntries({
         'sys.id': params.slug
@@ -152,7 +152,7 @@ export default {
           departments: article.fields.relatedDepartment
         }
       })
-      .catch()
+      .catch(err => error({ message: err.message }))
   },
   methods: {
     formattedAvailability(text) {
