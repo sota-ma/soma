@@ -14,20 +14,18 @@ localVue.use(VueRouter)
 
 describe('pages/articles/index.vue', () => {
   let wrapper
-  let Module
+  let modules
   let store
   beforeEach(() => {
-    Module = {
-      namespaced: false,
-      getters: {
-        filteredArticles: () => () => []
+    modules = {
+      article: {
+        namespaced: true,
+        getters: {
+          filteredArticles: () => []
+        }
       }
     }
-    store = new Vuex.Store({
-      modules: {
-        Module
-      }
-    })
+    store = new Vuex.Store({ modules })
     wrapper = mount(ArticleIndexPage, {
       store,
       router,
