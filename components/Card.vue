@@ -5,9 +5,6 @@
         {{ title }}
       </h5>
     </div>
-    <div v-if="images.length !== 0" class="thumbnail-area">
-      <img class="thumbnail" :src="images[0].url">
-    </div>
     <div class="card-created-date card-footer text-muted">
       <div class="card-published-date text-muted small">
         論文投稿日：{{ publishedDate.substr(0,10) }}
@@ -44,10 +41,6 @@ export default {
     contentType: {
       type: String,
       default: 'article'
-    },
-    images: {
-      type: Array,
-      default: () => []
     }
   },
   methods: {
@@ -72,15 +65,4 @@ export default {
 .abst {
   letter-spacing: 0.5px
 }
-.thumbnail-area {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: center;
-}
-.thumbnail {
-  width: auto;
-  height: 10vh;
-}
-
 </style>
