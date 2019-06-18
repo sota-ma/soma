@@ -14,6 +14,7 @@
           :title="column.title"
           :date="column.createdAt"
           content-type="columns"
+          @card-click="toSlug"
         />
       </div>
     </div>
@@ -40,6 +41,11 @@ export default {
   },
   async fetch({ store }) {
     await store.dispatch('column/fetchColumns')
+  },
+  methods: {
+    toSlug(id) {
+      this.$router.push(`/columns/${id}`)
+    }
   }
 }
 
