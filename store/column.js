@@ -29,7 +29,7 @@ export const actions = {
     const columnList = new ColumnList(columns.items)
     commit('SET_COLUMNS', { columns: columnList })
   },
-  async fetchColumnDetail({ commit }, slug) {
+  async fetchColumnDetail({ commit }, { slug }) {
     const res = await repository.fetch({ slug })
     const columnDetail = new ColumnDetail({
       id: res.sys.id,
