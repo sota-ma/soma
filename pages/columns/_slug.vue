@@ -38,7 +38,7 @@
         </span>
       </div>
       <div class="row">
-        <div id="document" class="col-sm-6 offset-sm-3">
+        <div id="document" class="col-sm-8 offset-sm-2">
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="renderedDocument()" />
         </div>
@@ -94,7 +94,7 @@ export default {
           'embedded-asset-block': (node) => {
             const file = node.data.target.fields.file
             const jsx = this.renderImage(file)
-            return '<img src=' + jsx.data.attrs.src + '>'
+            return '<img src=' + jsx.data.attrs.src + ' style="max-width: 100%;">'
           }
         }
       }
@@ -105,6 +105,7 @@ export default {
 </script>
 
 <style scoped>
+
 .container-slug {
   padding: 0 5% 0 5%;
 }
