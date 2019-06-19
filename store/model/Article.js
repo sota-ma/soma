@@ -1,13 +1,14 @@
 class Article {
-  constructor(props) {
-    this.id = props.sys.id
-    this.titleEn = props.fields.titleEn
-    this.titleJa = props.fields.titleJa
-    this.tags = props.fields.tags
-    this.abstractEn = props.fields.abstractEn
-    this.abstractJa = props.fields.abstractJa
-    this.publishedDate = props.fields.publishedDate
-    this.createdAt = props.sys.createdAt
+  constructor({ id, titleEn, titleJa, tags, abstractEn, abstractJa, publishedDate, createdAt, images }) {
+    this.id = id
+    this.titleEn = titleEn
+    this.titleJa = titleJa
+    this.tags = tags
+    this.abstractEn = abstractEn
+    this.abstractJa = abstractJa
+    this.publishedDate = publishedDate
+    this.createdAt = createdAt
+    this.images = images
   }
 }
 
