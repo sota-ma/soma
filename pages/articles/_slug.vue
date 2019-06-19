@@ -188,7 +188,7 @@ export default {
 
 <style scoped>
 .container-slug {
-  padding: 0 5% 0 %;
+  padding: 0 5% 0 5%;
   max-width: 80%;
 }
 
