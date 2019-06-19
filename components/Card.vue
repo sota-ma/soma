@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div :id="title" class="card" >
     <div class="card-body" @click="click">
       <h5 class="abst font-weight-bold">
         {{ title }}
@@ -16,10 +16,20 @@
         作成者：
       </div>
     </div>
+    <b-popover v-if="heading" :target="title" triggers="hover focus" class="popover">
+      <div v-if="images.length !== 0" class="image-area">
+        <img :src="images[0].url">
+      </div>
+      <div class="abst-area">
+        <span>{{heading}}</span>
+      </div>
+    </b-popover>
   </div>
 </template>
 
 <script>
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+
 export default {
   props: {
     title: {
@@ -41,11 +51,22 @@ export default {
     contentType: {
       type: String,
       default: 'article'
+    },
+    images: {
+      type: Array,
+      default: () => []
+    },
+    heading: {
+      type: String,
+      default: ''
     }
   },
   methods: {
     click() {
       this.$emit('card-click', this.id)
+    },
+    docToHtmlString(doc) {
+      return documentToHtmlString(doc)
     }
   }
 }
@@ -65,4 +86,20 @@ export default {
 .abst {
   letter-spacing: 0.5px
 }
+.popover {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.popover .image-area {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 10vh;
+}
+.popover .image-area img {
+  height: 100%;
+  width: auto;
+}
+
 </style>

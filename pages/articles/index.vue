@@ -19,6 +19,8 @@
           :title="article.titleJa"
           :date="article.createdAt"
           :published-date="article.publishedDate"
+          :images="article.images"
+          :heading="article.heading"
           content-type="articles"
           @card-click="toSlug"
         />

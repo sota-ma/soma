@@ -9,6 +9,14 @@ class Article {
     this.publishedDate = publishedDate
     this.createdAt = createdAt
     this.images = images
+    this.heading = Article.getHeading(abstractJa)
+  }
+
+  static getHeading(abstractJa) {
+    if (!abstractJa) return ''
+    const paragraphs = abstractJa.content.filter(c => c.nodeType === 'paragraph')
+    if (paragraphs.length === 0) return ''
+    return paragraphs[0].content[0].value.slice(0, 100) + '...'
   }
 }
 
