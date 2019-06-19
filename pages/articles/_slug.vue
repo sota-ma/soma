@@ -41,8 +41,8 @@
         <!-- キーワード等と同じように、右に「あり」「なし」を表示する-->
       </div>
 
-      <div class="button-and-thumbnail row">
-        <div class="button-area col-sm-3">
+      <div class="button">
+        <div class="button-area">
           <a :href="articleDetail.articleURL" class="article-link">
             <button class="btn btn-outline-info font-weight-bold">
               PDF </button>
@@ -50,9 +50,6 @@
           <button v-if="loggedin" class="article-link btn btn-outline-success" @click="toggleFavorite">
             「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
           </button>
-        </div>
-        <div class="thumbnail-area col-sm-6">
-          <img v-for="image in articleDetail.images" :key="image.name" :src="image.url" class="thumbnail">
         </div>
       </div>
       <div>
@@ -220,7 +217,7 @@ export default {
   width: 100vw;
 }
 
-.button-and-thumbnail .thumbnail-area {
+.button {
   height: 15vh;
   display: flex;
   justify-content: flex-start;
