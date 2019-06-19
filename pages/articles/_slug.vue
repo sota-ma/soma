@@ -249,10 +249,6 @@ export default {
   margin: 10px;
 }
 
-.dataset-table {
-  max-width: 800px;
-}
-
 .abstract-title{
   margin-top: 40px;
 }
