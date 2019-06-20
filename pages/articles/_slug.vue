@@ -5,7 +5,7 @@
       <div class="text-muted text-right">
         <p id="created-date" class="article-date">
           記事の作成日: {{ articleDetail.createdAt && articleDetail.createdAt.substr(0,10) }}
-          作成者: hoge
+          作成者: {{ articleDetail.writer }}
         </p>
       </div>
       <div>
@@ -188,7 +188,7 @@ export default {
 
 <style scoped>
 .container-slug {
-  padding: 0 5% 0 %;
+  padding: 0 5% 0 5%;
   max-width: 80%;
 }
 

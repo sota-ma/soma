@@ -38,7 +38,8 @@ export default {
         abstractJa: item.fields.abstractJa,
         publishedDate: item.fields.publishedDate,
         createdAt: item.sys.createdAt,
-        images
+        images,
+        writer: item.fields.writer || ''
       }
     })
   },
@@ -75,7 +76,9 @@ export default {
       articleURL: item.fields.linkToArticle || '',
       benchmark: item.fields.benchmark || '',
       departments: item.fields.relatedDepartment || '',
-      images: images
+      images: images,
+      writer: item.fields.writer.fields.nameJa || item.fields.writer.fields.handleName || '',
+      validator: item.fields.validator.fields.nameJa || item.fields.writer.fields.handlename || ''
     }
   }
 }
