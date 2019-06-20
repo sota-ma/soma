@@ -19,6 +19,8 @@
           :title="article.titleJa"
           :date="article.createdAt"
           :published-date="article.publishedDate"
+          content-type="articles"
+          @card-click="toSlug"
         />
         <result-card
           v-show="resultCardIsVisible"
@@ -111,6 +113,9 @@ export default {
       this.clearCategory()
       this.setFilteringWords({ filteringWords })
       this.resultCardIsVisible = false
+    },
+    toSlug(id) {
+      this.$router.push(`/articles/${id}`)
     }
   }
 }

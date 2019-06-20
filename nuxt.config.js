@@ -34,7 +34,8 @@ module.exports = {
   plugins: [
     '~/plugins/contentful.js',
     '~/plugins/firebase.js',
-    '~/plugins/consola.js'
+    '~/plugins/consola.js',
+    { src: '~plugins/ga.js', ssr: false }
   ],
 
   /*

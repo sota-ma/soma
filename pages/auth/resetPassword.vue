@@ -61,7 +61,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 .card-style {
     max-width: 350px;

@@ -12,6 +12,9 @@
           <b-nav-item to="/articles" :class="{ active:articlesIsActive }">
             Articles
           </b-nav-item>
+          <b-nav-item to="/columns" :class="{ active:columnsIsActive }">
+            Columns
+          </b-nav-item>
           <b-nav-item to="/about" :class="{ active:aboutIsActive }">
             About
           </b-nav-item>
@@ -51,6 +54,9 @@ export default {
     },
     articlesIsActive() {
       return this.currentRoute === 'articles'
+    },
+    columnsIsActive() {
+      return this.currentRoute === 'columns'
     },
     contactIsActive() {
       return this.currentRoute === 'contact'

@@ -1,23 +1,23 @@
 <template>
   <div class="form-dev">
     <b-form inline @submit.prevent="submitData" @reset.prevent="resetData">
-      <b-form-input
-        v-model="form.filteringWords"
-        required
-        placeholder="Search..."
-        class="input-form"
-      />
       <b-form-select
         v-model="form.category"
         :options="categories"
         required
         class="category-form"
       />
-      <b-button type="submit" variant="primary" size="md">
+      <b-form-input
+        v-model="form.filteringWords"
+        required
+        placeholder="Search..."
+        class="input-form"
+      />
+      <b-button type="submit" variant="primary" size="md" class="button-searchform">
         検索
       </b-button>
-      <b-button type="reset" variant="danger" size="md">
-        reset
+      <b-button type="reset" variant="outline-danger" size="md" class="button-searchform">
+        Reset
       </b-button>
     </b-form>
     <b-button
@@ -69,16 +69,23 @@ export default {
 </script>
 
 <style scoped>
+.form-dev {
+  text-align: center;
+  width: 80%;
+  margin: 1rem auto 1rem auto;
+}
 .category-form {
   width: 20%;
+  margin: 0 3rem 0 0;
+  min-width: 12rem;
 }
 .input-form {
   width: 40%;
-  margin-left: 3rem
+  margin-right: 0.25rem;
+  min-width: 12rem;
 }
-.form-dev {
-  text-align: center;
-  margin: 1rem;
+.button-searchform{
+  margin: 0 0.25rem;
 }
 .restore-button {
   margin-top: 1rem;

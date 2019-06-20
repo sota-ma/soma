@@ -1,7 +1,9 @@
 import ArticleRepository from './ArticleRepository'
+import ColumnRepository from './ColumnRepository'
 
 const repositories = {
-  article: ArticleRepository
+  article: ArticleRepository,
+  column: ColumnRepository
 }
 
 export const RepositoryFactory = {

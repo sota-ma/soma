@@ -40,6 +40,7 @@
 <script>
 import Header from '@/components/Header'
 import firebase from 'firebase'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -52,23 +53,30 @@ export default {
     }
   },
   methods: {
+    ...mapActions('error', ['setError', 'clearError']),
     signIn() {
+      this.clearError()
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           this.$store.dispatch('user/checkAuthState')
           this.$router.push('/articles')
         })
         .catch((e) => {
-          if (e.code === 'auth/invalid-email') {
-            alert('無効なメールアドレスです。')
-          } else if (e.code === 'auth/user-disabled') {
-            alert('このユーザーは現在使用できません。')
-          } else if (e.code === 'auth/user-not-found') {
-            alert('メールアドレスに対応するユーザーが存在しません。')
-          } else if (e.code === 'auth/wrong-password') {
-            alert('パスワードを間違えています。')
-          } else {
-            alert('不明なエラーが発生しました。運営にお問い合わせください。')
+          switch (e.code) {
+            case 'auth/invalid-email':
+              this.setError({ msg: '無効なメールアドレスです。' })
+              break
+            case 'auth/user-disabled':
+              this.setError({ msg: 'このユーザーは現在使用できません。' })
+              break
+            case 'auth/user-not-found':
+              this.setError({ msg: 'メールアドレスに対応するユーザーが存在しません。' })
+              break
+            case 'auth/wrong-password':
+              this.setError({ msg: 'パスワードを間違えています。' })
+              break
+            default:
+              this.setError({ msg: '不明なエラーが発生しました。運営にお問い合わせください。' })
           }
         })
     }
@@ -77,7 +85,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 .card-style {
     max-width: 350px;

@@ -1,17 +1,31 @@
 <template>
   <div>
+    <ErrorAlert v-show="errorMsg" :message="errorMsg" @close-click="clearError" />
     <nuxt />
   </div>
 </template>
+
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import ErrorAlert from '../components/ErrorAlert'
 
 export default {
+  components: {
+    ErrorAlert
+  },
+  computed: {
+    ...mapGetters('error', ['errorMsg'])
+  },
   created() {
     this.$store.dispatch('user/checkAuthState')
+  },
+  methods: {
+    ...mapActions('error', ['clearError'])
   }
 }
 
 </script>
+
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -30,6 +44,15 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+.container {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .button--green {
