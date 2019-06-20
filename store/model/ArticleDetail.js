@@ -1,5 +1,5 @@
 class ArticleDetail {
-  constructor({ id, titleJa, titleEn, createdAt, publishedDate, abstractEn, abstractJa, tags, articleURL, benchmark, departments, images, writer, validator }) {
+  constructor({ id, titleJa, titleEn, createdAt, publishedDate, abstractEn, abstractJa, tags, articleURL, benchmark, departments, images, writer, validator, availability }) {
     this.id = id
     this.titleJa = titleJa
     this.titleEn = titleEn
@@ -14,6 +14,7 @@ class ArticleDetail {
     this.images = images
     this.writer = writer
     this.validator = validator
+    this.availability = availability
   }
 }
 

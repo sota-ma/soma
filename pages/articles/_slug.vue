@@ -39,7 +39,7 @@
       </div>
       <div class="tagline-style">
         <span> データセットの有無:  </span>
-        <!-- キーワード等と同じように、右に「あり」「なし」を表示する-->
+        <span> {{ articleDetail.availability }} </span>
       </div>
 
       <div class="button">

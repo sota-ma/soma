@@ -64,6 +64,7 @@ export default {
       )
     const writer = item.fields.writer ? item.fields.writer.fields.handleName : ''
     const validator = item.fields.validator ? item.fields.validator.fields.handleName : ''
+    const availability = item.fields.benchmark ? (item.fields.benchmark.filter(b => b.availability !== 'unavailable').length > 0 ? 'あり' : 'なし') : ''
     return {
       id: item.sys.id,
       article: item,
@@ -79,7 +80,8 @@ export default {
       departments: item.fields.relatedDepartment || '',
       images: images,
       writer: writer,
-      validator: validator
+      validator: validator,
+      availability: availability
     }
   }
 }
