@@ -75,7 +75,9 @@ export default {
       articleURL: item.fields.linkToArticle || '',
       benchmark: item.fields.benchmark || '',
       departments: item.fields.relatedDepartment || '',
-      images: images
+      images: images,
+      writer: item.fields.writer.fields.handleName || '',
+      validator: item.fields.validator.fields.handleName || ''
     }
   }
 }
