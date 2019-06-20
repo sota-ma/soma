@@ -90,7 +90,7 @@ export default {
           'embedded-asset-block': (node) => {
             const file = node.data.target.fields.file
             const jsx = this.renderImage(file)
-            return '<img src=' + jsx.data.attrs.src + ' style="max-width: 100%;">'
+            return '<div align="center"><img src=' + jsx.data.attrs.src + ' style="max-width: 80%;"></div>'
           }
         }
       }

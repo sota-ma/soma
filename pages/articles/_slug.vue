@@ -41,8 +41,8 @@
         <!-- キーワード等と同じように、右に「あり」「なし」を表示する-->
       </div>
 
-      <div class="button-and-thumbnail row">
-        <div class="button-area col-sm-3">
+      <div class="button">
+        <div class="button-area">
           <a :href="articleDetail.articleURL" class="article-link">
             <button class="btn btn-outline-info font-weight-bold">
               PDF </button>
@@ -50,9 +50,6 @@
           <button v-if="loggedin" class="article-link btn btn-outline-success" @click="toggleFavorite">
             「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
           </button>
-        </div>
-        <div class="thumbnail-area col-sm-6">
-          <img v-for="image in articleDetail.images" :key="image.name" :src="image.url" class="thumbnail">
         </div>
       </div>
       <div>
@@ -66,14 +63,14 @@
             要旨
           </h4>
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <span v-html="docToHtmlString(articleDetail.abstractJa)" />
+          <span v-html="renderHtmlString(articleDetail.abstractJa)" />
         </div>
         <div id="abstract-en">
           <h4 class="abstract-title font-weight-bold">
             要旨(原文)
           </h4>
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <span v-html="docToHtmlString(articleDetail.abstractEn)" />
+          <span v-html="renderHtmlString(articleDetail.abstractEn)" />
         </div>
       </div>
       <div>
@@ -179,8 +176,16 @@ export default {
         this.favoriteArticle()
       }
     },
-    docToHtmlString(doc) {
-      return documentToHtmlString(doc)
+    renderHtmlString(doc) {
+      const options = {
+        renderNode: {
+          'embedded-asset-block': (node) => {
+            const file = node.data.target.fields.file
+            return '<div align="center"><img src=' + file.url + ' style="max-width: 80%;"></div>'
+          }
+        }
+      }
+      return documentToHtmlString(doc, options)
     }
   }
 }
@@ -188,7 +193,7 @@ export default {
 
 <style scoped>
 .container-slug {
-  padding: 0 5% 0 %;
+  padding: 0 5% 0 5%;
   max-width: 80%;
 }
 
@@ -220,16 +225,11 @@ export default {
   width: 100vw;
 }
 
-.button-and-thumbnail .thumbnail-area {
+.button {
   height: 15vh;
   display: flex;
   justify-content: flex-start;
   overflow-x: scroll;
-}
-
-.thumbnail {
-  height: 100%;
-  width: auto;
 }
 
 .article-date{
