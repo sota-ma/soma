@@ -4,22 +4,22 @@
     <div class="container-fluid container-slug">
       <div class="text-muted text-right">
         <p id="created-date" class="article-date">
-          記事の作成日: {{ createdAt && createdAt.substr(0,10) }}
+          記事の作成日: {{ articleDetail.createdAt && articleDetail.createdAt.substr(0,10) }}
           作成者: hoge
         </p>
       </div>
       <div>
         <div id="title-ja" class="slug-title font-weight-bold">
-          {{ titleJa }}
+          {{ articleDetail.titleJa }}
         </div>
         <div id="title-en" class="slug-subtitle">
-          {{ titleEn }}
+          {{ articleDetail.titleEn }}
         </div>
       </div>
       <div class="tagline-style">
         <span> キーワード:  </span>
         <span
-          v-for="(tag, index) in tags"
+          v-for="(tag, index) in articleDetail.tags"
           :key="index"
           class="tag-style badge badge-primary"
         >
@@ -29,7 +29,7 @@
       <div class="tagline-style">
         <span> 関連する診療科:  </span>
         <span
-          v-for="(department, index) in departments"
+          v-for="(department, index) in articleDetail.departments"
           :key="index"
           class="tag-style badge badge-info"
         >
@@ -39,20 +39,22 @@
       <div class="tagline-style">
         <span> データセットの有無:  </span>
         <!-- キーワード等と同じように、右に「あり」「なし」を表示する-->
-        </span>
       </div>
-      <div>
-        <a :href="articleURL" class="article-link">
-          <button class="btn btn-outline-info font-weight-bold">
-            PDF </button>
-        </a>
-        <button v-if="loggedin" class="article-link btn btn-outline-success" @click="toggleFavorite">
-          「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
-        </button>
+
+      <div class="button">
+        <div class="button-area">
+          <a :href="articleDetail.articleURL" class="article-link">
+            <button class="btn btn-outline-info font-weight-bold">
+              PDF </button>
+          </a>
+          <button v-if="loggedin" class="article-link btn btn-outline-success" @click="toggleFavorite">
+            「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
+          </button>
+        </div>
       </div>
       <div>
         <p id="published-date" class="slug-date borderline">
-          published at {{ publishedDate && publishedDate.substr(0,10) }}
+          published at {{ articleDetail.publishedDate && articleDetail.publishedDate.substr(0,10) }}
         </p>
       </div>
       <div>
@@ -61,14 +63,14 @@
             要旨
           </h4>
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <span v-html="abstractJa" />
+          <span v-html="renderHtmlString(articleDetail.abstractJa)" />
         </div>
         <div id="abstract-en">
           <h4 class="abstract-title font-weight-bold">
             要旨(原文)
           </h4>
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <span v-html="abstractEn" />
+          <span v-html="renderHtmlString(articleDetail.abstractEn)" />
         </div>
       </div>
       <div>
@@ -76,7 +78,7 @@
           スコア
         </h4>
         <div class="table-responsive">
-          <table v-if="benchmark" class="table dataset-table">
+          <table v-if="articleDetail.benchmark" class="table dataset-table">
             <thead class="thead-light">
               <tr>
                 <th scope="col">
@@ -93,7 +95,7 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="(dataset,i) in benchmark">
+              <template v-for="(dataset,i) in articleDetail.benchmark">
                 <tr v-for="(score, j) in dataset.scores" :key="i+','+j">
                   <th v-if="j === 0" scope="row">
                     {{ dataset.dataset }}
@@ -127,8 +129,6 @@
 import Header from '~/components/Header'
 import { mapGetters } from 'vuex'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import contentful from '~/plugins/contentful'
-const client = contentful.createClient()
 
 export default {
   transition: 'slide-right',
@@ -137,37 +137,17 @@ export default {
   },
   computed: {
     ...mapGetters('user', ['loggedin']),
+    ...mapGetters('article', ['articleDetail']),
     isFavoritedArticle() {
-      return this.$store.getters['user/favoritedArticles'].some(article => article.sys.id === this.articleId)
+      return this.$store.getters['user/favoritedArticles'].some(article => article.sys.id === this.articleDetail.id)
     }
   },
-  asyncData({ error, params }) {
-    return client
-      .getEntries({
-        'sys.id': params.slug
-      })
-      .then((entry) => {
-        return {
-          article: entry.items[0]
-        }
-      })
-      .then(({ article }) => {
-        return {
-          articleId: article.sys.id,
-          article: article,
-          titleJa: article.fields.titleJa,
-          titleEn: article.fields.titleEn,
-          createdAt: article.sys.createdAt,
-          publishedDate: article.fields.publishedDate,
-          abstractEn: documentToHtmlString(article.fields.abstractEn),
-          abstractJa: documentToHtmlString(article.fields.abstractJa),
-          tags: article.fields.tag,
-          articleURL: article.fields.linkToArticle,
-          benchmark: article.fields.benchmark,
-          departments: article.fields.relatedDepartment
-        }
-      })
-      .catch(err => error({ message: err.message }))
+  async fetch({ store, params, error }) {
+    try {
+      await store.dispatch('article/fetchArticleDetail', { slug: params.slug })
+    } catch (e) {
+      error({ message: e.message })
+    }
   },
   methods: {
     formattedAvailability(text) {
@@ -184,10 +164,10 @@ export default {
       }
     },
     favoriteArticle() {
-      this.$store.dispatch('user/favArticle', { articleId: this.articleId })
+      this.$store.dispatch('user/favArticle', { articleId: this.articleDetail.id })
     },
     unfavoriteArticle() {
-      this.$store.dispatch('user/unfavArticle', { articleId: this.articleId })
+      this.$store.dispatch('user/unfavArticle', { articleId: this.articleDetail.id })
     },
     toggleFavorite() {
       if (this.isFavoritedArticle) {
@@ -195,6 +175,17 @@ export default {
       } else {
         this.favoriteArticle()
       }
+    },
+    renderHtmlString(doc) {
+      const options = {
+        renderNode: {
+          'embedded-asset-block': (node) => {
+            const file = node.data.target.fields.file
+            return '<div align="center"><img src=' + file.url + ' style="max-width: 80%;"></div>'
+          }
+        }
+      }
+      return documentToHtmlString(doc, options)
     }
   }
 }
@@ -202,7 +193,7 @@ export default {
 
 <style scoped>
 .container-slug {
-  padding: 0 5% 0 %;
+  padding: 0 5% 0 5%;
   max-width: 80%;
 }
 
@@ -217,7 +208,7 @@ export default {
   padding: 10px 10px 0px 0px;
 }
 
-.btn{
+.btn {
   margin-left: -10px;
 }
 
@@ -228,6 +219,13 @@ export default {
 .tag-style {
   margin: 0 5px;
   font-size: 16px;
+}
+
+.button {
+  height: 15vh;
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: scroll;
 }
 
 .article-date{
@@ -247,10 +245,6 @@ export default {
 .article-link {
   display: inline-block;
   margin: 10px;
-}
-
-.dataset-table {
-  max-width: 800px;
 }
 
 .abstract-title{

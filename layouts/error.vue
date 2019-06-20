@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Header></Header>
+    <Header />
     <div class="row">
       <div class="col-md-12">
         <div class="error-template">
@@ -11,7 +11,8 @@
           </div>
           <div class="error-actions">
             <a href="/" class="btn btn-primary btn-lg"><span
-              class="glyphicon glyphicon-home"></span>
+              class="glyphicon glyphicon-home"
+            />
               Home</a>
           </div>
         </div>
