@@ -62,6 +62,8 @@ export default {
           }
         }
       )
+    const writer = item.fields.writer ? item.fields.writer.fields.handleName : ''
+    const validator = item.fields.validator ? item.fields.validator.fields.handleName : ''
     return {
       id: item.sys.id,
       article: item,
@@ -76,8 +78,8 @@ export default {
       benchmark: item.fields.benchmark || '',
       departments: item.fields.relatedDepartment || '',
       images: images,
-      writer: item.fields.writer.fields.handleName || '',
-      validator: item.fields.validator.fields.handleName || ''
+      writer: writer,
+      validator: validator
     }
   }
 }
