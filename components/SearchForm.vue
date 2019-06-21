@@ -72,7 +72,6 @@ export default {
 .form-dev {
   text-align: center;
   width: 80%;
-  margin: 1rem auto 1rem auto;
 }
 .category-form {
   width: 20%;
