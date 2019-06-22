@@ -4,21 +4,21 @@
     <div class="container">
       <div class="card card-style">
         <h2 class="card-title">
-          パスワード更新・再設定
+          メールアドレス変更
         </h2>
-        <form class="form-signin" @submit.prevent="sendEmail">
-          <span id="reauth-email" class="reauth-email" />
+        <form class="form-change-email" @submit.prevent="changeEmail">
+          <span id="change-email" class="change-email" />
           <input
-            id="input-email"
-            v-model="email"
+            id="new-email"
+            v-model="newEmail"
             type="email"
             class="form-control"
-            placeholder="メールアドレス"
+            placeholder="新しいメールアドレス"
             required
             autofocus
           >
-          <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
-            確認メール送信
+          <button class="btn btn-lg btn-primary btn-block btn-change-email" type="submit">
+            登録
           </button>
         </form>
       </div>
@@ -29,6 +29,7 @@
 <script>
 import Header from '@/components/Header'
 import firebase from 'firebase'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -36,23 +37,33 @@ export default {
   },
   data() {
     return {
-      email: ''
+      currentEmail: '',
+      newEmail: ''
     }
   },
   methods: {
-    sendEmail() {
-      firebase.auth().sendPasswordResetEmail(this.email)
+    ...mapActions('error', ['setError', 'clearError']),
+    changeEmail() {
+      this.clearError()
+      const user = firebase.auth().currentUser
+      user.updateEmail(this.newEmail)
         .then(() => {
-          alert('再設定用のメールを送信しました')
-          this.$router.push('/auth/signin')
+          this.$store.dispatch('user/checkAuthState')
+          this.$router.push('/articles')
         })
         .catch((e) => {
-          if (e.code === 'auth/invalid-email') {
-            alert('メールアドレスが無効です。')
-          } else if (e.code === 'auth/user-not-found') {
-            alert('メールアドレスに対応するユーザーが存在しません。')
-          } else {
-            alert('不明なエラーが発生しました。運営にお問い合わせください。')
+          switch (e.code) {
+            case 'auth/invalid-email':
+              this.setError({ msg: '無効なメールアドレスです。' })
+              break
+            case 'auth/email-already-in-use':
+              this.setError({ msg: 'このメールアドレスは既に使われています。' })
+              break
+            case 'auth/requires-recent-login':
+              this.setError({ msg: 'この操作を行うためには最近ログインしている必要があります。' })
+              break
+            default:
+              this.setError({ msg: '不明なエラーが発生しました。運営にお問い合わせください。' })
           }
         })
     }
@@ -77,10 +88,10 @@ export default {
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.form-signin input[type=email],
-.form-signin input[type=password],
-.form-signin input[type=text],
-.form-signin button {
+.form-change-email input[type=email],
+.form-change-email input[type=password],
+.form-change-email input[type=text],
+.form-change-email button {
     width: 100%;
     display: block;
     margin-bottom: 10px;
@@ -91,14 +102,14 @@ export default {
     box-sizing: border-box;
 }
 
-.form-signin .form-control:focus {
+.form-change-email .form-control:focus {
     border-color: rgb(104, 145, 162);
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
 }
 
-.btn.btn-signin {
+.btn.btn-change-email {
     background-color: rgb(104, 145, 162);
     padding: 0px;
     font-weight: 700;
@@ -118,16 +129,6 @@ export default {
 .btn.btn-signin:active,
 .btn.btn-signin:focus {
     background-color: rgb(12, 97, 33);
-}
-
-.forgot-password {
-    color: rgb(104, 145, 162);
-}
-
-.forgot-password:hover,
-.forgot-password:active,
-.forgot-password:focus{
-    color: rgb(12, 97, 33);
 }
 
 </style>
