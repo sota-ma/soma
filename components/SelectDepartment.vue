@@ -15,8 +15,12 @@
 export default {
   data() {
     return {
-      department: '',
-      candidates: [
+      department: ''
+    }
+  },
+  computed: {
+    candidates() {
+      return [
         '脳神経外科',
         '循環器内科',
         '精神科',
