@@ -21,7 +21,7 @@
         <img :src="images[0].url">
       </div>
       <div class="abst-area">
-        <span>{{ heading }}</span>
+        <span>{{ heading.substr(0, 35) }}...</span>
       </div>
     </b-popover>
   </div>
@@ -90,16 +90,22 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  height: 28vh;
 }
 .popover .image-area {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 10vh;
+  height: 20vh;
 }
 .popover .image-area img {
   height: 100%;
   width: auto;
+}
+.popover .abst-area {
+  margin-top: 1vh;
+  width: 100%;
+  height: 7vh;
 }
 
 </style>
