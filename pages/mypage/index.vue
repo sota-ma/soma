@@ -5,10 +5,18 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <div id="about-page-body" class="container-fluid text-center">
+    <div align=center>
+      <button class="btn btn-info" @click="changeEmail">
+        メールアドレスの変更
+      </button>
+      <button class="btn btn-info" @click="changePassword">
+        パスワードの変更
+      </button>
+    </div>
+    <div class="container-fluid text-center">
       <h4>あなたのお気に入り論文</h4>
     </div>
-    <div id="about-page-writers">
+    <div>
       <h3 class="container-fluid text-center">
         Favs
       </h3>
@@ -48,6 +56,14 @@ export default {
         store.dispatch('fetchArticles')])
     } catch (e) {
       error({ message: e.message })
+    }
+  },
+  methods: {
+    changeEmail() {
+      this.$router.push('/auth/changeEmail')
+    },
+    changePassword() {
+      this.$router.push('/auth/resetPassword')
     }
   }
 }

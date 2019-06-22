@@ -5,12 +5,14 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <search-form
-      @request-filter="mutateFilterQueryFilter"
-      @request-restore="mutateFilterQueryReset"
-    />
-    <select-form-sort class="select-form" @request-sort="changeSortOrder" />
     <div class="container-fluid">
+      <search-form
+        @request-filter="mutateFilterQueryFilter"
+        @request-restore="mutateFilterQueryReset"
+      />
+    </div>
+    <div class="container-fluid">
+      <select-form-sort class="select-form" @request-sort="changeSortOrder" />
       <div id="articles-card-column" class="card-deck">
         <article-card
           v-for="article in shownArticles"
@@ -134,8 +136,7 @@ export default {
   }
   .select-form {
     width: 15rem;
-    margin-top: 2rem;
-    margin-left: 1rem
+    margin: 2rem 0 1rem 0;
   }
   .under-search {
     display: inline-block;
@@ -145,5 +146,6 @@ export default {
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    max-width: 95%;
   }
 </style>
