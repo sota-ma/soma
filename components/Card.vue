@@ -1,5 +1,5 @@
 <template>
-  <div :id="title" class="card" >
+  <div :id="title" class="card">
     <div class="card-body" @click="click">
       <h5 class="abst font-weight-bold">
         {{ title }}
@@ -21,7 +21,7 @@
         <img :src="images[0].url">
       </div>
       <div class="abst-area">
-        <span>{{heading}}</span>
+        <span>{{ heading }}</span>
       </div>
     </b-popover>
   </div>
