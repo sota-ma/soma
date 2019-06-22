@@ -12,7 +12,7 @@ export default {
   name: 'ErrorAlert',
   props: {
     message: {
-      type: [String, Boolean],
+      type: String,
       default: 'すみません、エラーが発生しました。時間をおいて再度やり直してください。'
     }
   },
