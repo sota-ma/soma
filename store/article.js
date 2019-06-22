@@ -26,6 +26,7 @@ export const state = () => ({
   articles: [],
   fetched: false,
   filteringWords: [],
+  filteringDepartment: '',
   category: '',
   sortOrder: 1,
   articleDetail: undefined
@@ -43,6 +44,9 @@ export const mutations = {
   },
   SET_FILTERING_WORDS(state, { filteringWords }) {
     state.filteringWords = filteringWords
+  },
+  SET_FILTERING_DEPARTMENT(state, { department }) {
+    state.filteringDepartment = department
   },
   SET_ARTICLE_DETAIL(state, { articleDetail }) {
     state.articleDetail = articleDetail
@@ -74,6 +78,9 @@ export const actions = {
   },
   setFilteringWords({ commit }, { filteringWords }) {
     commit('SET_FILTERING_WORDS', { filteringWords })
+  },
+  setFilteringDepartment({ commit }, { department }) {
+    commit('SET_FILTERING_DEPARTMENT', { department })
   }
 }
 
@@ -84,7 +91,13 @@ export const getters = {
   filteredArticles(state) {
     const category = state.category
     const filteringWords = state.filteringWords
-    return state.articles.getFilteredArticles({ filteringWords, category })
+    const filteringDepartment = state.filteringDepartment
+    return state.articles.getFilteredArticles(
+      {
+        filteringDepartment,
+        filteringWords,
+        category
+      })
   },
   articleDetail(state) {
     return state.articleDetail

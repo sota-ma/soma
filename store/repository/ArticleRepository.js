@@ -38,6 +38,7 @@ export default {
         abstractJa: item.fields.abstractJa,
         publishedDate: item.fields.publishedDate,
         createdAt: item.sys.createdAt,
+        departments: item.fields.relatedDepartment || [],
         images
       }
     })

@@ -31,8 +31,10 @@ class ArticleList {
     return text.toLowerCase().indexOf(word.toLowerCase()) !== -1
   }
 
-  getFilteredArticles({ filteringWords, category }) {
-    const slicedList = this.list.slice()
+  getFilteredArticles({ filteringDepartment, filteringWords, category }) {
+    const slicedList = this.list.filter(
+      article => article.departments.includes(filteringDepartment)
+    ).slice()
     switch (category) {
       case CATEGORY_TITLE_JA:
         return slicedList.filter(
@@ -51,7 +53,7 @@ class ArticleList {
           article => filteringWords.every(word => this._isIncludedWord({ text: documentToHtmlString(article.abstractJa), word }))
         )
       default:
-        return this.list
+        return slicedList
     }
   }
 
