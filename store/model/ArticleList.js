@@ -33,7 +33,7 @@ class ArticleList {
 
   getFilteredArticles({ filteringDepartment, filteringWords, category }) {
     const slicedList = this.list.filter(
-      article => article.departments.includes(filteringDepartment)
+      article => filteringDepartment !== '' ? article.departments.includes(filteringDepartment) : true
     ).slice()
     switch (category) {
       case CATEGORY_TITLE_JA:
