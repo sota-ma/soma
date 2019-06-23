@@ -5,7 +5,7 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <div align=center>
+    <div align="center">
       <button class="btn btn-info" @click="changeEmail">
         メールアドレスの変更
       </button>
@@ -50,6 +50,10 @@ export default {
       return this.$store.getters['user/favoritedArticles']
     }
   },
+  async fetch({ env, store }) {
+    await Promise.all([store.dispatch('user/fetchUserFavs'),
+      store.dispatch('fetchArticles')])
+  },
   methods: {
     changeEmail() {
       this.$router.push('/auth/changeEmail')
@@ -57,10 +61,6 @@ export default {
     changePassword() {
       this.$router.push('/auth/resetPassword')
     }
-  },
-  async fetch({ env, store }) {
-    await Promise.all([store.dispatch('user/fetchUserFavs'),
-      store.dispatch('fetchArticles')])
   }
 }
 </script>

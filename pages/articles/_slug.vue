@@ -5,7 +5,8 @@
       <div class="text-muted text-right">
         <p id="created-date" class="article-date">
           記事の作成日: {{ articleDetail.createdAt && articleDetail.createdAt.substr(0,10) }}
-          作成者: hoge
+          作成者: {{ articleDetail.writer }}
+          査読者: {{ articleDetail.validator }}
         </p>
       </div>
       <div>
@@ -38,7 +39,7 @@
       </div>
       <div class="tagline-style">
         <span> データセットの有無:  </span>
-        <!-- キーワード等と同じように、右に「あり」「なし」を表示する-->
+        <span> {{ articleDetail.availability }} </span>
       </div>
 
       <div class="button">

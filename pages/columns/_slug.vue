@@ -39,8 +39,7 @@
         </span>
       </div>
       <div>
-        <p class="borderline">
-        </p>
+        <p class="borderline" />
       </div>
       <div>
         <div id="document">
