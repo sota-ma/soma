@@ -5,7 +5,7 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <div align=center>
+    <div align="center">
       <button class="btn btn-info" @click="changeEmail">
         メールアドレスの変更
       </button>
