@@ -10,13 +10,11 @@
       <h4>今後ともよろしくお願いします。</h4>
     </div>
     <div id="about-page-writers">
-      <h3 class="container-fluid text-center">
-        Writers
-      </h3>
       <div class="container-fluid card-deck">
         <writer-card
           v-for="(writer,index) in writers"
           :key="index"
+          :handle-name="writer.handleName"
           :name-ja="writer.nameJa"
           :name-en="writer.nameEn"
           :institution="writer.institution"
@@ -42,17 +40,18 @@ export default {
     })
   },
   async fetch({ store }) {
-    try {
-      await store.dispatch('writer/getWriters')
-    } catch (e) {
-      // TODO: #50が完了次第、そちらを組み込む
-    }
+    await store.dispatch('writer/getWriters')
   }
 }
 </script>
 <style scoped>
+
+#about-page-body {
+  margin-top: 2rem;
+}
+
 #about-page-writers{
-  margin-top: 4rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
