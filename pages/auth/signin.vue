@@ -8,7 +8,7 @@
         </h2>
         <form class="form-signin" @submit.prevent="signIn">
           <span id="reauth-email" class="reauth-email" />
-          <input
+          <b-form-input
             id="input-email"
             v-model="email"
             type="email"
@@ -16,15 +16,33 @@
             placeholder="メールアドレス"
             required
             autofocus
-          >
-          <input
+          />
+          <b-form-input
             id="input-password"
             v-model="password"
             type="password"
             class="form-control"
             placeholder="パスワード"
             required
+          />
+
+          <b-tooltip
+            :show="emailError !== ''"
+            placement="topright"
+            target="input-email"
+            triggers=""
           >
+            <span style="width: 100%">{{ emailError }}</span>
+          </b-tooltip>
+
+          <b-tooltip
+            :show="passwordError !== ''"
+            placement="topright"
+            target="input-password"
+            triggers=""
+          >
+            <span style="width: 100%">{{ passwordError }}</span>
+          </b-tooltip>
           <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
             ログイン
           </button>
@@ -40,7 +58,6 @@
 <script>
 import Header from '@/components/Header'
 import firebase from 'firebase'
-import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -49,13 +66,15 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      emailError: '',
+      passwordError: ''
     }
   },
   methods: {
-    ...mapActions('error', ['setError', 'clearError']),
     signIn() {
-      this.clearError()
+      this.emailError = ''
+      this.passwordError = ''
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           this.$store.dispatch('user/checkAuthState')
@@ -64,19 +83,19 @@ export default {
         .catch((e) => {
           switch (e.code) {
             case 'auth/invalid-email':
-              this.setError({ msg: '無効なメールアドレスです。' })
+              this.emailError = '無効なメールアドレスです。'
               break
             case 'auth/user-disabled':
-              this.setError({ msg: 'このユーザーは現在使用できません。' })
+              this.emailError = 'このユーザーは現在使用できません。'
               break
             case 'auth/user-not-found':
-              this.setError({ msg: 'メールアドレスに対応するユーザーが存在しません。' })
+              this.emailError = 'メールアドレスに対応するユーザーが存在しません。'
               break
             case 'auth/wrong-password':
-              this.setError({ msg: 'パスワードを間違えています。' })
+              this.passwordError = 'パスワードを間違えています。'
               break
             default:
-              this.setError({ msg: '不明なエラーが発生しました。運営にお問い合わせください。' })
+              this.emailError = '不明なエラーが発生しました。運営にお問い合わせください。'
           }
         })
     }
@@ -88,7 +107,7 @@ export default {
 <style scoped>
 
 .card-style {
-    max-width: 350px;
+    max-width: 500px;
     background-color: #F7F7F7;
     padding: 20px 25px 30px;
     margin: 0 auto 25px;
@@ -99,6 +118,10 @@ export default {
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.card {
+  width: 100% !important;
 }
 
 .form-signin input[type=email],
