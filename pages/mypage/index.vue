@@ -50,7 +50,7 @@ export default {
       return this.$store.getters['user/favoritedArticles']
     }
   },
-  async fetch({ env, store }) {
+  async fetch({ store }) {
     await Promise.all([store.dispatch('user/fetchUserFavs'),
       store.dispatch('fetchArticles')])
   },
