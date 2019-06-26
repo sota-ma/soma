@@ -5,6 +5,13 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
+    <div style="width: 100%; height: 3vh"></div>
+    <div class="border"></div>
+    <div style="width: 100%; height: 3vh"></div>
+    <div class="container-fluid text-center">
+      <h4>登録情報の変更</h4>
+    </div>
+    <div style="width: 100%; height: 1vh"></div>
     <div align="center">
       <button class="btn btn-info" @click="changeEmail">
         メールアドレスの変更
@@ -13,13 +20,13 @@
         パスワードの変更
       </button>
     </div>
+    <div style="width: 100%; height: 3vh"></div>
+    <div class="border"></div>
+    <div style="width: 100%; height: 3vh"></div>
     <div class="container-fluid text-center">
       <h4>あなたのお気に入り論文</h4>
     </div>
     <div>
-      <h3 class="container-fluid text-center">
-        Favs
-      </h3>
       <div class="container-fluid">
         <div id="articles-card-column" class="card-deck">
           <article-card
@@ -64,6 +71,10 @@ export default {
   }
 }
 </script>
+
 <style scoped>
+  .card {
+    max-width: 33vw;
+  }
 
 </style>
