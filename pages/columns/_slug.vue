@@ -18,7 +18,7 @@
           「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
         </button>
       </div>
-      <div>
+      <div class="tagline-style">
         <span class="tag-style"> キーワード:  </span>
         <span
           v-for="(tag, index) in columnDetail.tags"
@@ -28,7 +28,7 @@
           {{ tag }}
         </span>
       </div>
-      <div>
+      <div class="tagline-style">
         <span class="tag-style"> 関連する診療科:  </span>
         <span
           v-for="(department, index) in columnDetail.departments"
@@ -134,6 +134,10 @@ export default {
 .slug-date {
   font-size: 12px;
   padding-top: 10px;
+}
+
+.tagline-style {
+  margin: 10px 0 10px 0;
 }
 
 .article-link {
