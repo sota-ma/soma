@@ -83,6 +83,16 @@ app.get('/columns/:slug', (req, res) => {
     })
 })
 
+app.get('/mypage', (req, res) => {
+  nuxt.renderRoute('/mypage', { req })
+    .then((result) => {
+      res.send(result.html)
+    })
+    .catch((e) => {
+      res.send(e)
+    })
+})
+
 exports.ssrapp = functions.https.onRequest(app)
 
 const admin = require('firebase-admin')
