@@ -32,7 +32,7 @@
             target="input-email"
             triggers=""
           >
-            <span style="width: 100%">{{ emailError }}</span>
+            <span class="error-text">{{ emailError }}</span>
           </b-tooltip>
 
           <b-tooltip
@@ -41,7 +41,7 @@
             target="input-password"
             triggers=""
           >
-            <span style="width: 100%">{{ passwordError }}</span>
+            <span class="error-text">{{ passwordError }}</span>
           </b-tooltip>
           <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
             ログイン
@@ -177,4 +177,7 @@ export default {
     color: rgb(12, 97, 33);
 }
 
+.error-text {
+  width: 100%;
+}
 </style>
