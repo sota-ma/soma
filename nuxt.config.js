@@ -63,6 +63,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'https://us-central1-sota-of-medicalai-test-preview.cloudfunctions.net'
   },
   /*
   ** Build config().contentfuluration
