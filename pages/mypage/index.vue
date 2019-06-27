@@ -5,7 +5,7 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <div class="border"></div>
+    <div class="border" />
     <div id="change-user-info" class="container-fluid text-center">
       <h4>登録情報の変更</h4>
     </div>
@@ -17,7 +17,7 @@
         パスワードの変更
       </button>
     </div>
-    <div class="border"></div>
+    <div class="border" />
     <div id="favorite-papers" class="container-fluid text-center">
       <h4>あなたのお気に入り論文</h4>
     </div>
@@ -31,6 +31,7 @@
             :title="article.fields.titleJa"
             :date="article.sys.createdAt"
             :published-date="article.fields.publishedDate"
+            @card-click="toSlug"
           />
         </div>
       </div>
@@ -54,8 +55,8 @@ export default {
   },
   async fetch({ error, store }) {
     try {
-      await Promise.all([store.dispatch('user/fetchUserFavs'),
-        store.dispatch('fetchArticles')])
+      await store.dispatch('article/fetchArticles')
+      await store.dispatch('user/fetchUserFavs')
     } catch (e) {
       error({ message: e.message })
     }
@@ -66,6 +67,9 @@ export default {
     },
     changePassword() {
       this.$router.push('/auth/resetPassword')
+    },
+    toSlug(id) {
+      this.$router.push(`/articles/${id}`)
     }
   }
 }
