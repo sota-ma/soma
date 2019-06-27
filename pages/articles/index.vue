@@ -103,8 +103,12 @@ export default {
       }
     }
   },
-  async fetch({ env, store }) {
-    await store.dispatch('article/fetchArticles')
+  async fetch({ error, store }) {
+    try {
+      await store.dispatch('article/fetchArticles')
+    } catch (e) {
+      error({ message: e.message })
+    }
   },
   methods: {
     ...mapActions({

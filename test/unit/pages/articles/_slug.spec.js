@@ -36,6 +36,12 @@ describe('pages/articles/_slug.vue', () => {
             }
           }
         }
+      },
+      user: {
+        namespaced: true,
+        getters: {
+          loggedin: () => false
+        }
       }
     }
 

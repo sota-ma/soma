@@ -39,8 +39,12 @@ export default {
       columns: 'column/columns'
     })
   },
-  async fetch({ store }) {
-    await store.dispatch('column/fetchColumns')
+  async fetch({ store, error }) {
+    try {
+      await store.dispatch('column/fetchColumns')
+    } catch (e) {
+      error({ message: e.message })
+    }
   },
   methods: {
     toSlug(id) {

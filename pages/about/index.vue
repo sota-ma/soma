@@ -10,6 +10,9 @@
       <h4>今後ともよろしくお願いします。</h4>
     </div>
     <div id="about-page-writers">
+      <h3 class="container-fluid text-center">
+        Writers
+      </h3>
       <div class="container-fluid card-deck">
         <writer-card
           v-for="(writer,index) in writers"
@@ -39,8 +42,12 @@ export default {
       writers: 'writer/writers'
     })
   },
-  async fetch({ store }) {
-    await store.dispatch('writer/getWriters')
+  async fetch({ store, error }) {
+    try {
+      await store.dispatch('writer/getWriters')
+    } catch (e) {
+      error({ message: e.message })
+    }
   }
 }
 </script>
