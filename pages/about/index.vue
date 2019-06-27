@@ -17,6 +17,7 @@
         <writer-card
           v-for="(writer,index) in writers"
           :key="index"
+          :handle-name="writer.handleName"
           :name-ja="writer.nameJa"
           :name-en="writer.nameEn"
           :institution="writer.institution"
@@ -51,8 +52,13 @@ export default {
 }
 </script>
 <style scoped>
+
+#about-page-body {
+  margin-top: 2rem;
+}
+
 #about-page-writers{
-  margin-top: 4rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
