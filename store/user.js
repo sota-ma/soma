@@ -1,9 +1,6 @@
 
 import firebase from '~/plugins/firebase'
 const db = firebase.firestore()
-const firebaseFunctions = firebase.functions()
-const addFav = firebaseFunctions.httpsCallable('add_fav')
-const removeFav = firebaseFunctions.httpsCallable('remove_fav')
 const favsCollection = db.collection('favs')
 
 export const state = function () {
@@ -18,7 +15,12 @@ export const getters = {
   loggedin: state => (state.userId !== null),
   favoritedArticles(state, getters, rootState, rootGetters) {
     const myFavs = state.myFavs
+    // rootGettersはproductionモードでは使用不可
     return rootGetters.articles.filter(x => !!myFavs[x.sys.id])
+  },
+  isFavoriteArticle: state => (articleId) => {
+    const myFavs = state.myFavs
+    return !!(myFavs[articleId])
   }
 }
 
@@ -65,13 +67,51 @@ export const actions = {
   },
   async favArticle({ commit, state }, { articleId }) {
     if (state.userId === null) return
-    await addFav({ article_id: articleId })
-    commit('addMyFavs', articleId)
+    try {
+      await this.$axios.$post(
+        '/add_fav',
+        {
+          uid: state.userId,
+          articleId: articleId
+        },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+            'Content-type': 'application/json'
+          },
+          withCredentials: false
+        })
+      commit('addMyFavs', articleId)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('favArticle error: ' + e.message)
+      throw e
+    }
   },
   async unfavArticle({ commit, state }, { articleId }) {
     if (state.userId === null) return
-    await removeFav({ article_id: articleId })
-    commit('removeMyFavs', articleId)
+    try {
+      await this.$axios.$post(
+        '/remove_fav',
+        {
+          uid: state.userId,
+          articleId: articleId
+        },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+            'Content-type': 'application/json'
+          },
+          withCredentials: false
+        })
+      commit('removeMyFavs', articleId)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('unfavArticle error: ' + e.message)
+      throw e
+    }
   },
   async checkAuthState({ commit, state, dispatch }) {
     await new Promise((resolve) => {
