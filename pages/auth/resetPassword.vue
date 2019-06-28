@@ -8,7 +8,7 @@
         </h2>
         <form class="form-signin" @submit.prevent="sendEmail">
           <span id="reauth-email" class="reauth-email" />
-          <input
+          <b-form-input
             id="input-email"
             v-model="email"
             type="email"
@@ -16,7 +16,15 @@
             placeholder="メールアドレス"
             required
             autofocus
+          />
+          <b-tooltip
+            :show="emailError !== ''"
+            placement="topright"
+            target="input-email"
+            triggers=""
           >
+            <span style="width: 100%">{{ emailError }}</span>
+          </b-tooltip>
           <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
             確認メール送信
           </button>
@@ -36,7 +44,8 @@ export default {
   },
   data() {
     return {
-      email: ''
+      email: '',
+      emailError: ''
     }
   },
   methods: {
@@ -48,11 +57,11 @@ export default {
         })
         .catch((e) => {
           if (e.code === 'auth/invalid-email') {
-            alert('メールアドレスが無効です。')
+            this.emailError = 'メールアドレスが無効です。'
           } else if (e.code === 'auth/user-not-found') {
-            alert('メールアドレスに対応するユーザーが存在しません。')
+            this.emailError = 'メールアドレスに対応するユーザーが存在しません。'
           } else {
-            alert('不明なエラーが発生しました。運営にお問い合わせください。')
+            this.emailError = '不明なエラーが発生しました。運営にお問い合わせください。'
           }
         })
     }
@@ -64,7 +73,7 @@ export default {
 <style scoped>
 
 .card-style {
-    max-width: 350px;
+    max-width: 500px;
     background-color: #F7F7F7;
     padding: 20px 25px 30px;
     margin: 0 auto 25px;

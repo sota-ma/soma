@@ -1,4 +1,8 @@
 const pkg = require('./package')
+require('dotenv').config()
+
+const name = process.env.BASIC_NAME
+const pass = process.env.BASIC_PASS
 
 module.exports = {
   mode: 'universal',
@@ -47,13 +51,19 @@ module.exports = {
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'nuxt-basic-auth-module'
   ],
+  basic: {
+    name: name,
+    pass: pass
+  },
   /*
   ** Axios module config.contentfuluration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'https://us-central1-sota-of-medicalai-test-preview.cloudfunctions.net'
   },
   /*
   ** Build config().contentfuluration
