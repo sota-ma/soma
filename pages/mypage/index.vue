@@ -23,9 +23,9 @@
     </div>
     <div>
       <div class="container-fluid">
-        <div id="articles-card-column" class="card-deck">
+        <div v-if="favoritedArticles" id="articles-card-column" class="card-deck">
           <article-card
-            v-for="article in shownArticles"
+            v-for="article in favoritedArticles"
             :id="article.sys.id"
             :key="article.sys.id"
             :title="article.fields.titleJa"
@@ -41,6 +41,7 @@
 <script>
 import Header from '~/components/Header'
 import Card from '~/components/Card'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -48,14 +49,16 @@ export default {
     'article-card': Card
   },
   computed: {
-    shownArticles: function () {
-      return this.$store.getters['user/favoritedArticles']
-    }
+    ...mapGetters('user', ['favoritedArticles'])
   },
   async fetch({ error, store }) {
     try {
-      await Promise.all([store.dispatch('user/fetchUserFavs'),
-        store.dispatch('fetchArticles')])
+      await Promise.all(
+        [
+          store.dispatch('user/fetchUserFavs'),
+          store.dispatch('article/fetchArticles')
+        ]
+      )
     } catch (e) {
       error({ message: e.message })
     }

@@ -46,22 +46,16 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchUserFavs({ commit, state, dispatch }, payload) {
-    let userId = null
-    if (payload && payload.userId) {
-      userId = payload.userId
-    } else {
-      if (state.userId === null) {
-        return
-      }
-      userId = state.userId
+  async fetchUserFavs({ commit, state, dispatch }, { userId }) {
+    userId = (!userId) ? state.userId : userId
+    if (!userId) {
+      return
     }
     const snapshot = await favsCollection.doc(userId).get()
     if (snapshot.exists) {
       const data = snapshot.data()
       commit('setMyFavs', { myFavs: data.articles })
     }
-    await dispatch('fetchArticles', null, { root: true })
   },
   async favArticle({ commit, state }, { articleId }) {
     if (state.userId === null) return
