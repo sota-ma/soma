@@ -1,15 +1,15 @@
 <template>
   <div class="card">
-    <div class="card-name-ja card-header text-center">
-      {{ nameJa }}
-    </div>
     <div class="card-name-en card-body text-center">
       <h5 class="abst">
-        {{ nameEn }}
+        {{ handleName }}
       </h5>
+      <div class="name">
+        {{ nameJa }}
+      </div>
     </div>
     <div class="card-institution card-footer text-muted text-center">
-      <small class="text-muted ">
+      <small class="text-muted">
         {{ institution }}
       </small>
     </div>
@@ -29,6 +29,10 @@ export default {
     },
     institution: {
       type: String,
+      default: '(本人希望により所属は非開示)'
+    },
+    handleName: {
+      type: String,
       default: ''
     }
   }
@@ -36,15 +40,18 @@ export default {
 </script>
 
 <style scoped>
-.abst {
-  letter-spacing: 0.5px
-}
 .card {
   margin: 5px;
   flex-basis: 30%;
   max-width: 30%;
 }
-.card-name-ja,.card-name-en,.card-institution{
-  white-space: nowrap;
+.abst {
+  letter-spacing: 0.5px
+}
+.name {
+  font-size: 12px;
+}
+.text-muted {
+  height: 7vh;
 }
 </style>

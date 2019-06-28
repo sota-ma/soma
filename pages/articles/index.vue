@@ -6,6 +6,11 @@
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
     <div class="container-fluid">
+      <select-department
+        @search-by-department="searchByDepartment"
+      />
+    </div>
+    <div class="container-fluid">
       <search-form
         @request-filter="mutateFilterQueryFilter"
         @request-restore="mutateFilterQueryReset"
@@ -21,6 +26,8 @@
           :title="article.titleJa"
           :date="article.createdAt"
           :published-date="article.publishedDate"
+          :images="article.images"
+          :heading="article.heading"
           content-type="articles"
           @card-click="toSlug"
         />
@@ -39,12 +46,14 @@ import ResultCard from '~/components/ResultCard'
 import Header from '~/components/Header'
 import SelectForm from '~/components/SelectForm'
 import SearchForm from '~/components/SearchForm'
+import SelectDepartment from '~/components/SelectDepartment'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
     'article-card': Card,
     'common-header': Header,
+    'select-department': SelectDepartment,
     'select-form-sort': SelectForm,
     'search-form': SearchForm,
     'result-card': ResultCard
@@ -94,14 +103,19 @@ export default {
       }
     }
   },
-  async fetch({ env, store }) {
-    await store.dispatch('article/fetchArticles')
+  async fetch({ error, store }) {
+    try {
+      await store.dispatch('article/fetchArticles')
+    } catch (e) {
+      error({ message: e.message })
+    }
   },
   methods: {
     ...mapActions({
       setCategory: 'article/setCategory',
       clearCategory: 'article/clearCategory',
-      setFilteringWords: 'article/setFilteringWords'
+      setFilteringWords: 'article/setFilteringWords',
+      setFilteringDepartment: 'article/setFilteringDepartment'
     }),
     changeSortOrder(sortOrderIndex) {
       this.sortOrder = sortOrderIndex
@@ -115,6 +129,9 @@ export default {
       this.clearCategory()
       this.setFilteringWords({ filteringWords })
       this.resultCardIsVisible = false
+    },
+    searchByDepartment(department) {
+      this.setFilteringDepartment({ department })
     },
     toSlug(id) {
       this.$router.push(`/articles/${id}`)

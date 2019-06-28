@@ -143,11 +143,11 @@ export default {
       return this.$store.getters['user/favoritedArticles'].some(article => article.sys.id === this.articleDetail.id)
     }
   },
-  async fetch({ store, params }) {
+  async fetch({ store, params, error }) {
     try {
       await store.dispatch('article/fetchArticleDetail', { slug: params.slug })
     } catch (e) {
-      // TODO: #50が完了次第、そちらを組み込む
+      error({ message: e.message })
     }
   },
   methods: {
@@ -220,10 +220,6 @@ export default {
 .tag-style {
   margin: 0 5px;
   font-size: 16px;
-}
-
-.button-and-thumbnail {
-  width: 100vw;
 }
 
 .button {

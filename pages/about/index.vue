@@ -17,6 +17,7 @@
         <writer-card
           v-for="(writer,index) in writers"
           :key="index"
+          :handle-name="writer.handleName"
           :name-ja="writer.nameJa"
           :name-en="writer.nameEn"
           :institution="writer.institution"
@@ -41,18 +42,23 @@ export default {
       writers: 'writer/writers'
     })
   },
-  async fetch({ store }) {
+  async fetch({ store, error }) {
     try {
       await store.dispatch('writer/getWriters')
     } catch (e) {
-      // TODO: #50が完了次第、そちらを組み込む
+      error({ message: e.message })
     }
   }
 }
 </script>
 <style scoped>
+
+#about-page-body {
+  margin-top: 2rem;
+}
+
 #about-page-writers{
-  margin-top: 4rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

@@ -1,5 +1,5 @@
 class Article {
-  constructor({ id, titleEn, titleJa, tags, abstractEn, abstractJa, publishedDate, createdAt, images }) {
+  constructor({ id, titleEn, titleJa, tags, abstractEn, abstractJa, publishedDate, createdAt, images, departments }) {
     this.id = id
     this.titleEn = titleEn
     this.titleJa = titleJa
@@ -8,7 +8,16 @@ class Article {
     this.abstractJa = abstractJa
     this.publishedDate = publishedDate
     this.createdAt = createdAt
+    this.departments = departments
     this.images = images
+    this.heading = Article.getHeading(abstractJa)
+  }
+
+  static getHeading(abstractJa) {
+    if (!abstractJa) return ''
+    const paragraphs = abstractJa.content.filter(c => c.nodeType === 'paragraph')
+    if (paragraphs.length === 0) return ''
+    return paragraphs[0].content[0].value
   }
 }
 
