@@ -13,7 +13,7 @@
         作成日：{{ date.substr(0,10) }}
       </div>
       <div class="text-muted small">
-        作成者：
+        作成者：{{ writer }}
       </div>
     </div>
     <b-popover v-if="heading" :target="title" triggers="hover focus" class="popover">
@@ -57,6 +57,10 @@ export default {
       default: () => []
     },
     heading: {
+      type: String,
+      default: ''
+    },
+    writer: {
       type: String,
       default: ''
     }
