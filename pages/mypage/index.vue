@@ -31,6 +31,10 @@
             :title="article.titleJa"
             :date="article.createdAt"
             :published-date="article.publishedDate"
+            :images="article.images"
+            :heading="article.heading"
+            content-type="articles"
+            @card-click="toSlug"
           />
         </div>
       </div>
@@ -69,6 +73,9 @@ export default {
     },
     changePassword() {
       this.$router.push('/auth/resetPassword')
+    },
+    toSlug(id) {
+      this.$router.push(`/articles/${id}`)
     }
   }
 }
@@ -91,8 +98,10 @@ export default {
   margin-top: 3vh;
 }
 
-.card {
-  max-width: 33vw;
+.card-deck {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 0.5rem
 }
 
 </style>
