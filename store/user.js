@@ -49,6 +49,7 @@ export const mutations = {
 
 export const actions = {
   async fetchUserFavs({ commit, state }) {
+    if (!state.userId) return
     try {
       const res = await this.$axios.$post(
         '/fetch_fav',
