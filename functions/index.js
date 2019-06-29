@@ -178,3 +178,27 @@ removeFavApp.post('/', async (req, res) => {
   }
 });
 exports.remove_fav = functions.https.onRequest(removeFavApp);
+
+const fetchFavApp = express();
+fetchFavApp.use(bodyParser.urlencoded({ extended: true }));
+fetchFavApp.use(bodyParser.json());
+fetchFavApp.use(cors());
+
+fetchFavApp.post('/', async (req, res) => {
+  try {
+    const body = req.body
+    if (!body.uid) {
+      res.statusCode = 400;
+      res.send({ error: "Not authorized" });
+      return;
+    }
+    const userId = body.uid;
+    const snapshot = await favsCollection.doc(userId).get()
+    const favs = (snapshot.data().articles) ? snapshot.data().articles : []
+    res.send({ favs })
+  } catch (e) {
+    console.error(e)
+    res.send({ error: e.message })
+  }
+});
+exports.fetch_fav = functions.https.onRequest(fetchFavApp);
