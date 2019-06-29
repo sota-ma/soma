@@ -37,6 +37,7 @@ export default {
         document: item.fields.document,
         author: item.fields.author,
         validator: item.fields.validator,
+        writer: (item.fields.author) ? item.fields.author.fields.handleName : '',
         images
       }
     })

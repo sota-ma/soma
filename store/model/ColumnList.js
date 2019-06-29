@@ -11,7 +11,8 @@ class ColumnList {
       title: d.title,
       document: d.document,
       author: d.author,
-      validator: d.validator
+      validator: d.validator,
+      writer: d.writer
     }))
   }
 }
