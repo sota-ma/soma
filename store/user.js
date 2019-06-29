@@ -13,9 +13,6 @@ export const getters = {
   loggedin: state => (state.userId !== null),
   favoritedArticles(state, getters, rootState) {
     const myFavs = state.myFavs
-    // eslint-disable-next-line no-console
-    console.log(myFavs)
-
     return rootState.article.articles.list.filter(x => !!myFavs[x.id])
   },
   isFavoriteArticle: state => (articleId) => {
