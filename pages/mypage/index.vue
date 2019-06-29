@@ -5,7 +5,7 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <div class="border"></div>
+    <div class="border" />
     <div id="change-user-info" class="container-fluid text-center">
       <h4>登録情報の変更</h4>
     </div>
@@ -17,7 +17,7 @@
         パスワードの変更
       </button>
     </div>
-    <div class="border"></div>
+    <div class="border" />
     <div id="favorite-papers" class="container-fluid text-center">
       <h4>あなたのお気に入り論文</h4>
     </div>
@@ -26,11 +26,11 @@
         <div v-if="favoritedArticles" id="articles-card-column" class="card-deck">
           <article-card
             v-for="article in favoritedArticles"
-            :id="article.sys.id"
-            :key="article.sys.id"
-            :title="article.fields.titleJa"
-            :date="article.sys.createdAt"
-            :published-date="article.fields.publishedDate"
+            :id="article.id"
+            :key="article.id"
+            :title="article.titleJa"
+            :date="article.createdAt"
+            :published-date="article.publishedDate"
           />
         </div>
       </div>

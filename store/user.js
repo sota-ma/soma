@@ -1,7 +1,5 @@
 
 import firebase from '~/plugins/firebase'
-const db = firebase.firestore()
-const favsCollection = db.collection('favs')
 
 export const state = function () {
   return {
@@ -13,10 +11,12 @@ export const state = function () {
 export const getters = {
   userId: state => state.userId,
   loggedin: state => (state.userId !== null),
-  favoritedArticles(state, getters, rootState, rootGetters) {
+  favoritedArticles(state, getters, rootState) {
     const myFavs = state.myFavs
-    // rootGettersはproductionモードでは使用不可
-    return rootGetters.articles.filter(x => !!myFavs[x.sys.id])
+    // eslint-disable-next-line no-console
+    console.log(myFavs)
+
+    return rootState.article.articles.list.filter(x => !!myFavs[x.id])
   },
   isFavoriteArticle: state => (articleId) => {
     const myFavs = state.myFavs
@@ -48,15 +48,26 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchUserFavs({ commit, state, dispatch }, { userId }) {
-    userId = (!userId) ? state.userId : userId
-    if (!userId) {
-      return
-    }
-    const snapshot = await favsCollection.doc(userId).get()
-    if (snapshot.exists) {
-      const data = snapshot.data()
-      commit('setMyFavs', { myFavs: data.articles })
+  async fetchUserFavs({ commit, state }) {
+    try {
+      const res = await this.$axios.$post(
+        '/fetch_fav',
+        {
+          uid: state.userId
+        },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+            'Content-type': 'application/json'
+          },
+          withCredentials: false
+        })
+      commit('setMyFavs', { myFavs: res.favs })
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('favFetch error: ' + e.message)
+      throw e
     }
   },
   async favArticle({ commit, state }, { articleId }) {
