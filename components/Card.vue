@@ -7,7 +7,7 @@
     </div>
     <div class="card-created-date card-footer text-muted">
       <div class="card-published-date text-muted small">
-        論文投稿日：{{ publishedDate.substr(0,10) }}
+        <span v-if="publishedDate">論文投稿日：{{ publishedDate.substr(0,10) }}</span>
       </div>
       <div class="text-muted small">
         作成日：{{ date.substr(0,10) }}
