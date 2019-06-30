@@ -16,9 +16,14 @@ class Article {
 
   static getHeading(abstractJa) {
     if (!abstractJa) return ''
-    const paragraphs = abstractJa.content.filter(c => c.nodeType === 'paragraph')
+    const paragraphs = abstractJa.content.filter(c => c.nodeType === 'paragraph' || c.nodeType === 'unordered-list')
     if (paragraphs.length === 0) return ''
-    return paragraphs[0].content[0].value
+    if (paragraphs[0].nodeType === 'paragraph') {
+      return paragraphs[0].content[0].value
+    } else if (paragraphs[0].nodeType === 'unordered-list') {
+      return paragraphs[0].content[0].content[0].content[0].value
+    }
+    return ''
   }
 }
 

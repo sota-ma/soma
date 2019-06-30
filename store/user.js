@@ -27,6 +27,7 @@ export const mutations = {
   },
   setMyFavs(state, { myFavs }) {
     const res = {}
+    if (!myFavs) return
     myFavs.forEach((element) => {
       res[element] = 1
     })
