@@ -39,6 +39,7 @@ export default {
         publishedDate: item.fields.publishedDate,
         createdAt: item.sys.createdAt,
         departments: item.fields.relatedDepartment || [],
+        writer: (item.fields.writer) ? item.fields.writer.fields.handleName : '',
         images
       }
     })

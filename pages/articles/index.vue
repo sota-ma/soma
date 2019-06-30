@@ -28,6 +28,7 @@
           :published-date="article.publishedDate"
           :images="article.images"
           :heading="article.heading"
+          :writer="article.writer"
           content-type="articles"
           @card-click="toSlug"
         />
