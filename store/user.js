@@ -84,8 +84,6 @@ export const actions = {
         })
       commit('addMyFavs', articleId)
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error('favArticle error: ' + e.message)
       throw e
     }
   },
@@ -108,8 +106,6 @@ export const actions = {
         })
       commit('removeMyFavs', articleId)
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error('unfavArticle error: ' + e.message)
       throw e
     }
   },
