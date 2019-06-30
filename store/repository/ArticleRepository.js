@@ -49,20 +49,23 @@ export default {
     })
     const item = res.items[0]
     const abstractJa = item.fields.abstractJa
-    const images = abstractJa.content
-      .filter(
-        (c) => {
-          return c.data.target && IMAGE_CONTENT_TYPES.includes(c.data.target.fields.file.contentType)
-        }
-      )
-      .map(
-        (image) => {
-          return {
-            url: `https:${image.data.target.fields.file.url}`,
-            name: image.data.target.fields.title
+    let images = []
+    if (abstractJa) {
+      images = abstractJa.content
+        .filter(
+          (c) => {
+            return c.data.target && IMAGE_CONTENT_TYPES.includes(c.data.target.fields.file.contentType)
           }
-        }
-      )
+        )
+        .map(
+          (image) => {
+            return {
+              url: `https:${image.data.target.fields.file.url}`,
+              name: image.data.target.fields.title
+            }
+          }
+        )
+    }
     const writer = item.fields.writer ? item.fields.writer.fields.handleName : ''
     const validator = item.fields.validator ? item.fields.validator.fields.handleName : ''
     const availability = item.fields.benchmark ? (item.fields.benchmark.filter(b => b.availability !== 'unavailable').length > 0 ? 'あり' : 'なし') : ''
