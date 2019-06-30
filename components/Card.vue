@@ -7,13 +7,13 @@
     </div>
     <div class="card-created-date card-footer text-muted">
       <div class="card-published-date text-muted small">
-        論文投稿日：{{ publishedDate.substr(0,10) }}
+        <span v-if="publishedDate">論文投稿日：{{ publishedDate.substr(0,10) }}</span>
       </div>
       <div class="text-muted small">
         作成日：{{ date.substr(0,10) }}
       </div>
-      <div class="text-muted small">
-        作成者：
+      <div class="text-muted small writer-name">
+        <span v-if="writer">作成者：{{ writer }}</span>
       </div>
     </div>
     <b-popover v-if="heading" :target="title" triggers="hover focus" class="popover">
@@ -57,6 +57,10 @@ export default {
       default: () => []
     },
     heading: {
+      type: String,
+      default: ''
+    },
+    writer: {
       type: String,
       default: ''
     }
@@ -106,6 +110,9 @@ export default {
   margin-top: 1vh;
   width: 100%;
   height: 7vh;
+}
+.writer-name {
+  height: 16px;
 }
 
 </style>

@@ -119,7 +119,7 @@
         </div>
       </div>
       <div class="footermargin text-muted text-center">
-        2019 Project SoMA
+        since 2019 Project SoMA
         <!-- ページ最下部の空白をいい感じにしたい -->
       </div>
     </div>

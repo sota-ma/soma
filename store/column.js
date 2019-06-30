@@ -26,20 +26,12 @@ export const actions = {
     if (state.fetched) return
     commit('SET_FETCHED')
     const columns = await repository.fetchAll()
-    const columnList = new ColumnList(columns.items)
+    const columnList = new ColumnList(columns)
     commit('SET_COLUMNS', { columns: columnList })
   },
   async fetchColumnDetail({ commit }, { slug }) {
     const res = await repository.fetch({ slug })
-    const columnDetail = new ColumnDetail({
-      id: res.sys.id,
-      column: res,
-      title: res.fields.title,
-      createdAt: res.sys.createdAt,
-      document: res.fields.document,
-      tags: res.fields.tags,
-      departments: res.fields.relatedDepartment
-    })
+    const columnDetail = new ColumnDetail(res)
     commit('SET_COLUMN_DETAIL', { columnDetail })
   }
 }
