@@ -5,7 +5,7 @@
   "author": "kkiriyama",
   "private": true,
   "scripts": {
-    "dev": "firebase use staging && cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "dev-debug": "node --inspect-brk=9229 node_modules/nuxt/bin/nuxt",
     "build": "nuxt build",
     "setup": "rm -rf public/* && cp -R functions/nuxt/dist/client public/assets",
