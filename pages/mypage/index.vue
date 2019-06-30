@@ -5,7 +5,7 @@
       <h5>SOTA of Medical-AI</h5>
       <h6>最新の医療AI論文を日本語で</h6>
     </div>
-    <div class="border"></div>
+    <div class="border" />
     <div id="change-user-info" class="container-fluid text-center">
       <h4>登録情報の変更</h4>
     </div>
@@ -17,7 +17,7 @@
         パスワードの変更
       </button>
     </div>
-    <div class="border"></div>
+    <div class="border" />
     <div id="favorite-papers" class="container-fluid text-center">
       <h4>あなたのお気に入り論文</h4>
     </div>

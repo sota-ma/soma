@@ -49,7 +49,7 @@
               PDF </button>
           </a>
           <button v-if="loggedin" class="article-link btn btn-outline-success" @click="toggleFavorite">
-            「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
+            「気になる」{{ isFavorite ? "から削除" : "に追加" }}
           </button>
         </div>
       </div>
@@ -137,10 +137,10 @@ export default {
     'common-header': Header
   },
   computed: {
-    ...mapGetters('user', ['loggedin']),
+    ...mapGetters('user', ['loggedin', 'isFavoriteArticle']),
     ...mapGetters('article', ['articleDetail']),
-    isFavoritedArticle() {
-      return this.$store.getters['user/favoritedArticles'].some(article => article.sys.id === this.articleDetail.id)
+    isFavorite() {
+      return this.isFavoriteArticle(this.articleDetail.id)
     }
   },
   async fetch({ store, params, error }) {
@@ -171,7 +171,7 @@ export default {
       this.$store.dispatch('user/unfavArticle', { articleId: this.articleDetail.id })
     },
     toggleFavorite() {
-      if (this.isFavoritedArticle) {
+      if (this.isFavorite) {
         this.unfavoriteArticle()
       } else {
         this.favoriteArticle()

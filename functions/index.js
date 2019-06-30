@@ -2,6 +2,8 @@
 const functions = require('firebase-functions');
 const express = require('express');
 const { Nuxt } = require('nuxt');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -93,6 +95,26 @@ app.get('/mypage', (req, res) => {
     })
 })
 
+app.get('/auth/signin', (req, res) => {
+  nuxt.renderRoute('/auth/signin', { req })
+    .then((result) => {
+      res.send(result.html)
+    })
+    .catch((e) => {
+      res.send(e)
+    })
+})
+
+app.get('/auth/resetPassword', (req, res) => {
+  nuxt.renderRoute('/auth/resetPassword', { req })
+    .then((result) => {
+      res.send(result.html)
+    })
+    .catch((e) => {
+      res.send(e)
+    })
+})
+
 exports.ssrapp = functions.https.onRequest(app)
 
 const admin = require('firebase-admin')
@@ -103,28 +125,56 @@ const arrayRemove = admin.firestore.FieldValue.arrayRemove
 const favsCollection = fireStore.collection('favs')
 const articlesCollection = fireStore.collection('articles')
 
-exports.add_fav = functions.https.onCall(async (data, context) => {
-  if(context.auth===null){return {"error":"Not authorized"}}
-  let userId = context.auth.uid
-  let articleId = data.article_id
-  console.log(userId,articleId)
+const favApp = express();
+favApp.use(bodyParser.urlencoded({ extended: true }));
+favApp.use(bodyParser.json());
+favApp.use(cors());
 
-  await favsCollection.doc(userId).set({
-    'articles': arrayUnion(articleId) }, { merge: true })
-  await articlesCollection.doc(articleId).set({
-    'users': arrayUnion(userId) }, { merge: true })
-  return {"ok":true}
+favApp.post('/', async (req, res) => {
+  try {
+    const body = req.body
+    if (!body.uid) {
+      res.statusCode = 400;
+      res.send({ error: "Not authorized" });
+      return;
+    }
+    const userId = body.uid;
+    const articleId = body.articleId;
+    await favsCollection.doc(userId).set({
+      'articles': arrayUnion(articleId) }, { merge: true })
+    await articlesCollection.doc(articleId).set({
+      'users': arrayUnion(userId) }, { merge: true })
+    res.send({ ok: true })
+  } catch (e) {
+    console.error(e)
+    res.send({ error: e.message })
+  }
 });
+exports.add_fav = functions.https.onRequest(favApp);
 
-exports.remove_fav = functions.https.onCall(async (data, context) => {
-  if(context.auth===null){return {"error":"Not authorized"}}
-  let userId = context.auth.uid
-  let articleId = data.article_id
-  console.log(userId,articleId)
+const removeFavApp = express();
+removeFavApp.use(bodyParser.urlencoded({ extended: true }));
+removeFavApp.use(bodyParser.json());
+removeFavApp.use(cors());
 
-  await favsCollection.doc(userId).set({
-    'articles': arrayRemove(articleId) }, { merge: true })
-  await articlesCollection.doc(articleId).set({
-    'users': arrayRemove(userId) }, { merge: true })
-  return {"ok":true}
+removeFavApp.post('/', async (req, res) => {
+  try {
+    const body = req.body
+    if (!body.uid) {
+      res.statusCode = 400;
+      res.send({ error: "Not authorized" });
+      return;
+    }
+    const userId = body.uid;
+    const articleId = body.articleId;
+    await favsCollection.doc(userId).set({
+      'articles': arrayRemove(articleId) }, { merge: true })
+    await articlesCollection.doc(articleId).set({
+      'users': arrayRemove(userId) }, { merge: true })
+    res.send({ ok: true })
+  } catch (e) {
+    console.error(e)
+    res.send({ error: e.message })
+  }
 });
+exports.remove_fav = functions.https.onRequest(removeFavApp);
