@@ -12,11 +12,11 @@ export default {
     const items = res.items
     return items.map((item) => {
       let images = []
-
       if (item.fields.abstractJa) {
         images = item.fields.abstractJa.content
           .filter(
             (c) => {
+              if (!c.data.target || !c.data.target.fields) return false
               return c.data.target && IMAGE_CONTENT_TYPES.includes(c.data.target.fields.file.contentType)
             }
           )
