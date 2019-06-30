@@ -12,8 +12,8 @@
       <div class="text-muted small">
         作成日：{{ date.substr(0,10) }}
       </div>
-      <div class="text-muted small">
-        作成者：{{ writer }}
+      <div class="text-muted small writer-name">
+        <span v-if="writer">作成者：{{ writer }}</span>
       </div>
     </div>
     <b-popover v-if="heading" :target="title" triggers="hover focus" class="popover">
@@ -110,6 +110,9 @@ export default {
   margin-top: 1vh;
   width: 100%;
   height: 7vh;
+}
+.writer-name {
+  height: 16px;
 }
 
 </style>

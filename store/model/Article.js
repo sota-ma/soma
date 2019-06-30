@@ -1,5 +1,5 @@
 class Article {
-  constructor({ id, titleEn, titleJa, tags, abstractEn, abstractJa, publishedDate, createdAt, images, departments }) {
+  constructor({ id, titleEn, titleJa, tags, abstractEn, abstractJa, publishedDate, createdAt, images, departments, writer }) {
     this.id = id
     this.titleEn = titleEn
     this.titleJa = titleJa
@@ -11,6 +11,7 @@ class Article {
     this.departments = departments
     this.images = images
     this.heading = Article.getHeading(abstractJa)
+    this.writer = writer
   }
 
   static getHeading(abstractJa) {
