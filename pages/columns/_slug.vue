@@ -2,22 +2,23 @@
   <div>
     <common-header />
     <div class="container-fluid container-slug">
-      <div class="top-info row">
-        <p id="title" class="slug-title">
+      <div class="text-muted text-right">
+        <p id="created-date" class="slug-date">
+          コラムの作成日: {{ columnDetail.createdAt && columnDetail.createdAt.substr(0,10) }}
+          作成者: hoge
+        </p>
+      </div>
+      <div>
+        <p id="title" class="slug-title font-weight-bold">
           {{ columnDetail.title }}
         </p>
-        <div>
-          <p id="created-date" class="slug-date">
-            記事の作成日: {{ columnDetail.createdAt && columnDetail.createdAt.substr(0,10) }}
-          </p>
-        </div>
       </div>
-      <div class="row">
+      <div>
         <button v-if="loggedin" class="article-link btn btn-outline-success" @click="toggleFavorite">
           「気になる」{{ isFavoritedArticle ? "から削除" : "に追加" }}
         </button>
       </div>
-      <div class="row">
+      <div class="tagline-style">
         <span class="tag-style"> キーワード:  </span>
         <span
           v-for="(tag, index) in columnDetail.tags"
@@ -27,7 +28,7 @@
           {{ tag }}
         </span>
       </div>
-      <div class="row">
+      <div class="tagline-style">
         <span class="tag-style"> 関連する診療科:  </span>
         <span
           v-for="(department, index) in columnDetail.departments"
@@ -37,11 +38,18 @@
           {{ department }}
         </span>
       </div>
-      <div class="row">
-        <div id="document" class="col-sm-8 offset-sm-2">
+      <div>
+        <p class="borderline" />
+      </div>
+      <div>
+        <div id="document">
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="renderedDocument()" />
         </div>
+      </div>
+      <div class="footermargin text-muted text-center">
+        since 2019 Project SoMA
+        <!-- ページ最下部の空白をいい感じにしたい -->
       </div>
     </div>
   </div>
@@ -109,11 +117,13 @@ export default {
 
 .container-slug {
   padding: 0 5% 0 5%;
+  max-width: 80%;
 }
 
 .slug-title {
-  font-size: 24px;
-  padding: 10px 10px 0px 10px;
+  font-size: 32px;
+  margin-bottom: 1rem;
+  padding: 10px 10px 0px 0px;
 }
 
 .slug-subtitle {
@@ -122,24 +132,31 @@ export default {
 }
 
 .tag-style {
-  margin: 5px;
+  margin: 10px 5px;
+  font-size: 16px;
 }
 
 .slug-date {
-  margin: 10px;
+  font-size: 12px;
+  padding-top: 10px;
 }
 
-.top-info {
-  background-color:gainsboro;
+.tagline-style {
+  margin: 10px 0 10px 0;
 }
 
 .article-link {
   display: inline-block;
-  margin: 10px;
 }
 
-.dataset-table {
-  max-width: 800px;
+.borderline{
+  border-bottom: 1px solid #C2C2C7;
+  margin: 16px 0 24px 0;
+
+}
+
+.footermargin{
+  margin: 40px 0;
 }
 
 </style>
