@@ -4,6 +4,14 @@ require('dotenv').config()
 const name = process.env.BASIC_NAME
 const pass = process.env.BASIC_PASS
 
+let functionsUrl = ''
+if (process.env.NODE_DEPLOY === 'development') {
+  functionsUrl = process.env.FIREBASE_TEST_FUNCTIONS_URL
+}
+if (process.env.NODE_DEPLOY === 'production') {
+  functionsUrl = process.env.FIREBASE_FUNCTIONS_URL
+}
+
 module.exports = {
   mode: 'universal',
   /*
@@ -63,7 +71,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'https://us-central1-sota-of-medicalai-test-preview.cloudfunctions.net'
+    baseURL: functionsUrl
   },
   /*
   ** Build config().contentfuluration
