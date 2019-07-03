@@ -5,7 +5,8 @@
       <div class="text-muted text-right">
         <p id="created-date" class="slug-date">
           コラムの作成日: {{ columnDetail.createdAt && columnDetail.createdAt.substr(0,10) }}
-          作成者: hoge
+          作成者: {{ columnDetail.writer }}
+          査読者: {{ columnDetail.validator }}
         </p>
       </div>
       <div>
@@ -93,17 +94,12 @@ export default {
         this.favoriteArticle()
       }
     },
-    renderImage(file) {
-      return `<img src=${file.url}/>`
-    },
     renderedDocument() {
       const options = {
         renderNode: {
           'embedded-asset-block': (node) => {
             const file = node.data.target.fields.file
-            const jsx = this.renderImage(file)
-            if (!jsx.data) return ''
-            return '<div align="center"><img src=' + jsx.data.attrs.src + ' style="max-width: 80%;"></div>'
+            return '<div align="center"><img src=' + file.url + ' style="max-width: 80%;"></div>'
           }
         }
       }

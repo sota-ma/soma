@@ -35,9 +35,8 @@ export default {
         title: item.fields.title,
         createdAt: item.sys.createdAt,
         document: item.fields.document,
-        author: item.fields.author,
-        validator: item.fields.validator,
         writer: (item.fields.author) ? item.fields.author.fields.handleName : '',
+        validator: item.fields.validator,
         images
       }
     })
@@ -51,7 +50,9 @@ export default {
       createdAt: res.sys.createdAt,
       document: res.fields.document,
       tags: res.fields.tags,
-      departments: res.fields.relatedDepartment
+      departments: res.fields.relatedDepartment,
+      writer: (res.fields.author) ? res.fields.author.fields.handleName : '',
+      validator: (res.fields.validator) ? res.fields.validator.fields.handleName : ''
     }
   }
 }

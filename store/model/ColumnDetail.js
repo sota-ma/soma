@@ -1,5 +1,5 @@
 class ColumnDetail {
-  constructor({ id, title, tag, tags, createdAt, document, departments }) {
+  constructor({ id, title, tag, tags, createdAt, document, departments, writer, validator }) {
     this.id = id
     this.title = title
     this.tag = tag
@@ -7,6 +7,8 @@ class ColumnDetail {
     this.createdAt = createdAt
     this.document = document
     this.departments = departments
+    this.writer = writer
+    this.validator = validator
   }
 }
 
