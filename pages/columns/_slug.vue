@@ -5,7 +5,8 @@
       <div class="text-muted text-right">
         <p id="created-date" class="slug-date">
           コラムの作成日: {{ columnDetail.createdAt && columnDetail.createdAt.substr(0,10) }}
-          作成者: hoge
+          作成者: {{ columnDetail.writer }}
+          査読者: {{ columnDetail.validator }}
         </p>
       </div>
       <div>

@@ -4,7 +4,7 @@ class Column {
     this.title = title
     this.createdAt = createdAt
     this.document = document
-    this.author = author
+    this.writer = writer
     this.validator = validator
     this.writer = writer
     this.publishedDate = publishedDate
