@@ -94,17 +94,12 @@ export default {
         this.favoriteArticle()
       }
     },
-    renderImage(file) {
-      return `<img src=${file.url}/>`
-    },
     renderedDocument() {
       const options = {
         renderNode: {
           'embedded-asset-block': (node) => {
             const file = node.data.target.fields.file
-            const jsx = this.renderImage(file)
-            if (!jsx.data) return ''
-            return '<div align="center"><img src=' + jsx.data.attrs.src + ' style="max-width: 80%;"></div>'
+            return '<div align="center"><img src=' + file.url + ' style="max-width: 80%;"></div>'
           }
         }
       }
