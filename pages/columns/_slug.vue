@@ -60,6 +60,8 @@
 import Header from '~/components/Header'
 import { mapGetters } from 'vuex'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import { MARKS } from '@contentful/rich-text-types'
+import Prism from '~/plugins/prism'
 
 export default {
   transition: 'slide-right',
@@ -79,6 +81,9 @@ export default {
     } catch (e) {
       error({ message: e.message })
     }
+  },
+  mounted() {
+    Prism.highlightAll()
   },
   methods: {
     favoriteArticle() {
@@ -101,6 +106,9 @@ export default {
             const file = node.data.target.fields.file
             return '<div align="center"><img src=' + file.url + ' style="max-width: 80%;"></div>'
           }
+        },
+        renderMark: {
+          [MARKS.CODE]: text => `<pre><code class="language-r language-python">${this.$md.render(text)}</code></pre>`
         }
       }
       return documentToHtmlString(this.columnDetail.document, options)

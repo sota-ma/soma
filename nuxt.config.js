@@ -47,6 +47,7 @@ module.exports = {
     '~/plugins/contentful.js',
     '~/plugins/firebase.js',
     '~/plugins/consola.js',
+    '~/plugins/prism.js',
     { src: '~plugins/ga.js', ssr: false }
   ],
 
@@ -60,8 +61,18 @@ module.exports = {
     'bootstrap-vue/nuxt',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    'nuxt-basic-auth-module'
+    'nuxt-basic-auth-module',
+    '@nuxtjs/markdownit'
   ],
+  markdownit: {
+    injected: true,
+    breaks: true,
+    html: true,
+    linkify: false,
+    langPrefix: 'language-',
+    typographer: true,
+    quotes: '""'
+  },
   basic: {
     name: name,
     pass: pass
