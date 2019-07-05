@@ -107,10 +107,10 @@ export default {
             return '<div align="center"><img src=' + file.url + ' style="max-width: 80%;"></div>'
           },
           [BLOCKS.HEADING_2]: (node, next) => {
-            return `<h2 style="margin: 40px 0px 8px;">${next(node.content)}</h2>`
+            return `<h2 style="margin: 40px 0px 8px; font-weight: bold;">${next(node.content)}</h2>`
           },
           [BLOCKS.HEADING_4]: (node, next) => {
-            return `<h4 style="margin: 20px 0px 8px; font-weight: bold;">${next(node.content)}</h4>`
+            return `<h4 style="margin: 20px 0px 8px;">${next(node.content)}</h4>`
           }
         },
         renderMark: {
