@@ -80,6 +80,7 @@ export default {
 .card {
   margin: 5px;
   cursor: pointer;
+  max-width: 300px;
 }
 .card:hover {
   border-color: black;
