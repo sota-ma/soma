@@ -42,7 +42,7 @@ export default {
 <style scoped>
 .card {
   margin: 5px;
-  flex-basis: 30%;
+  min-width: 300px;
   max-width: 30%;
 }
 .abst {

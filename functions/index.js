@@ -16,7 +16,7 @@ const nuxt = new Nuxt({
 });
 
 app.get('/', (req, res) => {
-  nuxt.renderRoute('/', { req })
+  nuxt.renderRoute('/articles', { req })
     .then((result) => {
       res.send(result.html)
     })
@@ -130,7 +130,7 @@ favApp.use(bodyParser.urlencoded({ extended: true }));
 favApp.use(bodyParser.json());
 favApp.use(cors());
 
-favApp.post('/', async (req, res) => {
+favApp.post('/add_fav', async (req, res) => {
   try {
     const body = req.body
     if (!body.uid) {
@@ -157,7 +157,7 @@ removeFavApp.use(bodyParser.urlencoded({ extended: true }));
 removeFavApp.use(bodyParser.json());
 removeFavApp.use(cors());
 
-removeFavApp.post('/', async (req, res) => {
+removeFavApp.post('/remove_fav', async (req, res) => {
   try {
     const body = req.body
     if (!body.uid) {
@@ -184,7 +184,7 @@ fetchFavApp.use(bodyParser.urlencoded({ extended: true }));
 fetchFavApp.use(bodyParser.json());
 fetchFavApp.use(cors());
 
-fetchFavApp.post('/', async (req, res) => {
+fetchFavApp.post('/fetch_fav', async (req, res) => {
   try {
     const body = req.body
     if (!body.uid) {

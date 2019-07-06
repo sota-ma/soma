@@ -15,10 +15,24 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [{
-      "source": "**",
-      "function": "ssrapp"
-    }]
+    "rewrites": [
+      {
+        "source": "/fetch_fav",
+        "function": "fetch_fav"
+      },
+      {
+        "source": "/add_fav",
+        "function": "add_fav"
+      },
+      {
+        "source": "/remove_fav",
+        "function": "remove_fav"
+      },
+      {
+        "source": "**",
+        "function": "ssrapp"
+      }
+    ]
   },
   "storage": {
     "rules": "storage.rules"
