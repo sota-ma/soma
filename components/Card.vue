@@ -7,13 +7,13 @@
     </div>
     <div class="card-created-date card-footer text-muted">
       <div class="card-published-date text-muted small">
-        論文投稿日：{{ publishedDate.substr(0,10) }}
+        <span v-if="publishedDate">論文投稿日：{{ publishedDate.substr(0,10) }}</span>
       </div>
       <div class="text-muted small">
         作成日：{{ date.substr(0,10) }}
       </div>
-      <div class="text-muted small">
-        作成者：
+      <div class="text-muted small writer-name">
+        <span v-if="writer">作成者：{{ writer }}</span>
       </div>
     </div>
     <b-popover v-if="heading" :target="title" triggers="hover focus" class="popover">
@@ -21,7 +21,7 @@
         <img :src="images[0].url">
       </div>
       <div class="abst-area">
-        <span>{{ heading.substr(0, 35) }}...</span>
+        <span>{{ heading.substr(0, 100) }}...</span>
       </div>
     </b-popover>
   </div>
@@ -59,6 +59,10 @@ export default {
     heading: {
       type: String,
       default: ''
+    },
+    writer: {
+      type: String,
+      default: ''
     }
   },
   methods: {
@@ -76,6 +80,7 @@ export default {
 .card {
   margin: 5px;
   cursor: pointer;
+  max-width: 300px;
 }
 .card:hover {
   border-color: black;
@@ -90,7 +95,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  height: 28vh;
+  height: 40vh;
 }
 .popover .image-area {
   display: flex;
@@ -105,7 +110,10 @@ export default {
 .popover .abst-area {
   margin-top: 1vh;
   width: 100%;
-  height: 7vh;
+  height: 20vh;
+}
+.writer-name {
+  height: 16px;
 }
 
 </style>

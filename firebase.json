@@ -15,10 +15,12 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [{
-      "source": "**",
-      "function": "ssrapp"
-    }]
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "ssrapp"
+      }
+    ]
   },
   "storage": {
     "rules": "storage.rules"

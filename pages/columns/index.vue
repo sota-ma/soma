@@ -13,6 +13,7 @@
           :key="column.id"
           :title="column.title"
           :date="column.createdAt"
+          :writer="column.writer"
           content-type="columns"
           @card-click="toSlug"
         />

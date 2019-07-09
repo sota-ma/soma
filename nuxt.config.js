@@ -4,6 +4,14 @@ require('dotenv').config()
 const name = process.env.BASIC_NAME
 const pass = process.env.BASIC_PASS
 
+let functionsUrl = ''
+if (process.env.NODE_DEPLOY === 'development') {
+  functionsUrl = process.env.FIREBASE_TEST_FUNCTIONS_URL
+}
+if (process.env.NODE_DEPLOY === 'production') {
+  functionsUrl = process.env.FIREBASE_FUNCTIONS_URL
+}
+
 module.exports = {
   mode: 'universal',
   /*
@@ -39,6 +47,7 @@ module.exports = {
     '~/plugins/contentful.js',
     '~/plugins/firebase.js',
     '~/plugins/consola.js',
+    '~/plugins/prism.js',
     { src: '~plugins/ga.js', ssr: false }
   ],
 
@@ -52,8 +61,18 @@ module.exports = {
     'bootstrap-vue/nuxt',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    'nuxt-basic-auth-module'
+    'nuxt-basic-auth-module',
+    '@nuxtjs/markdownit'
   ],
+  markdownit: {
+    injected: true,
+    breaks: true,
+    html: true,
+    linkify: false,
+    langPrefix: 'language-',
+    typographer: true,
+    quotes: '""'
+  },
   basic: {
     name: name,
     pass: pass
@@ -63,6 +82,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: functionsUrl
   },
   /*
   ** Build config().contentfuluration

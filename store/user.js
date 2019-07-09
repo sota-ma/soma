@@ -1,10 +1,5 @@
 
 import firebase from '~/plugins/firebase'
-const db = firebase.firestore()
-const firebaseFunctions = firebase.functions()
-const addFav = firebaseFunctions.httpsCallable('add_fav')
-const removeFav = firebaseFunctions.httpsCallable('remove_fav')
-const favsCollection = db.collection('favs')
 
 export const state = function () {
   return {
@@ -16,9 +11,13 @@ export const state = function () {
 export const getters = {
   userId: state => state.userId,
   loggedin: state => (state.userId !== null),
-  favoritedArticles(state, getters, rootState, rootGetters) {
+  favoritedArticles(state, getters, rootState) {
     const myFavs = state.myFavs
-    return rootGetters.articles.filter(x => !!myFavs[x.sys.id])
+    return rootState.article.articles.list.filter(x => !!myFavs[x.id])
+  },
+  isFavoriteArticle: state => (articleId) => {
+    const myFavs = state.myFavs
+    return !!(myFavs[articleId])
   }
 }
 
@@ -28,6 +27,7 @@ export const mutations = {
   },
   setMyFavs(state, { myFavs }) {
     const res = {}
+    if (!myFavs) return
     myFavs.forEach((element) => {
       res[element] = 1
     })
@@ -46,32 +46,72 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchUserFavs({ commit, state, dispatch }, payload) {
-    let userId = null
-    if (payload && payload.userId) {
-      userId = payload.userId
-    } else {
-      if (state.userId === null) {
-        return
-      }
-      userId = state.userId
+  async fetchUserFavs({ commit, state }) {
+    if (!state.userId) return
+    try {
+      const res = await this.$axios.$post(
+        '/',
+        {
+          uid: state.userId
+        },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+            'Content-type': 'application/json'
+          },
+          withCredentials: false
+        })
+      commit('setMyFavs', { myFavs: res.favs })
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('favFetch error: ' + e.message)
+      throw e
     }
-    const snapshot = await favsCollection.doc(userId).get()
-    if (snapshot.exists) {
-      const data = snapshot.data()
-      commit('setMyFavs', { myFavs: data.articles })
-    }
-    await dispatch('fetchArticles', null, { root: true })
   },
   async favArticle({ commit, state }, { articleId }) {
     if (state.userId === null) return
-    await addFav({ article_id: articleId })
-    commit('addMyFavs', articleId)
+    try {
+      await this.$axios.$post(
+        '/',
+        {
+          uid: state.userId,
+          articleId: articleId
+        },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+            'Content-type': 'application/json'
+          },
+          withCredentials: false
+        })
+      commit('addMyFavs', articleId)
+    } catch (e) {
+      throw e
+    }
   },
   async unfavArticle({ commit, state }, { articleId }) {
     if (state.userId === null) return
-    await removeFav({ article_id: articleId })
-    commit('removeMyFavs', articleId)
+    try {
+      await this.$axios.$post(
+        '/',
+        {
+          uid: state.userId,
+          articleId: articleId
+        },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+            'Content-type': 'application/json'
+          },
+          withCredentials: false
+        })
+      commit('removeMyFavs', articleId)
+    } catch (e) {
+      throw e
+    }
   },
   async checkAuthState({ commit, state, dispatch }) {
     await new Promise((resolve) => {

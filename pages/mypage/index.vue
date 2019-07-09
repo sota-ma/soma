@@ -23,14 +23,17 @@
     </div>
     <div>
       <div class="container-fluid">
-        <div id="articles-card-column" class="card-deck">
+        <div v-if="favoritedArticles" id="articles-card-column" class="card-deck">
           <article-card
-            v-for="article in shownArticles"
-            :id="article.sys.id"
-            :key="article.sys.id"
-            :title="article.fields.titleJa"
-            :date="article.sys.createdAt"
-            :published-date="article.fields.publishedDate"
+            v-for="article in favoritedArticles"
+            :id="article.id"
+            :key="article.id"
+            :title="article.titleJa"
+            :date="article.createdAt"
+            :published-date="article.publishedDate"
+            :images="article.images"
+            :heading="article.heading"
+            content-type="articles"
             @card-click="toSlug"
           />
         </div>
@@ -42,6 +45,7 @@
 <script>
 import Header from '~/components/Header'
 import Card from '~/components/Card'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -49,14 +53,16 @@ export default {
     'article-card': Card
   },
   computed: {
-    shownArticles: function () {
-      return this.$store.getters['user/favoritedArticles']
-    }
+    ...mapGetters('user', ['favoritedArticles'])
   },
   async fetch({ error, store }) {
     try {
-      await store.dispatch('article/fetchArticles')
-      await store.dispatch('user/fetchUserFavs')
+      await Promise.all(
+        [
+          store.dispatch('user/fetchUserFavs'),
+          store.dispatch('article/fetchArticles')
+        ]
+      )
     } catch (e) {
       error({ message: e.message })
     }
@@ -92,8 +98,10 @@ export default {
   margin-top: 3vh;
 }
 
-.card {
-  max-width: 33vw;
+.card-deck {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 0.5rem
 }
 
 </style>
