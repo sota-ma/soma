@@ -60,7 +60,7 @@
 import Header from '~/components/Header'
 import { mapGetters } from 'vuex'
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { MARKS } from '@contentful/rich-text-types'
+import { MARKS, BLOCKS } from '@contentful/rich-text-types'
 import Prism from '~/plugins/prism'
 
 export default {
@@ -102,9 +102,15 @@ export default {
     renderedDocument() {
       const options = {
         renderNode: {
-          'embedded-asset-block': (node) => {
+          [BLOCKS.EMBEDDED_ASSET]: (node) => {
             const file = node.data.target.fields.file
             return '<div align="center"><img src=' + file.url + ' style="max-width: 80%;"></div>'
+          },
+          [BLOCKS.HEADING_2]: (node, next) => {
+            return `<h2 style="margin: 40px 0px 8px; font-weight: bold;">${next(node.content)}</h2>`
+          },
+          [BLOCKS.HEADING_4]: (node, next) => {
+            return `<h4 style="margin: 20px 0px 8px;">${next(node.content)}</h4>`
           }
         },
         renderMark: {
