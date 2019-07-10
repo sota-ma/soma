@@ -27,8 +27,8 @@
       </div>
     </div>
     <div class="footermargin text-muted text-center">
-        since 2019 Project SoMA
-        <!-- ページ最下部の空白をいい感じにしたい -->
+      since 2019 Project SoMA
+      <!-- ページ最下部の空白をいい感じにしたい -->
     </div>
   </div>
 </template>
