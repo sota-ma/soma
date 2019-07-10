@@ -1,15 +1,15 @@
 <template>
   <div class="card">
     <div class="card-name-en card-body text-center">
-      <h5 class="abst">
+      <p class="abst">
         {{ handleName }}
-      </h5>
-      <div class="name">
+      </p>
+      <p class="name">
         {{ nameJa }}
-      </div>
+      </p>
     </div>
     <div class="card-institution card-footer text-muted text-center">
-      <small class="text-muted">
+      <small>
         {{ institution }}
       </small>
     </div>
@@ -46,12 +46,15 @@ export default {
   max-width: 30%;
 }
 .abst {
-  letter-spacing: 0.5px
+  letter-spacing: 1px;
+  font-size: 20px;
+  font-weight: bold;
 }
+
 .name {
   font-size: 12px;
 }
 .text-muted {
-  height: 7vh;
+  height: 9vh;
 }
 </style>
