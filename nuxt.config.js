@@ -57,6 +57,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     // Doc: https://github.com/nuxt-community/dotenv-module
@@ -82,7 +83,14 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: functionsUrl
+  },
+  proxy: {
+    '/api': {
+      target: functionsUrl,
+      pathRewrite: {
+        '^/api': '/'
+      }
+    }
   },
   /*
   ** Build config().contentfuluration

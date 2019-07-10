@@ -50,7 +50,7 @@ export const actions = {
     if (!state.userId) return
     try {
       const res = await this.$axios.$post(
-        '/',
+        '/api/fetch_fav/fetch_fav',
         {
           uid: state.userId
         },
@@ -73,7 +73,7 @@ export const actions = {
     if (state.userId === null) return
     try {
       await this.$axios.$post(
-        '/',
+        '/api/add_fav/add_fav',
         {
           uid: state.userId,
           articleId: articleId
@@ -95,7 +95,7 @@ export const actions = {
     if (state.userId === null) return
     try {
       await this.$axios.$post(
-        '/',
+        '/api/remove_fav/remove_fav',
         {
           uid: state.userId,
           articleId: articleId
