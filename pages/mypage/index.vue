@@ -104,4 +104,10 @@ export default {
   grid-gap: 0.5rem
 }
 
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 95%;
+  }
+
 </style>
