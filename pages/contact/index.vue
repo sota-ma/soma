@@ -3,7 +3,9 @@
     <common-header />
     <div id="banner" class="container-fluid text-center">
       <h2>Contact</h2>
-      <p class="text-muted">バグの報告・改善要求・支援のご連絡・執筆希望などはこちらからご連絡ください。</p>
+      <p class="text-muted">
+        バグの報告・改善要求・支援のご連絡・執筆希望などはこちらからご連絡ください。
+      </p>
     </div>
     <div id="contact-page-body" class="container-fluid text-center">
       <form @submit.prevent="query">
@@ -17,6 +19,10 @@
           </div>
         </fieldset>
       </form>
+    </div>
+    <div class="footermargin text-muted text-center">
+      since 2019 Project SoMA
+      <!-- ページ最下部の空白をいい感じにしたい -->
     </div>
   </div>
 </template>
@@ -60,6 +66,10 @@ export default {
 
 .form-margin {
   margin: 10px;
+}
+
+.footermargin{
+  margin: 40px 0;
 }
 
 </style>
