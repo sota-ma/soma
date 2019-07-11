@@ -6,10 +6,16 @@
     </div>
     <div id="about-page-body" class="container-fluid about-body">
       <p>SoMAは機械学習の医療応用に関する論文を紹介するメディアです。医学生、医師を中心とした、少数精鋭の有志によって運営されています。</p>
-      <p>最新の医療AIの論文の中から価値の高いものを厳選し、紹介します。翻訳・査読は全て医学または機械学習の専門家が担当しています。要旨の日本語訳だけでなく、関連する用語の解説やデータセットのavailabilityなどの役立つ情報をまとめています。</p>
+      <p>最新の医療AIの論文の中から価値の高いものを厳選し、紹介します。翻訳・査読は全て医学または機械学習を専攻している学生が担当しています。要旨の日本語訳だけでなく、関連する用語の解説やデータセットのavailabilityなどの役立つ情報をまとめています。</p>
       <p>また、医学の専門知識を持つメンバーならではのコラムも不定期に更新いたします。</p>
       <p>今後ともよろしくお願いします。</p>
-      <p>ご支援・執筆希望は<a href="https://sota-of-medicalai.firebaseapp.com/contact">こちら</a>から</p>
+      <p>
+        ご支援・執筆希望は
+        <nuxt-link to="/contact">
+          こちら
+        </nuxt-link>
+        から
+      </p>
     </div>
     <div id="about-page-writers">
       <h2 class="container-fluid text-center">
