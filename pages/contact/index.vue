@@ -2,8 +2,8 @@
   <div>
     <common-header />
     <div id="banner" class="container-fluid text-center">
-      <h5>SOTA of Medical-AI</h5>
-      <h6>最新の医療AI論文を日本語で</h6>
+      <h2>Contact</h2>
+      <p class="text-muted">バグの報告・改善要求・支援のご連絡・執筆希望などはこちらからご連絡ください。</p>
     </div>
     <div id="contact-page-body" class="container-fluid text-center">
       <form @submit.prevent="query">
