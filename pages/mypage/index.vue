@@ -2,8 +2,7 @@
   <div>
     <common-header />
     <div id="banner" class="container-fluid text-center">
-      <h5>SOTA of Medical-AI</h5>
-      <h6>最新の医療AI論文を日本語で</h6>
+      <h2>Mypage</h2>
     </div>
     <div class="border" />
     <div id="change-user-info" class="container-fluid text-center">
@@ -38,6 +37,10 @@
           />
         </div>
       </div>
+    </div>
+    <div class="footermargin text-muted text-center">
+      since 2019 Project SoMA
+      <!-- ページ最下部の空白をいい感じにしたい -->
     </div>
   </div>
 </template>
@@ -109,5 +112,9 @@ export default {
     margin-left: auto;
     max-width: 95%;
   }
+
+.footermargin{
+  margin: 40px 0;
+}
 
 </style>
