@@ -92,7 +92,8 @@ export const getters = {
     const category = state.category
     const filteringWords = state.filteringWords
     const filteringDepartment = state.filteringDepartment
-    return state.articles.getFilteredArticles(
+    const articles = new ArticleList(state.articles.list)
+    return articles.getFilteredArticles(
       {
         filteringDepartment,
         filteringWords,
