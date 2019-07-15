@@ -5,14 +5,14 @@
       <h2>Articles</h2>
     </div>
     <div class="container-fluid">
-      <select-department
-        @search-by-department="searchByDepartment"
-      />
-    </div>
-    <div class="container-fluid">
       <search-form
         @request-filter="mutateFilterQueryFilter"
         @request-restore="mutateFilterQueryReset"
+      />
+    </div>
+    <div class="container-fluid">
+      <select-department
+        @search-by-department="searchByDepartment"
       />
     </div>
     <div class="container-fluid">
@@ -153,7 +153,7 @@ export default {
   }
   .select-form {
     width: 15rem;
-    margin: 2rem 0 1rem 0;
+    margin: 2rem 0 1rem auto;
   }
   .under-search {
     display: inline-block;
@@ -169,4 +169,5 @@ export default {
   .footermargin{
   margin: 40px 0;
   }
+
 </style>

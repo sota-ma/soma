@@ -10,7 +10,7 @@
       <b-form-input
         v-model="form.filteringWords"
         required
-        placeholder="Search..."
+        placeholder="あとで直す"
         class="input-form"
       />
       <b-button type="submit" variant="primary" size="md" class="button-searchform">
@@ -71,7 +71,6 @@ export default {
 <style scoped>
 .form-dev {
   text-align: center;
-  width: 80%;
 }
 .category-form {
   width: 20%;
@@ -79,9 +78,7 @@ export default {
   min-width: 12rem;
 }
 .input-form {
-  width: 40%;
-  margin-right: 0.25rem;
-  min-width: 12rem;
+  margin: 10px 0px;
 }
 .button-searchform{
   margin: 0 0.25rem;

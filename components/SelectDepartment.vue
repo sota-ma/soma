@@ -1,8 +1,7 @@
 <template>
-  <div class="col-md-6 select-department">
+  <div class="select-department">
     <b-form inline @submit.prevent="submitData">
-      <label for="input-with-list">診療科で検索 &nbsp;</label>
-      <b-form-input id="input-with-list" v-model="department" list="input-list" />
+      <b-form-input id="input-with-list" v-model="department" list="input-list" placeholder="診療科名を入力" class="input-form"/>
       <b-form-datalist id="input-list" :options="candidates" />
       <b-button class="select-department-button" type="submit" variant="primary" size="md">
         検索
@@ -49,12 +48,16 @@ export default {
 
 <style scoped>
 
+.input-form {
+  margin: 10px 0px;
+}
+
 .select-department {
-  margin: 10px;
+  margin: 10px 0px;
 }
 
 .select-department-button {
-  margin: 10px;
+  margin: 0 0.25rem;
 }
 
 </style>
