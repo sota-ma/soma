@@ -1,7 +1,7 @@
 <template>
   <div class="select-department">
     <b-form inline @submit.prevent="submitData">
-      <b-form-input id="input-with-list" v-model="department" list="input-list" placeholder="診療科名を入力" class="input-form"/>
+      <b-form-input id="input-with-list" v-model="department" list="input-list" placeholder="診療科名を入力" class="input-form" />
       <b-form-datalist id="input-list" :options="candidates" />
       <b-button class="select-department-button" type="submit" variant="primary" size="md">
         検索

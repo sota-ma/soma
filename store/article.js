@@ -3,31 +3,11 @@ import { RepositoryFactory } from './repository/RepositoryFactory'
 import ArticleDetail from './model/ArticleDetail'
 const repository = RepositoryFactory.get('article')
 
-const CATEGORIES = {
-  titleJa: {
-    val: 'titleJa',
-    text: 'タイトル(日本語訳)'
-  },
-  titleEn: {
-    val: 'titleEn',
-    text: 'タイトル(原文)'
-  },
-  abstractEn: {
-    val: 'abstractEn',
-    text: '要旨(日本語訳)'
-  },
-  abstractJa: {
-    val: 'abstractJa',
-    text: 'abstractEn'
-  }
-}
-
 export const state = () => ({
   articles: [],
   fetched: false,
   filteringWords: [],
   filteringDepartment: '',
-  category: '',
   sortOrder: 1,
   articleDetail: undefined
 })
@@ -38,9 +18,6 @@ export const mutations = {
   },
   SET_FETCHED(state, payload) {
     state.fetched = !!payload
-  },
-  SET_CATEGORY(state, { category }) {
-    state.category = category
   },
   SET_FILTERING_WORDS(state, { filteringWords }) {
     state.filteringWords = filteringWords
@@ -66,16 +43,6 @@ export const actions = {
     const articleDetail = new ArticleDetail(res)
     commit('SET_ARTICLE_DETAIL', { articleDetail })
   },
-  setCategory({ commit }, { category }) {
-    const articleCategory = Object.keys(CATEGORIES)
-    if (!articleCategory.includes(category)) {
-      throw new Error('invalid category: ' + category)
-    }
-    commit('SET_CATEGORY', { category })
-  },
-  clearCategory({ commit }) {
-    commit('SET_CATEGORY', { category: '' })
-  },
   setFilteringWords({ commit }, { filteringWords }) {
     commit('SET_FILTERING_WORDS', { filteringWords })
   },
@@ -89,15 +56,13 @@ export const getters = {
     return state.writers
   },
   filteredArticles(state) {
-    const category = state.category
     const filteringWords = state.filteringWords
     const filteringDepartment = state.filteringDepartment
     const articles = new ArticleList(state.articles.list)
     return articles.getFilteredArticles(
       {
         filteringDepartment,
-        filteringWords,
-        category
+        filteringWords
       })
   },
   articleDetail(state) {

@@ -116,21 +116,17 @@ export default {
   },
   methods: {
     ...mapActions({
-      setCategory: 'article/setCategory',
-      clearCategory: 'article/clearCategory',
       setFilteringWords: 'article/setFilteringWords',
       setFilteringDepartment: 'article/setFilteringDepartment'
     }),
     changeSortOrder(sortOrderIndex) {
       this.sortOrder = sortOrderIndex
     },
-    mutateFilterQueryFilter(filteringWords, category) {
-      this.setCategory({ category })
+    mutateFilterQueryFilter(filteringWords) {
       this.setFilteringWords({ filteringWords })
       this.resultCardIsVisible = true
     },
     mutateFilterQueryReset(filteringWords) {
-      this.clearCategory()
       this.setFilteringWords({ filteringWords })
       this.resultCardIsVisible = false
     },
