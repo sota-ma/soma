@@ -26,7 +26,7 @@ class ArticleList {
     return text.toLowerCase().indexOf(word.toLowerCase()) !== -1
   }
 
-  getFilteredArticles({ filteringDepartment, filteringWords, category }) {
+  getFilteredArticles({ filteringDepartment, filteringWords }) {
     const slicedList = this.list.filter(
       article => filteringDepartment !== '' ? article.departments.includes(filteringDepartment) : true
     ).slice()
@@ -38,7 +38,7 @@ class ArticleList {
     )
   }
 
-  filteredAndSortedArtcles({ filteringWords, category, sortOption }) {
+  filteredAndSortedArtcles({ filteringWords, sortOption }) {
     // TODO: implement
     if (!SORT_OPTIONS.includes(sortOption)) {
       throw new Error('invalid sort option: ' + sortOption)

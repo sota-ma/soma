@@ -14,8 +14,6 @@
       <select-department
         @search-by-department="searchByDepartment"
       />
-    </div>
-    <div class="container-fluid">
       <select-form-sort class="select-form" @request-sort="changeSortOrder" />
       <div id="articles-card-column" class="card-deck">
         <article-card
@@ -131,6 +129,9 @@ export default {
       this.resultCardIsVisible = false
     },
     searchByDepartment(department) {
+      if (department === '診療科で検索') {
+        department = ''
+      }
       this.setFilteringDepartment({ department })
     },
     toSlug(id) {
