@@ -7,7 +7,7 @@
     >
       <template slot="first">
         <option :value="''">
-          診療科で検索
+          --診療科で絞り込み--
         </option>
       </template>
     </b-form-select>
