@@ -16,9 +16,9 @@
         variant="outline-success"
         class="restore-button"
         @click.prevent="restoreArticles"
-        >
+      >
         一覧に戻る
-    </b-button>
+      </b-button>
     </b-form>
   </div>
 </template>
@@ -54,6 +54,7 @@ export default {
 }
 .input-form {
   margin: 10px 10px 10px 0;
+  width: 75%;
 }
 .button-searchform{
   margin: 0 0.5rem 0 0;

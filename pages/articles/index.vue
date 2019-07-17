@@ -5,15 +5,15 @@
       <h2>Articles</h2>
     </div>
     <div class="container-fluid">
+      <select-department
+        @search-by-department="searchByDepartment"
+      />
       <search-form
         @request-filter="mutateFilterQueryFilter"
         @request-restore="mutateFilterQueryReset"
       />
     </div>
     <div class="container-fluid">
-      <select-department
-        @search-by-department="searchByDepartment"
-      />
       <select-form-sort class="select-form" @request-sort="changeSortOrder" />
       <div id="articles-card-column" class="card-deck">
         <article-card
