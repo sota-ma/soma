@@ -52,11 +52,6 @@ export default {
 .form-dev {
   text-align: center;
 }
-.category-form {
-  width: 20%;
-  margin: 0 3rem 0 0;
-  min-width: 12rem;
-}
 .input-form {
   margin: 10px 0px;
 }
