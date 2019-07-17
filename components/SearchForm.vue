@@ -10,16 +10,16 @@
       <b-button type="submit" variant="primary" size="md" class="button-searchform">
         検索
       </b-button>
-    </b-form>
-    <b-button
-      v-show="restoreButtonIsVisible"
-      type="button"
-      variant="outline-success"
-      class="restore-button"
-      @click.prevent="restoreArticles"
-    >
-      一覧に戻る
+      <b-button
+        v-show="restoreButtonIsVisible"
+        type="button"
+        variant="outline-success"
+        class="restore-button"
+        @click.prevent="restoreArticles"
+        >
+        一覧に戻る
     </b-button>
+    </b-form>
   </div>
 </template>
 
@@ -53,12 +53,12 @@ export default {
   text-align: center;
 }
 .input-form {
-  margin: 10px 0px;
+  margin: 10px 10px 10px 0;
 }
 .button-searchform{
-  margin: 0 0.25rem;
+  margin: 0 0.5rem 0 0;
 }
 .restore-button {
-  margin-top: 1rem;
+  margin: 0 0.5rem 0 0;
 }
 </style>
