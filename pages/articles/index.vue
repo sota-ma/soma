@@ -8,8 +8,6 @@
       <select-department
         @search-by-department="searchByDepartment"
       />
-    </div>
-    <div class="container-fluid">
       <search-form
         @request-filter="mutateFilterQueryFilter"
         @request-restore="mutateFilterQueryReset"
@@ -116,25 +114,24 @@ export default {
   },
   methods: {
     ...mapActions({
-      setCategory: 'article/setCategory',
-      clearCategory: 'article/clearCategory',
       setFilteringWords: 'article/setFilteringWords',
       setFilteringDepartment: 'article/setFilteringDepartment'
     }),
     changeSortOrder(sortOrderIndex) {
       this.sortOrder = sortOrderIndex
     },
-    mutateFilterQueryFilter(filteringWords, category) {
-      this.setCategory({ category })
+    mutateFilterQueryFilter(filteringWords) {
       this.setFilteringWords({ filteringWords })
       this.resultCardIsVisible = true
     },
     mutateFilterQueryReset(filteringWords) {
-      this.clearCategory()
       this.setFilteringWords({ filteringWords })
       this.resultCardIsVisible = false
     },
     searchByDepartment(department) {
+      if (department === '診療科で検索') {
+        department = ''
+      }
       this.setFilteringDepartment({ department })
     },
     toSlug(id) {
@@ -153,7 +150,7 @@ export default {
   }
   .select-form {
     width: 15rem;
-    margin: 2rem 0 1rem 0;
+    margin: 2rem 0 1rem auto;
   }
   .under-search {
     display: inline-block;
@@ -169,4 +166,5 @@ export default {
   .footermargin{
   margin: 40px 0;
   }
+
 </style>

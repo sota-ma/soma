@@ -1,13 +1,16 @@
 <template>
-  <div class="col-md-6 select-department">
-    <b-form inline @submit.prevent="submitData">
-      <label for="input-with-list">診療科で検索 &nbsp;</label>
-      <b-form-input id="input-with-list" v-model="department" list="input-list" />
-      <b-form-datalist id="input-list" :options="candidates" />
-      <b-button class="select-department-button" type="submit" variant="primary" size="md">
-        検索
-      </b-button>
-    </b-form>
+  <div class="select-department">
+    <b-form-select
+      v-model="department"
+      :options="options"
+      @change="submitData"
+    >
+      <template slot="first">
+        <option :value="''">
+          --診療科で絞り込み--
+        </option>
+      </template>
+    </b-form-select>
   </div>
 </template>
 
@@ -15,28 +18,37 @@
 export default {
   data() {
     return {
-      department: ''
-    }
-  },
-  computed: {
-    candidates() {
-      return [
+      department: '',
+      candidates: [
+        '総合診療科',
         '脳神経外科',
+        '整形外科',
+        '乳腺外科',
+        '内科',
         '循環器内科',
-        '精神科',
-        '公衆衛生',
+        '消化器内科',
         '感染症内科',
+        '呼吸器内科',
+        '神経内科',
+        '精神科',
+        '皮膚科',
+        '病理',
+        '公衆衛生',
         '放射線科',
         '医療倫理',
-        '乳腺外科',
-        '神経内科',
         '泌尿器科',
         '医療情報',
         '救急',
         'ICU',
-        '医療事務',
-        '消化器内科'
+        '医療事務'
       ]
+    }
+  },
+  computed: {
+    options() {
+      return this.candidates.map((option) => {
+        return { value: option, text: option }
+      })
     }
   },
   methods: {
@@ -50,11 +62,8 @@ export default {
 <style scoped>
 
 .select-department {
-  margin: 10px;
-}
-
-.select-department-button {
-  margin: 10px;
+  margin: 10px 0px;
+  display: inline-block;
 }
 
 </style>
