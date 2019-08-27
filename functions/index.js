@@ -16,7 +16,7 @@ const nuxt = new Nuxt({
 });
 
 app.get('/', (req, res) => {
-  nuxt.renderRoute('/articles', { req })
+  nuxt.renderRoute('/', { req })
     .then((result) => {
       res.send(result.html)
     })
