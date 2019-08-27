@@ -115,6 +115,16 @@ app.get('/auth/resetPassword', (req, res) => {
     })
 })
 
+app.get('/sponsors', (req, res) => {
+  nuxt.renderRoute('/sponsors', { req })
+    .then((result) => {
+      res.send(result.html)
+    })
+    .catch((e) => {
+      res.send(e)
+    })
+})
+
 exports.ssrapp = functions.https.onRequest(app)
 
 const admin = require('firebase-admin')
