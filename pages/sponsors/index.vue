@@ -9,12 +9,16 @@
     </div>
     <br>
     <div id="sponsors-page-body" class="container-fluid text-center">
-      <b-alert show variant="primary">50000円のご支援</b-alert>
+      <b-alert show variant="primary">
+        50000円のご支援
+      </b-alert>
       <p v-for="item in bigUsernames" :key="item" class="sponsors-50000">
         {{ item }} 様
       </p>
       <br><br>
-      <b-alert show variant="info">10000円のご支援</b-alert>
+      <b-alert show variant="info">
+        10000円のご支援
+      </b-alert>
       <p v-for="item in usernames" :key="item" class="sponsors-10000">
         {{ item }} 様
       </p>
