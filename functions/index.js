@@ -16,7 +16,7 @@ const nuxt = new Nuxt({
 });
 
 app.get('/', (req, res) => {
-  nuxt.renderRoute('/articles', { req })
+  nuxt.renderRoute('/', { req })
     .then((result) => {
       res.send(result.html)
     })
@@ -107,6 +107,16 @@ app.get('/auth/signin', (req, res) => {
 
 app.get('/auth/resetPassword', (req, res) => {
   nuxt.renderRoute('/auth/resetPassword', { req })
+    .then((result) => {
+      res.send(result.html)
+    })
+    .catch((e) => {
+      res.send(e)
+    })
+})
+
+app.get('/sponsors', (req, res) => {
+  nuxt.renderRoute('/sponsors', { req })
     .then((result) => {
       res.send(result.html)
     })

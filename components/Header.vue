@@ -21,6 +21,9 @@
           <b-nav-item to="/contact" :class="{ active:contactIsActive }">
             Contact
           </b-nav-item>
+          <b-nav-item to="/sponsors" :class="{ active:sponsorsIsActive }">
+            Sponsors
+          </b-nav-item>
           <b-nav-item v-if="!isLoggedIn" to="/auth/signin" :class="{ active:signInIsActive }">
             Login
           </b-nav-item>
@@ -72,6 +75,9 @@ export default {
     },
     mypageIsActive() {
       return this.currentRoute === 'mypage'
+    },
+    sponsorsIsActive() {
+      return this.currentRoute === 'sponsors'
     }
   },
   created() {
