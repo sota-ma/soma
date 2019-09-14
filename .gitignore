@@ -86,3 +86,7 @@ sw.*
 
 # Editor files
 .vscode
+
+static/
+
+public/

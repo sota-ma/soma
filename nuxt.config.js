@@ -25,7 +25,10 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico?v2' }
+      { rel: 'icon', sizes: '16x16', type: 'image/png', href: 'icon-16x16.png' },
+      { rel: 'icon', sizes: '32x32', type: 'image/png', href: 'icon-32x32.png' },
+      { rel: 'icon', sizes: '48x48', type: 'image/png', href: 'icon-48x48.png' },
+      { rel: 'icon', sizes: '72x72', type: 'image/png', href: 'icon-72x72.png' }
     ]
   },
 
