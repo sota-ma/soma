@@ -1,8 +1,8 @@
 <template>
   <div id="header">
-    <b-navbar class="header-color" toggleable="md" type="dark" variant="info" fixed="top">
+    <b-navbar class="header-color" toggleable="md" fixed="top">
       <b-navbar-brand to="/">
-        <Logo />
+        <Logo width="130px" height="40px" />
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse" />
@@ -106,7 +106,7 @@ export default {
 
 <style scoped>
 .header-color {
-  background-color: aqua;
+  background-color: #efdbec;
 }
 #header{
   padding-top:4rem
