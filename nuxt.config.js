@@ -28,7 +28,8 @@ module.exports = {
       { rel: 'icon', sizes: '16x16', type: 'image/png', href: 'icon-16x16.png' },
       { rel: 'icon', sizes: '32x32', type: 'image/png', href: 'icon-32x32.png' },
       { rel: 'icon', sizes: '48x48', type: 'image/png', href: 'icon-48x48.png' },
-      { rel: 'icon', sizes: '72x72', type: 'image/png', href: 'icon-72x72.png' }
+      { rel: 'icon', sizes: '72x72', type: 'image/png', href: 'icon-72x72.png' },
+      { rel: 'stylesheet', href: 'https://use.typekit.net/vnb8yuk.css' }
     ]
   },
 
