@@ -1,7 +1,7 @@
 <template>
   <div>
     <common-header />
-    <div id="banner" class="container-fluid text-center">
+    <div id="banner" class="container-fluid text-center title">
       <h2>Sponsors</h2>
       <p class="text-muted">
         クラウドファンディングでご支援していただいた皆様
@@ -77,7 +77,9 @@ export default {
 }
 </script>
 <style scoped>
-
+.title{
+  margin-top: 10px;
+}
 #sponsors-page-body {
     max-width: 700px;
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <common-header />
-    <div id="banner" class="container-fluid text-center">
+    <div id="banner" class="container-fluid text-center title">
       <h2>Contact</h2>
       <p class="text-muted">
         バグの報告・改善要求・支援のご連絡・執筆希望などはこちらからご連絡ください。
@@ -63,6 +63,9 @@ export default {
 }
 </script>
 <style scoped>
+.title{
+  margin-top: 10px;
+}
 
 .form-margin {
   margin: 10px;
