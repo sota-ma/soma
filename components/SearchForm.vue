@@ -7,18 +7,17 @@
         placeholder="キーワードで検索"
         class="input-form"
       />
-      <b-button type="submit" variant="primary" size="md" class="button-searchform">
+      <button type="submit" size="md" class="button-searchform btn btn-success">
         検索
-      </b-button>
-      <b-button
+      </button>
+      <button
         v-show="restoreButtonIsVisible"
         type="button"
-        variant="outline-success"
-        class="restore-button"
+        class="restore-button btn btn-primary"
         @click.prevent="restoreArticles"
       >
         一覧に戻る
-      </b-button>
+      </button>
     </b-form>
   </div>
 </template>
@@ -61,5 +60,15 @@ export default {
 }
 .restore-button {
   margin: 0 0.5rem 0 0;
+}
+
+.btn-success {
+  background-color: #472baf;
+  border-color: #472baf;
+}
+
+.btn-primary {
+  background-color: #389e23;
+  border-color: #389e23;
 }
 </style>

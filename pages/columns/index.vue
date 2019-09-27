@@ -1,7 +1,7 @@
 <template>
   <div>
     <common-header />
-    <div id="banner" class="container-fluid text-center">
+    <div id="banner" class="container-fluid text-center title">
       <h2>Columns</h2>
     </div>
     <div class="container-fluid">
@@ -60,6 +60,9 @@ export default {
 </script>
 
 <style scoped>
+  .title {
+    margin-top: 10px;
+  }
   .card-deck {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

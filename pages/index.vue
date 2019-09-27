@@ -3,11 +3,11 @@
     <section class="container">
       <transition name="fade">
         <div v-show="isVisible">
-          <h3 id="title">
-            SOTA of Medical-AI
-          </h3>
+          <div id="title">
+            <logo width="250px" height="100px" />
+          </div>
           <p id="subtitle">
-            最新の医療AI論文を日本語で紹介します
+            SOTA of Medical-AI
           </p>
           <nuxt-link to="/articles">
             <button id="link-to-articles" class="btn btn-success">
@@ -26,7 +26,12 @@
 </template>
 
 <script>
+import Logo from '@/components/Logo'
+
 export default {
+  components: {
+    'logo': Logo
+  },
   data() {
     return {
       isVisible: false
@@ -41,7 +46,7 @@ export default {
 
 <style scoped>
 .back {
-  background-image: linear-gradient(-90deg, #3D1141, #474100);
+  background-color: #efdbec
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -53,14 +58,27 @@ export default {
 }
 
 #title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
-  color: #EBEBEB;
+  font-family: t26-carbon,monospace;
+  font-weight: 400;
+  font-style: normal;
+  color: #931b90;
 }
 
 #subtitle {
-  color: #EBEBEB;
+  font-family: t26-carbon,monospace;
+  font-style: normal;
+  color: #931b90;
+}
+
+.btn-success {
+  background-color: #472baf;
+  border-color: #472baf;
+}
+
+.btn-info {
+  background-color: #389e33;
+  border-color: #389e23;
 }
 
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div id="header">
-    <b-navbar class="header-color" toggleable="md" type="dark" variant="info" fixed="top">
+    <b-navbar class="header-color" toggleable="md" fixed="top">
       <b-navbar-brand to="/">
-        Project SoMA
+        <Logo width="130px" height="40px" />
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse" />
@@ -44,8 +44,12 @@
 
 <script>
 import firebase from 'firebase'
+import Logo from '@/components/Logo'
 
 export default {
+  components: {
+    Logo
+  },
   data() {
     return {
       isLoggedIn: false
@@ -102,7 +106,7 @@ export default {
 
 <style scoped>
 .header-color {
-  background-image: linear-gradient(-90deg, #3D1141, #474100);
+  background-color: #efdbec;
 }
 #header{
   padding-top:4rem
