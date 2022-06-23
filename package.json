@@ -62,7 +62,7 @@
     "eslint-plugin-vue": "^5.2.2",
     "husky": "^2.3.0",
     "jest": "^24.1.0",
-    "jsdom": "^15.0.0",
+    "jsdom": "^16.5.0",
     "nodemon": "^1.18.9",
     "vue-jest": "^3.0.3"
   },
